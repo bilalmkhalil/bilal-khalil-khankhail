@@ -17,56 +17,143 @@ import supabase from "@/public/supabase.svg";
 const SkillsSection = () => {
   const skillsData = [
     {
-      title: "Framework",
+      title: "Frontend",
       skills: [
-        { icon: reactIcon, alt: "React" },
-        { icon: nextIcon, alt: "Next.js" },
+        {
+          name: "React",
+          icon: reactIcon,
+          alt: "React",
+          size: 30,
+          bgcolor: "bg-[#53c1de42]",
+        },
+        {
+          name: "NextJS",
+          icon: nextIcon,
+          alt: "Next.js",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
+        {
+          name: "HTML",
+          icon: htmlIcon,
+          alt: "HTML",
+          size: 30,
+          bgcolor: "bg-[#f1652942]",
+        },
+        {
+          name: "CSS",
+          icon: cssIcon,
+          alt: "CSS",
+          size: 30,
+          bgcolor: "bg-[#33aadd6b]",
+        },
+        {
+          name: "JavaScript",
+          icon: jsIcon,
+          alt: "JavaScript",
+          size: 30,
+          bgcolor: "bg-[#e9b9256b]",
+        },
+        {
+          name: "TypeScript",
+          icon: tsIcon,
+          alt: "TypeScript",
+          size: 28,
+          bgcolor: "bg-[#007acc6b]",
+        },
+        {
+          name: "TailwindCSS",
+          icon: tailwindIcon,
+          alt: "TailwindCSS",
+          size: 30,
+          bgcolor: "bg-[#1baeba6b]",
+        },
       ],
     },
     {
-      title: "Languages",
+      title: "Backend",
       skills: [
-        { icon: htmlIcon, alt: "HTML" },
-        { icon: cssIcon, alt: "CSS" },
-        { icon: jsIcon, alt: "JavaScript" },
-        { icon: tsIcon, alt: "TypeScript" },
+        {
+          name: "PostgreSQL",
+          icon: postgresqlIcon,
+          alt: "PostgreSQL",
+          size: 30,
+          bgcolor: "bg-[#3367916b]",
+        },
+        {
+          name: "Supabase",
+          icon: supabase,
+          alt: "Supabase",
+          size: 30,
+          bgcolor: "bg-[#3ecf8e6b]",
+        },
+        {
+          name: "Prisma",
+          icon: prisma,
+          alt: "Prisma",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
       ],
     },
     {
       title: "Tools",
       skills: [
-        { icon: vscodeIcon, alt: "VSCode" },
-        { icon: gitIcon, alt: "Git" },
-        { icon: githubIcon, alt: "GitHub" },
+        {
+          name: "VSCode",
+          icon: vscodeIcon,
+          alt: "VSCode",
+          size: 30,
+          bgcolor: "bg-[#0061a36b]",
+        },
+        {
+          name: "Git",
+          icon: gitIcon,
+          alt: "Git",
+          size: 30,
+          bgcolor: "bg-[#ee513b6b]",
+        },
+        {
+          name: "GitHub",
+          icon: githubIcon,
+          alt: "GitHub",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
       ],
-    },
-    {
-      title: "Databases",
-      skills: [
-        { icon: postgresqlIcon, alt: "PostgreSQL" },
-        { icon: supabase, alt: "Supabase" },
-        { icon: prisma, alt: "Prisma" },
-      ],
-    },
-    {
-      title: "CSS Frameworks",
-      skills: [{ icon: tailwindIcon, alt: "Tailwind CSS" }],
     },
   ];
 
   return (
-    <div className="m-auto flex h-screen w-8/12 flex-row text-3xl text-white">
-      <h1>Skill</h1>
-      {skillsData.map((data, index) => (
-        <div key={index}>
-          <h2>{data.title}</h2>
-          {data.skills.map((skill, index) => (
-            <div key={index}>
-              <Image src={skill.icon} alt={skill.alt} width={50} height={50} />
+    <div className="m-auto h-screen w-10/12 dark:text-white">
+      <div className="flex justify-between gap-4 border-b-2 pb-3">
+        <h1 className="text-6xl">Skills</h1>
+        <h1 className="text-6xl">مہارت</h1>
+      </div>
+      <div className="flex flex-col gap-2">
+        {skillsData.map((data, index) => (
+          <div key={index} className="mt-4 flex flex-col gap-1">
+            <h2 className="text-3xl">{data.title}</h2>
+            <div className="grid grid-cols-5 gap-2">
+              {data.skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="flex flex-row items-center gap-2 rounded-sm bg-[#e3e3e380] px-4 py-3 dark:bg-[#ffffff0a]"
+                >
+                  <Image
+                    src={skill.icon}
+                    alt={skill.alt}
+                    width={skill.size}
+                    height={skill.size}
+                    className={`rounded ${skill.bgcolor} p-[5px]`}
+                  />
+                  <h3 className="text-xl">{skill.name}</h3>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

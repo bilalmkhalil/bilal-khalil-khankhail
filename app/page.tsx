@@ -13,8 +13,9 @@ const tilt_web = Titillium_Web({
 });
 
 export default function Home() {
+  // bg-[#07070A]
   return (
-    <main className={`overflow-hidden bg-[#07070A] ${tilt_web.className} `}>
+    <main className={`overflow-hidden ${tilt_web.className} `}>
       <HomeSection />
       <SkillsSection />
       <ProjectsSection />
