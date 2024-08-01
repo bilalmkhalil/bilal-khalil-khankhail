@@ -1,6 +1,5 @@
-import { title } from "process";
+import localFont from "next/font/local";
 import ProjectCard from "../CustomComponents/project-card";
-import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -8,6 +7,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
+
+const aadilFont = localFont({
+  src: "../../public/fonts/Aadil.ttf",
+});
 
 const demoData = [
   {
@@ -109,8 +112,11 @@ const demoData = [
 
 const ProjectsSection = () => {
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center gap-10">
-      <h1 className="text-3xl font-bold text-white">Projects </h1>
+    <section className="m-auto flex h-screen w-10/12 flex-col justify-center gap-10">
+      <div className="flex gap-4 border-b-2 pb-4">
+        <h1 className="text-6xl">Projects</h1>
+        <h1 className={`text-6xl ${aadilFont.className}`}>منصوبے</h1>
+      </div>
       <Carousel
         opts={{
           align: "start",

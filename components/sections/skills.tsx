@@ -14,6 +14,19 @@ import postgresqlIcon from "@/public/postgresql.svg";
 import prisma from "@/public/prisma.svg";
 import supabase from "@/public/supabase.svg";
 
+import { Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
+import { BorderBeam } from "../magicui/border-beam";
+import GridPattern from "../magicui/grid-pattern";
+
+const spaceGrostek = Space_Grotesk({
+  subsets: ["latin"],
+});
+
+const aadilFont = localFont({
+  src: "../../public/fonts/Aadil.ttf",
+});
+
 const SkillsSection = () => {
   const skillsData = [
     {
@@ -58,7 +71,7 @@ const SkillsSection = () => {
           name: "TypeScript",
           icon: tsIcon,
           alt: "TypeScript",
-          size: 28,
+          size: 30,
           bgcolor: "bg-[#007acc6b]",
         },
         {
@@ -125,10 +138,10 @@ const SkillsSection = () => {
   ];
 
   return (
-    <div className="m-auto h-screen w-10/12 dark:text-white">
-      <div className="flex justify-between gap-4 border-b-2 pb-3">
+    <div className="relative m-auto h-screen w-10/12 dark:text-white">
+      <div className="flex gap-4 overflow-hidden border-b-2 pb-3">
         <h1 className="text-6xl">Skills</h1>
-        <h1 className="text-6xl">مہارت</h1>
+        <h1 className={`text-6xl ${aadilFont.className}`}>مہارت</h1>
       </div>
       <div className="flex flex-col gap-2">
         {skillsData.map((data, index) => (
@@ -138,7 +151,7 @@ const SkillsSection = () => {
               {data.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="flex flex-row items-center gap-2 rounded-sm bg-[#e3e3e380] px-4 py-3 dark:bg-[#ffffff0a]"
+                  className="relative flex flex-row items-center gap-2 rounded-sm bg-[#e3e3e380] px-4 py-3 dark:bg-[#ffffff0a]"
                 >
                   <Image
                     src={skill.icon}
@@ -147,7 +160,17 @@ const SkillsSection = () => {
                     height={skill.size}
                     className={`rounded ${skill.bgcolor} p-[5px]`}
                   />
-                  <h3 className="text-xl">{skill.name}</h3>
+                  <h3 className={`text-xl ${spaceGrostek.className}`}>
+                    {skill.name}
+                  </h3>
+                  <BorderBeam
+                    size={100}
+                    duration={10}
+                    delay={5}
+                    borderWidth={1.5}
+                    colorFrom={skill.bgcolor.split("[")[1].split("]")[0]}
+                    colorTo={skill.bgcolor.split("[")[1].split("]")[0]}
+                  />
                 </div>
               ))}
             </div>
