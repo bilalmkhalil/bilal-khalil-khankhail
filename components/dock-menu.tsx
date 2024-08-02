@@ -49,8 +49,8 @@ const Icons = {
 
 const data = {
   navbar: [
-    { href: "#", icon: HomeIcon, label: "Home" },
-    { href: "#", icon: FolderGit2Icon, label: "Projects" },
+    { href: "#home", icon: HomeIcon, label: "Home" },
+    { href: "#Projects", icon: FolderGit2Icon, label: "Projects" },
   ],
   contact: {
     social: {
@@ -76,10 +76,7 @@ const data = {
 export function DockDemo() {
   return (
     <TooltipProvider>
-      <Dock
-        direction="middle"
-        className="absolute bottom-10 left-[36.5%] bg-white"
-      >
+      <Dock direction="middle" className="fixed bottom-10 left-[36.5%] z-50">
         {data.navbar.map((item) => (
           <DockIcon key={item.label}>
             <Tooltip>
@@ -121,17 +118,6 @@ export function DockDemo() {
             </Tooltip>
           </DockIcon>
         ))}
-        <Separator orientation="vertical" className="h-full py-2" />
-        <DockIcon>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <ModeToggle />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Theme</p>
-            </TooltipContent>
-          </Tooltip>
-        </DockIcon>
       </Dock>
     </TooltipProvider>
   );

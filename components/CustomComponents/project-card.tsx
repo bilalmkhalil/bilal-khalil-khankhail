@@ -16,20 +16,20 @@ const ProjectCard = ({
   image,
 }: ProjectCardProps) => {
   return (
-    <Card className="overflow-hidden">
-      <CardContent className="flex aspect-square flex-col items-center gap-2 p-6">
-        <h1>{title}</h1>
+    <Card className="w-full overflow-hidden">
+      <CardContent className="relative h-56 w-full">
         <Image
           src={image}
           alt={title}
-          width={400}
-          height={400}
-          className="rounded-xl"
+          fill={true}
+          style={{ objectFit: "cover" }}
         />
-        <p>{description}</p>
       </CardContent>
-      <CardFooter>
-        <div className="flex flex-row gap-2">
+      <CardFooter className="flex flex-col items-start gap-4 pt-4">
+        <h1 className="text-2xl font-bold">{title}</h1>
+
+        <p>{description}</p>
+        <div className="flex flex-row flex-wrap gap-2 overflow-hidden">
           {stack.map((tech, index) => (
             <Badge key={index}>{tech}</Badge>
           ))}

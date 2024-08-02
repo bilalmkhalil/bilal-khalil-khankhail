@@ -28,7 +28,7 @@ const HomeSection = () => {
             through clean and elegant websites. Let's create something amazing
             together!
           </h1>
-          <Button className="relative mt-4 bg-[#1f1f1f] text-lg font-medium hover:bg-[#1f1f1f] dark:text-white">
+          <Button className="relative mt-4 bg-[#1f1f1f] text-lg font-medium text-white">
             Resume
             <Download className="ml-2" size={18} />
             <BorderBeam size={65} />

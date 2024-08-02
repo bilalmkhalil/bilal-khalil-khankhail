@@ -16,13 +16,12 @@ export default function Home() {
   // bg-[#07070A]
   return (
     <main className={`overflow-hidden ${tilt_web.className} `}>
+      <div className="relative">
+        <DockDemo />
+      </div>
       <HomeSection />
       <SkillsSection />
       <ProjectsSection />
-
-      <div className="relative w-full">
-        <DockDemo />
-      </div>
     </main>
   );
 }

@@ -151,14 +151,14 @@ const SkillsSection = () => {
               {data.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="relative flex flex-row items-center gap-2 rounded-sm bg-[#e3e3e380] px-4 py-3 dark:bg-[#ffffff0a]"
+                  className="relative flex flex-row items-center gap-2 rounded-md bg-[#ffffff0a] px-4 py-3"
                 >
                   <Image
                     src={skill.icon}
                     alt={skill.alt}
                     width={skill.size}
                     height={skill.size}
-                    className={`rounded ${skill.bgcolor} p-[5px]`}
+                    className={`${skill.bgcolor} rounded p-[5px]`}
                   />
                   <h3 className={`text-xl ${spaceGrostek.className}`}>
                     {skill.name}
