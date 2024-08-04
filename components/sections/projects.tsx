@@ -69,13 +69,15 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="relative m-auto flex w-10/12 flex-col justify-center gap-10"
+      className="relative m-auto flex w-10/12 flex-col justify-center gap-10 pb-40"
     >
-      <div className="flex gap-4 border-b-2 pb-4">
-        <h1 className="text-6xl">Projects</h1>
-        <h1 className={`text-6xl ${aadilFont.className}`}>منصوبے</h1>
+      <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
+        <h1 className="text-4xl sm:text-6xl">Projects</h1>
+        <h1 className={`text-4xl sm:text-6xl ${aadilFont.className}`}>
+          منصوبے
+        </h1>
       </div>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid gap-5 md:grid-cols-3">
         {demoData.map((data, index) => (
           <ProjectCard
             title={data.title}

@@ -8,6 +8,7 @@ import {
   MailIcon,
   PencilIcon,
   FolderGit2Icon,
+  DownloadIcon,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -20,7 +21,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { ModeToggle } from "@/components/mode-toggle";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -76,7 +76,10 @@ const data = {
 export function DockDemo() {
   return (
     <TooltipProvider>
-      <Dock direction="middle" className="fixed bottom-10 left-[36.5%] z-50">
+      <Dock
+        direction="middle"
+        className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 transform"
+      >
         {data.navbar.map((item) => (
           <DockIcon key={item.label}>
             <Tooltip>
@@ -88,7 +91,7 @@ export function DockDemo() {
                     "size-12 rounded-full",
                   )}
                 >
-                  <item.icon className="size-6" />
+                  <item.icon className="size-5 sm:size-6" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent>
@@ -109,7 +112,7 @@ export function DockDemo() {
                     "size-12 rounded-full",
                   )}
                 >
-                  <social.icon className="size-6" />
+                  <social.icon className="size-5 sm:size-6" />
                 </Link>
               </TooltipTrigger>
               <TooltipContent>
@@ -118,6 +121,25 @@ export function DockDemo() {
             </Tooltip>
           </DockIcon>
         ))}
+        <Separator orientation="vertical" className="h-full" />
+        <DockIcon>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className={cn(
+                  buttonVariants({ variant: "ghost", size: "icon" }),
+                  "size-12 rounded-full",
+                )}
+              >
+                <DownloadIcon className="size-5 sm:size-6" />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Download Resume</p>
+            </TooltipContent>
+          </Tooltip>
+        </DockIcon>
       </Dock>
     </TooltipProvider>
   );

@@ -138,16 +138,16 @@ const SkillsSection = () => {
   ];
 
   return (
-    <div className="relative m-auto h-screen w-10/12 dark:text-white">
-      <div className="flex gap-4 overflow-hidden border-b-2 pb-3">
-        <h1 className="text-6xl">Skills</h1>
-        <h1 className={`text-6xl ${aadilFont.className}`}>مہارت</h1>
+    <div className="relative m-auto w-10/12 pb-20 dark:text-white md:h-screen md:pb-0">
+      <div className="flex justify-between gap-4 overflow-hidden border-b-2 pb-3 sm:justify-start">
+        <h1 className="text-4xl sm:text-6xl">Skills</h1>
+        <h1 className={`text-4xl sm:text-6xl ${aadilFont.className}`}>مہارت</h1>
       </div>
       <div className="flex flex-col gap-2">
         {skillsData.map((data, index) => (
           <div key={index} className="mt-4 flex flex-col gap-1">
             <h2 className="text-3xl">{data.title}</h2>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid gap-2 md:grid-cols-5">
               {data.skills.map((skill, index) => (
                 <div
                   key={index}
