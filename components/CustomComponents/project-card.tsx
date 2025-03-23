@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Badge } from "../ui/badge";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import React from "react";
+import { BorderBeam } from "../magicui/border-beam";
 
 interface ProjectCardProps {
   title: string;
@@ -9,33 +9,44 @@ interface ProjectCardProps {
   image: string;
 }
 
-const ProjectCard = ({
+const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   description,
   stack,
   image,
-}: ProjectCardProps) => {
+}) => {
   return (
-    <Card className="w-full overflow-hidden">
-      <CardContent className="relative h-56 w-full">
+    <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 shadow-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-white/10">
+      <div className="mb-4 h-48 w-full overflow-hidden rounded-lg">
         <Image
           src={image}
           alt={title}
-          fill={true}
-          style={{ objectFit: "cover" }}
+          width={500}
+          height={300}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </CardContent>
-      <CardFooter className="flex flex-col items-start gap-4 pt-4">
-        <h1 className="text-2xl font-bold">{title}</h1>
-
-        <p>{description}</p>
-        <div className="flex flex-row flex-wrap gap-2 overflow-hidden">
-          {stack.map((tech, index) => (
-            <Badge key={index}>{tech}</Badge>
-          ))}
-        </div>
-      </CardFooter>
-    </Card>
+      </div>
+      <h3 className="mb-2 text-xl font-bold text-white">{title}</h3>
+      <p className="mb-4 text-white/80">{description}</p>
+      <div className="flex flex-wrap gap-2">
+        {stack.map((tech, index) => (
+          <span
+            key={index}
+            className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+      <BorderBeam
+        size={300}
+        duration={10}
+        delay={2}
+        borderWidth={1.5}
+        colorFrom="#ffffff30"
+        colorTo="#ffffff15"
+      />
+    </div>
   );
 };
 

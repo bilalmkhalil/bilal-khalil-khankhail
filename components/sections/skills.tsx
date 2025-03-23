@@ -138,20 +138,20 @@ const SkillsSection = () => {
   ];
 
   return (
-    <div className="relative m-auto w-10/12 pb-20 dark:text-white md:h-screen md:pb-0">
+    <div className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0">
       <div className="flex justify-between gap-4 overflow-hidden border-b-2 pb-3 sm:justify-start">
-        <h1 className="text-4xl sm:text-6xl">Skills</h1>
-        <h1 className={`text-4xl sm:text-6xl ${aadilFont.className}`}>مہارت</h1>
+        <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
+        <h1 className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}>مہارت</h1>
       </div>
       <div className="flex flex-col gap-2">
         {skillsData.map((data, index) => (
           <div key={index} className="mt-4 flex flex-col gap-1">
-            <h2 className="text-3xl">{data.title}</h2>
+            <h2 className="text-3xl text-white">{data.title}</h2>
             <div className="grid gap-2 md:grid-cols-5">
               {data.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="relative flex flex-row items-center gap-2 rounded-md bg-[#ffffff0a] px-4 py-3"
+                  className="relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10"
                 >
                   <Image
                     src={skill.icon}
@@ -160,7 +160,7 @@ const SkillsSection = () => {
                     height={skill.size}
                     className={`${skill.bgcolor} rounded p-[5px]`}
                   />
-                  <h3 className={`text-xl ${spaceGrostek.className}`}>
+                  <h3 className={`text-xl text-white ${spaceGrostek.className}`}>
                     {skill.name}
                   </h3>
                   <BorderBeam

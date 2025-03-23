@@ -72,8 +72,8 @@ const ProjectsSection = () => {
       className="relative m-auto flex w-10/12 flex-col justify-center gap-10 pb-40"
     >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
-        <h1 className="text-4xl sm:text-6xl">Projects</h1>
-        <h1 className={`text-4xl sm:text-6xl ${aadilFont.className}`}>
+        <h1 className="text-4xl text-white sm:text-6xl">Projects</h1>
+        <h1 className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}>
           منصوبے
         </h1>
       </div>

@@ -1,11 +1,10 @@
 import React from "react";
 import { DockDemo } from "@/components/dock-menu";
-
 import { Titillium_Web } from "next/font/google";
-
 import HomeSection from "@/components/sections/home";
 import SkillsSection from "@/components/sections/skills";
 import ProjectsSection from "@/components/sections/projects";
+import ExperienceSection from "@/components/sections/experience";
 
 const tilt_web = Titillium_Web({
   subsets: ["latin"],
@@ -13,14 +12,14 @@ const tilt_web = Titillium_Web({
 });
 
 export default function Home() {
-  // bg-[#07070A]
   return (
     <main className={`overflow-hidden ${tilt_web.className} bg-[#07070A]`}>
-      <div className="relative">
+      {/* <div className="relative">
         <DockDemo />
-      </div>
+      </div> */}
       <HomeSection />
       <SkillsSection />
+      <ExperienceSection />
       <ProjectsSection />
     </main>
   );
