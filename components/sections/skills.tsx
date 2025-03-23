@@ -203,10 +203,9 @@ const SkillsSection = () => {
                     {skill.name}
                   </h3>
                   <BorderBeam
-                    size={100}
+                    size={40}
                     duration={10}
                     delay={5}
-                    borderWidth={1.5}
                     colorFrom={skill.bgcolor.split("[")[1].split("]")[0]}
                     colorTo={skill.bgcolor.split("[")[1].split("]")[0]}
                   />

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import profile from "@/public/profile.png";
-import WordRotate from "@/components/magicui/word-rotate";
-import { Button } from "../ui/button";
-import { Download } from "lucide-react";
-import Meteors from "../magicui/meteors";
-import { BorderBeam } from "../magicui/border-beam";
+// import { Button } from "../ui/button";
+// import { Download } from "lucide-react";
+// import { BorderBeam } from "../magicui/border-beam";
+import { Meteors } from "../magicui/meteors";
+import { WordRotate } from "../magicui/word-rotate";
 
 const HomeSection = () => {
   return (
@@ -14,7 +14,7 @@ const HomeSection = () => {
         <Image src={profile} alt="bilal" width={300} className="rounded-xl" />
 
         <div>
-          <h1 className="text-xl sm:text-2xl">Hi there!, I'm</h1>
+          <h1 className="text-xl sm:text-2xl">Hi there!, I&apos;m</h1>
           <WordRotate
             className="text-3xl font-bold text-white sm:text-4xl"
             words={[
@@ -25,7 +25,7 @@ const HomeSection = () => {
           />
           <h1 className="mb-40 text-xl text-white/90 sm:mb-0 sm:text-2xl">
             A full-stack developer from Pakistan. I love bringing ideas to life
-            through clean and elegant websites. Let's create something amazing
+            through clean and elegant websites. Let&apos;s create something amazing
             together!
           </h1>
           {/* <Button className="relative mt-4 bg-[#1C7C54] text-lg font-medium text-white hover:bg-[#25b176]">

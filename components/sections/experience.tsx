@@ -33,7 +33,7 @@ const experienceData = [
 
 const ExperienceSection = () => {
   return (
-    <div className="relative m-auto w-10/12 pb-20 dark:text-white md:h-screen md:pb-0">
+    <div className="relative m-auto w-10/12 pb-0 dark:text-white md:pb-0">
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Experience</h1>
         <h1
@@ -80,10 +80,9 @@ const ExperienceSection = () => {
                   ))}
                 </ul>
                 <BorderBeam
-                  size={300}
+                  size={150}
                   duration={10}
                   delay={index * 2}
-                  borderWidth={1.5}
                   colorFrom="#ffffff30"
                   colorTo="#ffffff15"
                 />

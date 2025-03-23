@@ -1,5 +1,4 @@
 import React from "react";
-import { DockDemo } from "@/components/dock-menu";
 import { Titillium_Web } from "next/font/google";
 import HomeSection from "@/components/sections/home";
 import SkillsSection from "@/components/sections/skills";
