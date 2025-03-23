@@ -1,0 +1,17 @@
+export { default as reactIcon } from "@/public/react.svg";
+export { default as nextIcon } from "@/public/nextjs-icon.svg";
+export { default as htmlIcon } from "@/public/html-5.svg";
+export { default as cssIcon } from "@/public/css-3.svg";
+export { default as jsIcon } from "@/public/js.svg";
+export { default as tsIcon } from "@/public/typescript-icon.svg";
+export { default as vscodeIcon } from "@/public/vscode.svg";
+export { default as gitIcon } from "@/public/git.svg";
+export { default as githubIcon } from "@/public/github.svg";
+export { default as tailwindIcon } from "@/public/tailwindcss-icon.svg";
+export { default as postgresqlIcon } from "@/public/postgresql.svg";
+export { default as prismaIcon } from "@/public/prisma.svg";
+export { default as supabaseIcon } from "@/public/supabase.svg";
+export { default as zustandIcon } from "@/public/zustand.svg";
+export { default as reduxIcon } from "@/public/redux.svg";
+export { default as reactQueryIcon } from "@/public/react-query.svg";
+export { default as axiosIcon } from "@/public/axios.svg";

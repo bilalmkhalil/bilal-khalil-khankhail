@@ -1,23 +1,27 @@
 import Image from "next/image";
-
-import reactIcon from "@/public/react.svg";
-import nextIcon from "@/public/nextjs-icon.svg";
-import htmlIcon from "@/public/html-5.svg";
-import cssIcon from "@/public/css-3.svg";
-import jsIcon from "@/public/js.svg";
-import tsIcon from "@/public/typescript-icon.svg";
-import vscodeIcon from "@/public/vscode.svg";
-import gitIcon from "@/public/git.svg";
-import githubIcon from "@/public/github.svg";
-import tailwindIcon from "@/public/tailwindcss-icon.svg";
-import postgresqlIcon from "@/public/postgresql.svg";
-import prisma from "@/public/prisma.svg";
-import supabase from "@/public/supabase.svg";
+import {
+  reactIcon,
+  nextIcon,
+  htmlIcon,
+  cssIcon,
+  jsIcon,
+  tsIcon,
+  vscodeIcon,
+  gitIcon,
+  githubIcon,
+  tailwindIcon,
+  postgresqlIcon,
+  prismaIcon as prisma,
+  supabaseIcon as supabase,
+  zustandIcon,
+  reduxIcon,
+  reactQueryIcon,
+  axiosIcon,
+} from "@/lib/icons";
 
 import { Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
-import GridPattern from "../magicui/grid-pattern";
 
 const spaceGrostek = Space_Grotesk({
   subsets: ["latin"],
@@ -81,6 +85,35 @@ const SkillsSection = () => {
           size: 30,
           bgcolor: "bg-[#1baeba6b]",
         },
+        // New skills added here
+        {
+          name: "Zustand",
+          icon: zustandIcon,
+          alt: "Zustand",
+          size: 30,
+          bgcolor: "bg-[#6d6c6c6b]",
+        },
+        {
+          name: "Redux",
+          icon: reduxIcon,
+          alt: "Redux",
+          size: 30,
+          bgcolor: "bg-[#764abc6b]",
+        },
+        {
+          name: "React Query",
+          icon: reactQueryIcon,
+          alt: "React Query",
+          size: 30,
+          bgcolor: "bg-[#ff48857e]",
+        },
+        {
+          name: "Axios",
+          icon: axiosIcon,
+          alt: "Axios",
+          size: 30,
+          bgcolor: "bg-[#5a29e47e]",
+        },
       ],
     },
     {
@@ -141,7 +174,11 @@ const SkillsSection = () => {
     <div className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0">
       <div className="flex justify-between gap-4 overflow-hidden border-b-2 pb-3 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
-        <h1 className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}>مہارت</h1>
+        <h1
+          className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}
+        >
+          مہارت
+        </h1>
       </div>
       <div className="flex flex-col gap-2">
         {skillsData.map((data, index) => (
@@ -160,7 +197,9 @@ const SkillsSection = () => {
                     height={skill.size}
                     className={`${skill.bgcolor} rounded p-[5px]`}
                   />
-                  <h3 className={`text-xl text-white ${spaceGrostek.className}`}>
+                  <h3
+                    className={`text-xl text-white ${spaceGrostek.className}`}
+                  >
                     {skill.name}
                   </h3>
                   <BorderBeam
