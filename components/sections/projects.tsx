@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import ProjectCard from "../CustomComponents/project-card";
+import Link from 'next/link';
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
@@ -87,6 +88,14 @@ const ProjectsSection = () => {
             key={index}
           />
         ))}
+      </div>
+      <div className="flex justify-center">
+        <Link 
+          href="/projects" 
+          className="rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 text-white hover:from-purple-600 hover:to-pink-600 transition-all"
+        >
+          More Projects
+        </Link>
       </div>
     </section>
   );

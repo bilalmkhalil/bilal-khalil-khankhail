@@ -39,7 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         ))}
       </div>
       <BorderBeam
-        size={200}
+        size={300}
         duration={10}
         delay={2}
         colorFrom="#ffffff30"
