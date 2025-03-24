@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import localFont from "next/font/local";
 import ProjectCard from '@/components/CustomComponents/project-card';
-import { BorderBeam } from '@/components/magicui/border-beam';
+// import { BorderBeam } from '@/components/magicui/border-beam';
 
 interface Project {
   title: string;
