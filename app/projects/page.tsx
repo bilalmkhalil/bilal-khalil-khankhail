@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import localFont from "next/font/local";
 import ProjectCard from '@/components/CustomComponents/project-card';
 // import { BorderBeam } from '@/components/magicui/border-beam';
@@ -76,7 +77,38 @@ const ProjectsPage = () => {
 
   return (
     <main className="min-h-screen bg-black px-4 py-20">
-      <div className="m-auto w-10/12">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black to-black/80 backdrop-blur-md border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <Link 
+            href="/" 
+            className="text-white font-medium text-xl md:text-2xl tracking-wider hover:text-purple-400 transition-colors duration-300 flex items-center"
+          >
+            <span className="relative">
+              Bilal Khalil Khankhail
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300"></span>
+            </span>
+          </Link>
+          
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="/#about" className="text-white/80 hover:text-white transition-colors duration-200 text-sm">
+              About
+            </Link>
+            <Link href="/#skills" className="text-white/80 hover:text-white transition-colors duration-200 text-sm">
+              Skills
+            </Link>
+            <Link href="/#experience" className="text-white/80 hover:text-white transition-colors duration-200 text-sm">
+              Experience
+            </Link>
+            <Link href="/#contact" className="text-white/80 hover:text-white transition-colors duration-200 text-sm">
+              Contact
+            </Link>
+            <Link href="/projects" className="text-purple-400 font-medium text-sm">
+              Projects
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <div className="m-auto w-10/12 mt-16">
         <div className="flex justify-between gap-4 border-b-2 pb-4 mb-10">
           <h1 className="text-4xl text-white sm:text-6xl">All Projects</h1>
           <h1 className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}>
