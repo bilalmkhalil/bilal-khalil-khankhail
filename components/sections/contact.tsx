@@ -38,7 +38,7 @@ const ContactSection = () => {
         alert('Failed to send message.');
       }
     } catch (error) {
-      alert('An error occurred while sending the message.');
+      alert(`An error occurred while sending the message. ${error}`);
     } finally {
       setLoading(false);
     }
