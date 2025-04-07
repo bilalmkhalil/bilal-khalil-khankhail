@@ -143,7 +143,7 @@ const ContactSection = () => {
           <div className="col-span-4 bg-white/5 backdrop-blur-md border border-white/10 rounded-lg overflow-hidden h-[220px] relative">
             <div className="absolute inset-0 bg-black/30 z-10 pointer-events-none"></div>
             <iframe
-              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Karachi,Pakistan&zoom=10&maptype=roadmap&language=en&region=PK"
+              src="https://www.google.com/maps/embed/v1/view?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&center=24.860736,67.001136&zoom=10&maptype=roadmap&language=en&region=PK"
               className="w-full h-full"
               style={{ 
                 border: 0,
