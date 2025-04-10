@@ -31,7 +31,8 @@ const HomeSection = () => {
     });
 
     // Create the keyframe animation for fall if needed
-    const styleSheet = document.styleSheets.length > 0 ? document.styleSheets[0] : null;
+    const styleSheet =
+      document.styleSheets.length > 0 ? document.styleSheets[0] : null;
     if (!styleSheet) return;
     let fallAnimationExists = false;
 
@@ -56,13 +57,15 @@ const HomeSection = () => {
     }
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="relative h-screen overflow-hidden bg-[#07070A]">
-      {/* Tech-themed background layers */}
-      {/* <div className="bg-grid-white/[0.02] absolute inset-0 bg-[length:50px_50px]" /> */}
-      {/* <div className="absolute -top-20 -right-20 h-[30rem] w-[30rem] rounded-full bg-white/5 blur-[100px]" /> */}
-      {/* <div className="absolute -bottom-32 -left-20 h-[30rem] w-[30rem] rounded-full bg-gray-500/5 blur-[100px]" /> */}
-
       {/* Animated code blocks */}
       <div className="absolute top-20 left-4 hidden opacity-20 sm:block">
         <pre className="text-xs text-white/70">
@@ -101,52 +104,41 @@ const HomeSection = () => {
               ]}
             />
             <p className="mt-4 text-xl leading-relaxed text-white/90">
-              A passionate full-stack developer from Pakistan crafting digital
+              A passionate Frontend Engineer from Pakistan crafting digital
               experiences. Transforming complex problems into elegant solutions
               with modern technologies. Let&apos;s build the future of web
               together!
             </p>
 
-            {/* Tech stack section
+            {/* Tech stack section */}
             <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              {["React", "Next.js", "Node.js", "TypeScript", "MongoDB"].map(
-                (tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm hover:bg-white/15"
-                  >
-                    {tech}
-                  </span>
-                ),
-              )}
-            </div> */}
+              {["React", "Next.js", "TailwindCSS", "JavaScript"].map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm hover:bg-white/15"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
 
-            {/* <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:justify-start">
-              <button className="group relative rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+              <button
+                onClick={() => scrollToSection("projects")}
+                className="group relative rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white transition-all hover:cursor-pointer hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+              >
                 View Projects
-                <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+                {/* <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" /> */}
               </button>
-              <button className="rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition-all hover:cursor-pointer hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+              >
                 Contact Me
               </button>
-            </div> */}
-
-            {/* Social links */}
-            {/* <div className="mt-6 flex items-center justify-center gap-4 sm:justify-start">
-              {["github", "twitter", "linkedin"].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/5 transition-all hover:border-white/40 hover:bg-white/10"
-                >
-                  <span className="sr-only">{social}</span>
-                  <div className="h-5 w-5" />
-                </a>
-              ))} */}
-            {/* </div> */}
+            </div>
           </div>
 
-          {/* Enhanced profile image */}
           <div className="relative">
             <div className="absolute -z-10 h-full w-full rounded-full bg-white/10 blur-xl" />
             <div className="relative">
