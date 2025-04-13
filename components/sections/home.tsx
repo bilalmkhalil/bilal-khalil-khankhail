@@ -3,60 +3,8 @@
 import Image from "next/image";
 import profile from "@/public/profile.png";
 import { WordRotate } from "../magicui/word-rotate";
-import { useEffect, useState } from "react";
 
 const HomeSection = () => {
-  // For fallback animation if Tailwind animations aren't available
-  const [animationStyles, setAnimationStyles] = useState({
-    slow: {},
-    medium: {},
-    fast: {},
-  });
-
-  useEffect(() => {
-    // Set up the animation styles
-    setAnimationStyles({
-      slow: {
-        animation: "fall 15s linear infinite",
-        animationFillMode: "both",
-      },
-      medium: {
-        animation: "fall 10s linear infinite",
-        animationFillMode: "both",
-      },
-      fast: {
-        animation: "fall 7s linear infinite",
-        animationFillMode: "both",
-      },
-    });
-
-    // Create the keyframe animation for fall if needed
-    const styleSheet =
-      document.styleSheets.length > 0 ? document.styleSheets[0] : null;
-    if (!styleSheet) return;
-    let fallAnimationExists = false;
-
-    for (let i = 0; i < styleSheet.cssRules.length; i++) {
-      const rule = styleSheet.cssRules[i];
-      if (rule instanceof CSSKeyframesRule && rule.name === "fall") {
-        fallAnimationExists = true;
-        break;
-      }
-    }
-
-    if (!fallAnimationExists) {
-      styleSheet.insertRule(
-        `
-        @keyframes fall {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(100vh); }
-        }
-      `,
-        styleSheet.cssRules.length,
-      );
-    }
-  }, []);
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -154,71 +102,6 @@ const HomeSection = () => {
               <div className="absolute top-1/3 -right-3 h-4 w-4 rounded-full border border-white/20 bg-white/5"></div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Matrix-like code rain effect with fallback inline styles */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div
-          className="animate-fall-slow absolute top-0 left-[10%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.slow}
-        >
-          10100111
-        </div>
-        <div
-          className="animate-fall-medium absolute top-0 left-[20%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.medium}
-        >
-          01101001
-        </div>
-        <div
-          className="animate-fall-fast absolute top-0 left-[30%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.fast}
-        >
-          11001010
-        </div>
-        <div
-          className="animate-fall-slow absolute top-0 left-[70%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.slow}
-        >
-          01010011
-        </div>
-        <div
-          className="animate-fall-medium absolute top-0 left-[85%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.medium}
-        >
-          10101100
-        </div>
-        {/* Add more code rain elements */}
-        <div
-          className="animate-fall-medium absolute top-0 left-[5%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.medium}
-        >
-          11101010
-        </div>
-        <div
-          className="animate-fall-slow absolute top-0 left-[40%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.slow}
-        >
-          00010111
-        </div>
-        <div
-          className="animate-fall-fast absolute top-0 left-[55%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.fast}
-        >
-          01011001
-        </div>
-        <div
-          className="animate-fall-medium absolute top-0 left-[75%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.medium}
-        >
-          11100101
-        </div>
-        <div
-          className="animate-fall-fast absolute top-0 left-[92%] font-mono text-xs text-white opacity-10"
-          style={animationStyles.fast}
-        >
-          10101011
         </div>
       </div>
 
