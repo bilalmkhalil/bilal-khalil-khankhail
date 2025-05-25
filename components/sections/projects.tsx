@@ -11,7 +11,7 @@ const demoData = [
   {
     title: "E-commerce Platform Revamp",
     description:
-      "A complete overhaul of an existing e-commerce website, focusing on improving user experience, implementing a responsive design, and integrating a new payment gateway. The project also included building a custom CMS for easy product management.",
+      "Complete overhaul of e-commerce website with responsive design, new payment gateway, and custom CMS for product management.",
     stack: PROJECT_STACKS.ecommerce,
     image:
       "https://images.unsplash.com/photo-1561997968-aa846c2bf255?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
@@ -19,7 +19,7 @@ const demoData = [
   {
     title: "Real-time Chat Application",
     description:
-      "Developed a scalable real-time chat application for a large corporate client. The app supports group chats, direct messaging, file sharing, and video calls. It also includes features like message threading, read receipts, and end-to-end encryption.",
+      "Scalable chat app with group chats, messaging, file sharing, video calls, and end-to-end encryption for corporate clients.",
     stack: PROJECT_STACKS.chatApp,
     image:
       "https://images.unsplash.com/photo-1611746872915-64382b5c76da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
@@ -27,7 +27,7 @@ const demoData = [
   {
     title: "AI-powered Content Recommendation Engine",
     description:
-      "Built a sophisticated content recommendation system for a streaming platform. The engine uses machine learning algorithms to analyze user behavior and content metadata to provide personalized recommendations. It also includes A/B testing capabilities to continuously improve recommendation accuracy.",
+      "Machine learning recommendation system for streaming platforms with personalized suggestions and A/B testing capabilities.",
     stack: PROJECT_STACKS.aiRecommendation,
     image:
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
@@ -38,7 +38,7 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="relative m-auto flex w-10/12 flex-col justify-center gap-10 pb-40"
+      className="relative m-auto flex w-10/12 flex-col justify-center gap-16 pb-40"
     >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Projects</h1>
@@ -48,23 +48,55 @@ const ProjectsSection = () => {
           منصوبے
         </h1>
       </div>
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {demoData.map((data, index) => (
-          <ProjectCard
-            title={data.title}
-            description={data.description}
-            stack={data.stack}
-            image={data.image}
+          <div
             key={index}
-          />
+            className="group relative flex flex-col rounded-md border border-white/10 bg-white/5 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 overflow-hidden"
+          >
+            <div className="aspect-video overflow-hidden">
+              <img
+                src={data.image}
+                alt={data.title}
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+              />
+            </div>
+            <div className="p-4 space-y-3 flex-1 flex flex-col">
+              <h3 className="text-xl font-semibold text-white">
+                {data.title}
+              </h3>
+              <p className="text-white/80 text-sm leading-relaxed flex-1">
+                {data.description}
+              </p>
+              <div className="flex flex-wrap gap-2 pt-2">
+                {data.stack.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="px-3 py-1 text-xs border border-white/10 bg-white/5 text-white rounded-md backdrop-blur-md"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
         ))}
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center pt-8">
         <Link 
           href="/projects" 
-          className="rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 px-6 py-3 text-white hover:from-purple-600 hover:to-pink-600 transition-all"
+          className="relative inline-flex items-center px-8 py-3 text-white border border-white/10 bg-white/5 backdrop-blur-md rounded-md hover:bg-white/10 transition-all duration-300 group overflow-hidden"
         >
-          More Projects
+          <span className="relative z-10 font-medium">View All Projects</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+          <svg 
+            className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
         </Link>
       </div>
     </section>
