@@ -48,9 +48,9 @@ const Navigation = () => {
 
   return (
     <nav 
-      className="fixed right-6 top-1/2 z-50 -translate-y-1/2 transform animate-fade-in"
+      className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transform animate-fade-in"
     >
-      <div className="flex flex-col gap-3 rounded-full border border-white/10 bg-black/20 p-3 backdrop-blur-md">
+      <div className="flex flex-row gap-3 rounded-full border border-white/10 bg-black/20 p-3 backdrop-blur-md">
         {navItems.map((item, index) => {
           const IconComponent = item.icon;
           return (
@@ -66,15 +66,8 @@ const Navigation = () => {
             >
               <IconComponent className="w-5 h-5" />
               
-              {/* Active indicator */}
-              {activeSection === item.id && (
-                <div
-                  className="absolute -right-1 h-6 w-1 bg-white rounded-full"
-                />
-              )}
-              
               {/* Tooltip */}
-              <div className="absolute right-full mr-3 hidden group-hover:block">
+              <div className="absolute bottom-full mb-3 hidden group-hover:block">
                 <div className="rounded-lg bg-black/80 px-3 py-1 text-sm text-white backdrop-blur-sm whitespace-nowrap">
                   {item.label}
                 </div>
