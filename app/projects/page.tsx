@@ -53,57 +53,20 @@ const ProjectsPage = () => {
 
   return (
     <main className="min-h-screen bg-[#07070A] px-4 py-20">
-      <header 
-        className="fixed top-0 right-0 left-0 z-50 border-b border-white/10 bg-gradient-to-b from-[#07070A] to-[#07070A]/80 backdrop-blur-md animate-fade-in"
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+      <div className="m-auto w-10/12 max-w-7xl">
+        {/* Back to Home Button */}
+        <div className="mb-8">
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-medium tracking-wider text-white transition-colors duration-300 hover:text-purple-400 md:text-2xl group"
+            className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors duration-300 group"
           >
             <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
-            <span className="relative">
-              Bilal Khalil Khankhail
-              <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
-            </span>
+            <span>Back to Home</span>
           </Link>
-
-          <nav className="hidden items-center space-x-8 md:flex">
-            <Link
-              href="/#about"
-              className="text-sm text-white/80 transition-colors duration-200 hover:text-white"
-            >
-              About
-            </Link>
-            <Link
-              href="/#skills"
-              className="text-sm text-white/80 transition-colors duration-200 hover:text-white"
-            >
-              Skills
-            </Link>
-            <Link
-              href="/#experience"
-              className="text-sm text-white/80 transition-colors duration-200 hover:text-white"
-            >
-              Experience
-            </Link>
-            <Link
-              href="/#contact"
-              className="text-sm text-white/80 transition-colors duration-200 hover:text-white"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/projects"
-              className="text-sm font-medium text-purple-400"
-            >
-              Projects
-            </Link>
-          </nav>
         </div>
-      </header>
-      <div className="m-auto mt-16 w-10/12">
-        <div className="mb-10 flex justify-between gap-4 border-b-2 pb-4">
+
+        {/* Page Header */}
+        <div className="mb-16 flex justify-between gap-4 border-b-2 pb-4">
           <h1 className="text-4xl text-white sm:text-6xl">All Projects</h1>
           <h1
             className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}
@@ -112,42 +75,81 @@ const ProjectsPage = () => {
           </h1>
         </div>
 
-        <div className="mb-10 flex flex-wrap gap-3">
-          {ALL_TECH_STACK.map((tech) => (
-            <button
-              key={tech}
-              onClick={() =>
-                setSelectedTech(tech === selectedTech ? null : tech)
-              }
-              className={`relative flex w-fit items-center rounded-full border border-white/10 px-3 py-2 text-sm text-white shadow-lg backdrop-blur-md transition-all hover:cursor-pointer ${
-                tech === selectedTech
-                  ? "bg-white/10"
-                  : "bg-white/5 hover:bg-white/10"
+        {/* Tech Filter Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl text-white mb-6">Filter by Technology</h2>
+          <div className="flex flex-wrap gap-3">
+            {ALL_TECH_STACK.map((tech) => (
+              <button
+                key={tech}
+                onClick={() =>
+                  setSelectedTech(tech === selectedTech ? null : tech)
+                }
+                className={`relative flex items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-2 text-sm text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
+                  tech === selectedTech
+                    ? "bg-white/15 border-white/20"
+                    : ""
+                }`}
+              >
+                <span>{tech}</span>
+                {tech === selectedTech && (
+                  <X
+                    className="h-4 w-4 cursor-pointer rounded-full bg-white/20 p-0.5 text-white hover:bg-white/30 transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedTech(null);
+                    }}
+                    aria-label="Clear filter"
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+          {selectedTech && (
+            <p className="mt-4 text-white/60 text-sm">
+              Showing {filteredProjects.length} project
+              {filteredProjects.length !== 1 ? "s" : ""} with {selectedTech}
+            </p>
+          )}
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {filteredProjects.map((data, index) => (
+            <div
+              key={index}
+              className={`transition-all duration-500 ${
+                isLoaded
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
               }`}
+              style={{
+                transitionDelay: isLoaded ? `${index * 100}ms` : "0ms",
+              }}
             >
-              <p>{tech}</p>
-              {tech === selectedTech && (
-                <X
-                  className="ml-2 h-4 w-4 cursor-pointer rounded-full bg-gray-600/80 p-0.5 text-white"
-                  onClick={() => setSelectedTech(null)}
-                  aria-label="Close"
-                />
-              )}
-            </button>
+              <ProjectCard
+                title={data.title}
+                description={data.description}
+                stack={data.stack}
+                image={data.image}
+              />
+            </div>
           ))}
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
-          {filteredProjects.map((data, index) => (
-            <ProjectCard
-              key={index}
-              title={data.title}
-              description={data.description}
-              stack={data.stack}
-              image={data.image}
-            />
-          ))}
-        </div>
+        {filteredProjects.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-white/60 text-lg">
+              No projects found with the selected technology.
+            </p>
+            <button
+              onClick={() => setSelectedTech(null)}
+              className="mt-4 text-purple-400 hover:text-purple-300 transition-colors"
+            >
+              Clear filter to see all projects
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );
