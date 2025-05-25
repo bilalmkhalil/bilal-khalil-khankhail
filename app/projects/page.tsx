@@ -1,25 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import localFont from "next/font/local";
 import ProjectCard from "@/components/CustomComponents/project-card";
-import { X } from "lucide-react";
-// import { BorderBeam } from '@/components/magicui/border-beam';
-
-interface Project {
-  title: string;
-  description: string;
-  stack: string[];
-  image: string;
-}
+import { X, ArrowLeft } from "lucide-react";
+import { Project } from "@/types/types";
+import { ALL_TECH_STACK, PROJECT_STACKS } from "@/lib/constants";
 
 const demoData: Project[] = [
   {
     title: "E-commerce Platform Revamp",
     description:
       "A complete overhaul of an existing e-commerce website, focusing on improving user experience, implementing a responsive design, and integrating a new payment gateway. The project also included building a custom CMS for easy product management.",
-    stack: ["React", "TypeScript", "Redux", "Node.js", "Express", "MongoDB"],
+    stack: PROJECT_STACKS.ecommerce,
     image:
       "https://images.unsplash.com/photo-1561997968-aa846c2bf255?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
   },
@@ -27,7 +21,7 @@ const demoData: Project[] = [
     title: "Real-time Chat Application",
     description:
       "Developed a scalable real-time chat application for a large corporate client. The app supports group chats, direct messaging, file sharing, and video calls. It also includes features like message threading, read receipts, and end-to-end encryption.",
-    stack: ["Node.js", "Express", "MongoDB", "Redis", "React", "Docker", "AWS"],
+    stack: PROJECT_STACKS.chatApp,
     image:
       "https://images.unsplash.com/photo-1611746872915-64382b5c76da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
   },
@@ -35,7 +29,7 @@ const demoData: Project[] = [
     title: "AI-powered Content Recommendation Engine",
     description:
       "Built a sophisticated content recommendation system for a streaming platform. The engine uses machine learning algorithms to analyze user behavior and content metadata to provide personalized recommendations. It also includes A/B testing capabilities to continuously improve recommendation accuracy.",
-    stack: ["Python", "Django", "PostgreSQL", "Redis", "Docker", "Kubernetes"],
+    stack: PROJECT_STACKS.aiRecommendation,
     image:
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
   },
@@ -45,34 +39,29 @@ const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
 });
 
-const allTechStack = [
-  "React",
-  "Next.js",
-  "JavaScript",
-  "TypeScript",
-  "Node.js",
-  "Python",
-  "Django",
-  "PostgreSQL",
-  "Docker",
-  "AWS",
-];
-
 const ProjectsPage = () => {
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const filteredProjects = selectedTech
     ? demoData.filter((project) => project.stack.includes(selectedTech))
     : demoData;
 
   return (
-    <main className="min-h-screen bg-black px-4 py-20">
-      <header className="fixed top-0 right-0 left-0 z-50 border-b border-white/10 bg-gradient-to-b from-black to-black/80 backdrop-blur-md">
+    <main className="min-h-screen bg-[#07070A] px-4 py-20">
+      <header 
+        className="fixed top-0 right-0 left-0 z-50 border-b border-white/10 bg-gradient-to-b from-[#07070A] to-[#07070A]/80 backdrop-blur-md animate-fade-in"
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
           <Link
             href="/"
-            className="flex items-center text-xl font-medium tracking-wider text-white transition-colors duration-300 hover:text-purple-400 md:text-2xl"
+            className="flex items-center gap-2 text-xl font-medium tracking-wider text-white transition-colors duration-300 hover:text-purple-400 md:text-2xl group"
           >
+            <ArrowLeft className="w-5 h-5 transition-transform group-hover:-translate-x-1" />
             <span className="relative">
               Bilal Khalil Khankhail
               <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-purple-500 transition-all duration-300 group-hover:w-full"></span>
@@ -124,7 +113,7 @@ const ProjectsPage = () => {
         </div>
 
         <div className="mb-10 flex flex-wrap gap-3">
-          {allTechStack.map((tech) => (
+          {ALL_TECH_STACK.map((tech) => (
             <button
               key={tech}
               onClick={() =>

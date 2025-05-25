@@ -3,8 +3,22 @@
 import Image from "next/image";
 import profile from "@/public/profile.png";
 import { WordRotate } from "../magicui/word-rotate";
+import { BorderBeam } from "../magicui/border-beam";
+import { useEffect, useState } from "react";
+import localFont from "next/font/local";
+import { MAIN_TECH_STACK, CODE_SNIPPETS, WORD_ROTATION_TITLES } from "@/lib/constants";
+
+const aadilFont = localFont({
+  src: "../../public/fonts/Aadil.ttf",
+});
 
 const HomeSection = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -13,101 +27,140 @@ const HomeSection = () => {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden bg-[#07070A]">
-      {/* Animated code blocks */}
-      <div className="absolute top-20 left-4 hidden opacity-20 sm:block">
-        <pre className="text-xs text-white/70">
-          {`function develop() {
-  const skills = ['React', 'Next JS', 'Node.js'];
-  return skills.map(skill => 
-    createAmazing(skill));
-}`}
-        </pre>
+    <section id="home" className="relative h-screen overflow-hidden bg-[#07070A]">
+      {/* Floating code blocks with improved positioning */}
+      <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
+        <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+          <pre className="text-xs text-white/70 font-mono">
+            {CODE_SNIPPETS.skills}
+          </pre>
+        </div>
       </div>
-      <div className="absolute right-4 bottom-20 hidden opacity-20 sm:block">
-        <pre className="text-xs text-white/70">
-          {`const future = async () => {
-  await buildProjects();
-  return innovation;
-}`}
-        </pre>
+      
+      <div className="absolute right-8 top-1/3 hidden opacity-15 lg:block">
+        <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+          <pre className="text-xs text-white/70 font-mono">
+            {CODE_SNIPPETS.passion}
+          </pre>
+        </div>
       </div>
 
-      {/* Main content */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative z-10 container flex flex-col-reverse items-center gap-8 px-4 sm:flex-row sm:gap-12">
-          <div className="max-w-2xl text-center sm:text-left">
-            <div className="mb-4 inline-block rounded-lg bg-white/5 px-3 py-1 text-sm text-white backdrop-blur-sm">
-              Available for exciting projects
+      <div className="absolute left-8 bottom-32 hidden opacity-15 lg:block">
+        <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+          <pre className="text-xs text-white/70 font-mono">
+            {CODE_SNIPPETS.future}
+          </pre>
+        </div>
+      </div>
+
+      {/* Main content with consistent width */}
+      <div className="relative m-auto w-10/12 flex items-center justify-center h-screen">
+        <div className={`relative z-10 flex flex-col-reverse items-center gap-12 lg:flex-row lg:gap-16 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          
+          {/* Left content */}
+          <div className="flex-1 max-w-2xl text-center lg:text-left">
+            <div className="mb-6 inline-block rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm border border-white/10">
+              <span className="relative">
+                <span className="absolute -left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-white animate-pulse"></span>
+                Available for exciting projects
+              </span>
             </div>
-            <h1 className="text-xl text-white sm:text-2xl">
+
+            <h2 className="text-2xl text-white/90 sm:text-3xl mb-4" role="heading" aria-level={2}>
               Hi there!, I&apos;m
-            </h1>
+            </h2>
+            
             <WordRotate
-              className="h-14 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-4xl font-bold text-transparent sm:text-5xl"
-              words={[
-                "Bilal Khalil Khankhail,",
-                "Frontend Engineer,",
-                "Freelancer,",
-              ]}
+              className="h-20 sm:h-24 lg:h-28 bg-gradient-to-r from-white via-white/90 to-gray-300 bg-clip-text text-4xl font-bold text-transparent sm:text-6xl lg:text-7xl mb-6 flex items-center min-w-0"
+              words={[...WORD_ROTATION_TITLES]}
             />
-            <p className="mt-4 text-xl leading-relaxed text-white/90">
-              A passionate Frontend Engineer from Pakistan crafting digital
-              experiences. Transforming complex problems into elegant solutions
-              with modern technologies. Let&apos;s build the future of web
-              together!
+            
+            <p className="text-lg leading-relaxed text-white/80 mb-8 max-w-xl">
+              A passionate Frontend Engineer from Pakistan crafting exceptional digital
+              experiences. Transforming complex problems into elegant, user-centric solutions
+              with cutting-edge technologies. Let&apos;s build the future of web together!
             </p>
 
-            {/* Tech stack section */}
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-              {["React", "Next.js", "TailwindCSS", "JavaScript"].map((tech) => (
-                <span
-                  key={tech}
-                  className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm hover:bg-white/15"
-                >
-                  {tech}
-                </span>
-              ))}
+            {/* Enhanced tech stack */}
+            <div className="mb-8">
+              <p className="text-sm text-white/60 mb-3">Tech Stack</p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                {MAIN_TECH_STACK.map((tech) => (
+                  <span
+                    key={tech}
+                    className="relative rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+            {/* Enhanced buttons */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
               <button
                 onClick={() => scrollToSection("projects")}
-                className="group relative rounded-full bg-white/10 px-6 py-3 text-sm font-medium text-white transition-all hover:cursor-pointer hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                className="group relative rounded-full bg-white/15 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-white/25 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 hover:border-white/30 overflow-hidden"
+                aria-label="View my projects"
               >
-                View Projects
-                {/* <span className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-white/50 to-transparent" /> */}
+                <span className="relative z-10">View Projects</span>
+                <BorderBeam size={60} duration={8} colorFrom="#ffffff30" colorTo="#ffffff10" />
               </button>
+              
               <button
                 onClick={() => scrollToSection("contact")}
-                className="rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition-all hover:cursor-pointer hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                className="rounded-full border border-white/30 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-white/10 hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm"
+                aria-label="Contact me"
               >
                 Contact Me
               </button>
             </div>
           </div>
 
-          <div className="relative">
-            <div className="absolute -z-10 h-full w-full rounded-full bg-white/10 blur-xl" />
-            <div className="relative">
-              <Image
-                src={profile}
-                alt="bilal"
-                width={300}
-                className="relative rounded-xl transition-all duration-300 hover:scale-[1.02]"
-              />
+          {/* Right content - Enhanced image section */}
+          <div className="relative flex-shrink-0">
+            {/* Improved background effects */}
+            <div className="absolute -inset-8 rounded-full bg-white/5 blur-2xl animate-pulse" />
+            
+            <div className="relative group">
+              
+              <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/5 p-2 backdrop-blur-sm">
+                <Image
+                  src={profile}
+                  alt="Developer - Frontend Engineer"
+                  width={350}
+                  height={350}
+                  className="relative rounded-xl transition-all duration-500 group-hover:scale-[1.02] object-cover"
+                  priority
+                />
+                <BorderBeam size={150} duration={12} colorFrom="#ffffff20" colorTo="#ffffff05" />
+              </div>
 
-              {/* Tech decoration elements */}
-              <div className="absolute top-1/2 -left-3 h-6 w-6 -translate-y-1/2 rounded border border-white/20 bg-white/5"></div>
-              <div className="absolute top-1/3 -right-3 h-4 w-4 rounded-full border border-white/20 bg-white/5"></div>
+              {/* Enhanced floating elements */}
+              <div className="absolute -top-6 -left-6 h-12 w-12 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <div className="h-6 w-6 rounded bg-white"></div>
+              </div>
+              
+              <div className="absolute -top-3 -right-8 h-8 w-8 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <div className="h-4 w-4 rounded-full bg-white"></div>
+              </div>
+              
+              <div className="absolute -bottom-4 -right-6 h-10 w-10 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <div className="h-5 w-5 rounded-full bg-white"></div>
+              </div>
+              
+              <div className="absolute -bottom-6 -left-4 h-6 w-6 rounded border border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <div className="h-3 w-3 rounded bg-white"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute bottom-10 left-10 h-20 w-20 rounded-full border border-white/10"></div>
-      <div className="absolute top-10 right-20 h-32 w-32 rounded-full border border-white/10"></div>
+      {/* Enhanced decorative elements */}
+      <div className="absolute bottom-16 left-16 h-24 w-24 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm animate-pulse hidden lg:block"></div>
+      <div className="absolute top-16 right-24 h-32 w-32 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm animate-pulse hidden lg:block"></div>
+      <div className="absolute bottom-32 right-8 h-16 w-16 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm rotate-45 hidden lg:block"></div>
     </section>
   );
 };

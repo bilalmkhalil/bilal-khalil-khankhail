@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
-import { FaBriefcase } from "react-icons/fa";
+import { FaBriefcase, FaCode } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
@@ -12,12 +14,29 @@ import {
 
 import modIcon from "@/public/mod.png";
 import Image from "next/image";
+import { Experience } from "@/types/types";
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
 });
 
-const experienceData = [
+const experienceData: Experience[] = [
+  {
+    period: "2025 - Present",
+    title: "Frontend Developer",
+    company: "Softject",
+    icon: <FaCode className="h-6 w-6 text-white/70" />,
+    description: [
+      "Developed scalable web apps with complex admin panels.",
+      "Built custom dashboards, chat widgets, and bot integrations.",
+      "Used React, Next.js, Tailwind, ShadCN, Redux, Zustand, Axios, React Query.",
+      "Integrated Socket.IO for real-time features.",
+      "Ensured pixel-perfect UI and consistent design from Figma.",
+      "Worked on RBAC, Stripe payments.",
+      "Optimized performance and SEO, achieving 90+ scores.",
+      "Focused on clean, maintainable, and efficient code.",
+    ],
+  },
   {
     period: "2024 - 2025",
     title: "Frontend Engineer",
@@ -54,7 +73,7 @@ const experienceData = [
 
 const ExperienceSection = () => {
   return (
-    <div className="relative m-auto w-10/12 pb-0 dark:text-white md:pb-0">
+    <div id="experience" className="relative m-auto w-10/12 pb-0 dark:text-white md:pb-0">
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Experience</h1>
         <h1
@@ -65,9 +84,9 @@ const ExperienceSection = () => {
       </div>
 
       {/* Timeline Container */}
-      <div className="relative mt-16">
+      <div className="timeline-container relative mt-8 md:mt-12">
         {/* Vertical Timeline Line */}
-        <div className="absolute left-0 top-0 h-full w-0.5 bg-white/20 md:left-1/2 md:-ml-0.5"></div>
+        <div className="timeline-line absolute left-0 top-0 h-full w-0.5 bg-gradient-to-b from-white/30 via-white/20 to-white/10 md:left-1/2 md:-ml-px"></div>
 
         {experienceData.map((exp, index) => (
           <div
@@ -96,7 +115,7 @@ const ExperienceSection = () => {
                   <div className="group mt-3 rounded-xl border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10">
                     <div className="flex items-start gap-4">
                       <div className="rounded-full bg-white/10 p-3">
-                        {exp.icon ? (
+                        {exp.icon && typeof exp.icon === 'object' && 'src' in exp.icon ? (
                           <Image
                             src={exp.icon}
                             alt={exp.company}
@@ -104,6 +123,8 @@ const ExperienceSection = () => {
                             height={24}
                             className="h-6 w-6 object-contain"
                           />
+                        ) : exp.icon && React.isValidElement(exp.icon) ? (
+                          exp.icon
                         ) : (
                           <FaBriefcase className="h-6 w-6 text-white/70" />
                         )}
@@ -128,7 +149,7 @@ const ExperienceSection = () => {
                   <DialogHeader>
                     <DialogTitle className="flex items-center gap-4">
                       <div className="rounded-full bg-white/10 p-3">
-                        {exp.icon ? (
+                        {exp.icon && typeof exp.icon === 'object' && 'src' in exp.icon ? (
                           <Image
                             src={exp.icon}
                             alt={exp.company}
@@ -136,6 +157,8 @@ const ExperienceSection = () => {
                             height={24}
                             className="h-6 w-6 object-contain"
                           />
+                        ) : exp.icon && React.isValidElement(exp.icon) ? (
+                          exp.icon
                         ) : (
                           <FaBriefcase className="h-6 w-6 text-white/70" />
                         )}

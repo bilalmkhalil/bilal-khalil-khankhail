@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import {
   reactIcon,
@@ -22,6 +24,8 @@ import {
 import { Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
+import { useInView } from "@/lib/hooks";
+import { SkillCategory } from "@/types/types";
 
 const spaceGrostek = Space_Grotesk({
   subsets: ["latin"],
@@ -32,7 +36,9 @@ const aadilFont = localFont({
 });
 
 const SkillsSection = () => {
-  const skillsData = [
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+
+  const skillsData: SkillCategory[] = [
     {
       title: "Frontend",
       skills: [
@@ -171,8 +177,8 @@ const SkillsSection = () => {
   ];
 
   return (
-    <div className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0">
-      <div className="flex justify-between gap-4 overflow-hidden border-b-2 pb-3 sm:justify-start">
+    <div ref={ref} id="skills" className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0">
+      <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
         <h1
           className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}
@@ -185,10 +191,17 @@ const SkillsSection = () => {
           <div key={index} className="mt-4 flex flex-col gap-1">
             <h2 className="text-3xl text-white">{data.title}</h2>
             <div className="grid gap-2 md:grid-cols-5">
-              {data.skills.map((skill, index) => (
+              {data.skills.map((skill, skillIndex) => (
                 <div
-                  key={index}
-                  className="relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10"
+                  key={skillIndex}
+                  className={`relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
+                    inView 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-4'
+                  }`}
+                  style={{
+                    transitionDelay: inView ? `${(index * data.skills.length + skillIndex) * 100}ms` : '0ms'
+                  }}
                 >
                   <Image
                     src={skill.icon}
