@@ -1,12 +1,3 @@
-// Tech Stack and Skills Constants
-export const MAIN_TECH_STACK = [
-  "React",
-  "Next.js", 
-  "TypeScript",
-  "TailwindCSS",
-  "Node.js",
-] as const;
-
 export const FLOATING_CODE_SKILLS = [
   "React", 
   "Next.js", 
@@ -98,7 +89,6 @@ export const WORD_ROTATION_TITLES = [
   "Bilal Khalil Khankhail,",
   "Frontend Engineer,",
   "React Developer,",
-  "UI/UX Enthusiast,",
 ] as const;
 
 // Navigation sections

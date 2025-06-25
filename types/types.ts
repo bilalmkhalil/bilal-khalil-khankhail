@@ -25,7 +25,7 @@ export interface Project {
 export interface NavItem {
   id: string;
   label: string;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: any;
 }
 
 // Experience related types

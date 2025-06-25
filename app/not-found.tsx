@@ -61,8 +61,8 @@ return <Home />;`}
             </h2>
             
             <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-              The page you're looking for seems to have vanished into the digital void. 
-              Don't worry though, let's get you back on track.
+              The page you&apos;re looking for seems to have vanished into the digital void. 
+              Don&apos;t worry though, let&apos;s get you back on track.
             </p>
           </div>
 

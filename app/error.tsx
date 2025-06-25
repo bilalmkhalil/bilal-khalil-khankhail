@@ -18,7 +18,7 @@ export default function Error({
       {/* Floating code blocks */}
       <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
         <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-          <pre className="text-xs text-white/70 font-mono">
+          <pre className="font-mono text-xs text-white/70">
             {`try {
   // Something went wrong
 } catch (error) {
@@ -27,10 +27,10 @@ export default function Error({
           </pre>
         </div>
       </div>
-      
-      <div className="absolute right-8 top-1/3 hidden opacity-15 lg:block">
+
+      <div className="absolute top-1/3 right-8 hidden opacity-15 lg:block">
         <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-          <pre className="text-xs text-white/70 font-mono">
+          <pre className="font-mono text-xs text-white/70">
             {`if (error) {
   handleError(error);
   retry();
@@ -39,9 +39,9 @@ export default function Error({
         </div>
       </div>
 
-      <div className="absolute left-8 bottom-32 hidden opacity-15 lg:block">
+      <div className="absolute bottom-32 left-8 hidden opacity-15 lg:block">
         <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
-          <pre className="text-xs text-white/70 font-mono">
+          <pre className="font-mono text-xs text-white/70">
             {`// Let's try again
 return <Success />;`}
           </pre>
@@ -49,12 +49,12 @@ return <Success />;`}
       </div>
 
       {/* Main content */}
-      <div className="relative m-auto w-10/12 flex items-center justify-center h-screen">
-        <div className="relative z-10 text-center max-w-4xl mx-auto">
+      <div className="relative m-auto flex h-screen w-10/12 items-center justify-center">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
           {/* Status badge */}
-          <div className="mb-6 inline-block rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm border border-white/10">
+          <div className="mb-6 inline-block rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white backdrop-blur-sm">
             <span className="relative">
-              <span className="absolute -left-2 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-red-400 animate-pulse"></span>
+              <span className="absolute top-1/2 -left-2 h-2 w-2 -translate-y-1/2 animate-pulse rounded-full bg-red-400"></span>
               <span className="ml-2">Something went wrong</span>
             </span>
           </div>
@@ -62,7 +62,7 @@ return <Success />;`}
           {/* Main Error Display */}
           <div className="mb-8">
             <div className="relative inline-block">
-              <h1 className="text-[8rem] sm:text-[10rem] lg:text-[12rem] font-black bg-gradient-to-r from-white via-white/90 to-gray-300 bg-clip-text text-transparent leading-none select-none mb-4">
+              <h1 className="mb-4 bg-gradient-to-r from-white via-white/90 to-gray-300 bg-clip-text text-[8rem] leading-none font-black text-transparent select-none sm:text-[10rem] lg:text-[12rem]">
                 Error
               </h1>
             </div>
@@ -70,28 +70,28 @@ return <Success />;`}
 
           {/* Content */}
           <div className="space-y-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent">
+            <h2 className="bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl lg:text-5xl">
               Oops! Something Went Wrong
             </h2>
-            
-            <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-              We encountered an unexpected error. Don't worry, it's not your fault.
-              Let's try to get things back on track.
+
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-white/80">
+              We encountered an unexpected error. Don&apos;t worry, it&apos;s not your
+              fault. Let&apos;s try to get things back on track.
             </p>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <button
               onClick={reset}
-              className="group relative rounded-full bg-white/15 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-white/25 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] focus:outline-none focus:ring-2 focus:ring-white/50 border border-white/20 hover:border-white/30 overflow-hidden"
+              className="group relative overflow-hidden rounded-full border border-white/20 bg-white/15 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:border-white/30 hover:bg-white/25 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] focus:ring-2 focus:ring-white/50 focus:outline-none"
             >
               <span className="relative z-10">Try Again</span>
             </button>
-            
+
             <button
-              onClick={() => window.location.href = '/'}
-              className="rounded-full border border-white/30 px-8 py-4 text-sm font-medium text-white transition-all duration-300 hover:bg-white/10 hover:border-white/50 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] focus:outline-none focus:ring-2 focus:ring-white/50 backdrop-blur-sm"
+              onClick={() => (window.location.href = "/")}
+              className="rounded-full border border-white/30 px-8 py-4 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-white/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.1)] focus:ring-2 focus:ring-white/50 focus:outline-none"
             >
               Go Home
             </button>
@@ -100,9 +100,9 @@ return <Success />;`}
       </div>
 
       {/* Enhanced decorative elements */}
-      <div className="absolute bottom-16 left-16 h-24 w-24 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm animate-pulse hidden lg:block"></div>
-      <div className="absolute top-16 right-24 h-32 w-32 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm animate-pulse hidden lg:block"></div>
-      <div className="absolute bottom-32 right-8 h-16 w-16 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm rotate-45 hidden lg:block"></div>
+      <div className="absolute bottom-16 left-16 hidden h-24 w-24 animate-pulse rounded-full border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
+      <div className="absolute top-16 right-24 hidden h-32 w-32 animate-pulse rounded-full border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
+      <div className="absolute right-8 bottom-32 hidden h-16 w-16 rotate-45 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
     </section>
   );
 }

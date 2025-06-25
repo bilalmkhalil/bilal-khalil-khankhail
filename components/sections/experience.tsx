@@ -3,7 +3,7 @@
 import React from "react";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
-import { FaBriefcase, FaCode } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
@@ -11,10 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import modIcon from "@/public/mod.png";
 import Image from "next/image";
 import { Experience } from "@/types/types";
+import modIcon from "@/public/mod.png";
+import sofjectIcon from "@/public/sofject.png";
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
@@ -24,8 +24,8 @@ const experienceData: Experience[] = [
   {
     period: "2025 - Present",
     title: "Frontend Developer",
-    company: "Softject",
-    icon: <FaCode className="h-6 w-6 text-white/70" />,
+    company: "Sofject",
+    icon: sofjectIcon,
     description: [
       "Developed scalable web apps with complex admin panels.",
       "Built custom dashboards, chat widgets, and bot integrations.",
