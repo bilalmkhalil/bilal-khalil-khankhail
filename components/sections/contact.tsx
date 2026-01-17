@@ -6,6 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormData, FormErrors } from "@/types/types";
+import {
+  Map,
+  MapControls,
+  MapMarker,
+  MarkerContent,
+} from "@/components/ui/map";
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
@@ -234,42 +240,17 @@ const ContactSection = () => {
 
             {/* Map Card */}
             <div className="relative col-span-4 h-[220px] overflow-hidden rounded-lg border border-white/10 bg-white/5 backdrop-blur-md">
-              {/* Custom CSS Map Design */}
-              <div className="relative h-full w-full bg-gradient-to-br from-gray-900 to-gray-800">
-                {/* Grid pattern overlay */}
-                <div className="absolute inset-0 opacity-20">
-                  <div
-                    className="h-full w-full"
-                    style={{
-                      backgroundImage: `
-                    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-                  `,
-                      backgroundSize: "20px 20px",
-                    }}
-                  ></div>
-                </div>
-
-                {/* Location marker */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="relative">
-                    <div className="h-6 w-6 animate-pulse rounded-full bg-red-500 shadow-lg"></div>
-                    <div className="absolute -top-1 -left-1 h-8 w-8 animate-ping rounded-full border-2 border-red-500/30"></div>
-                  </div>
-                </div>
-
-                {/* Decorative elements */}
-                <div className="absolute top-4 left-4 h-2 w-2 rounded-full bg-blue-400/60"></div>
-                <div className="absolute top-8 right-6 h-1 w-1 rounded-full bg-green-400/60"></div>
-                <div className="absolute bottom-6 left-8 h-1.5 w-1.5 rounded-full bg-purple-400/60"></div>
-                <div className="absolute right-4 bottom-4 h-1 w-1 rounded-full bg-yellow-400/60"></div>
-
-                {/* Simulated roads */}
-                <div className="absolute top-1/3 right-0 left-0 h-0.5 rotate-12 transform bg-white/10"></div>
-                <div className="absolute top-2/3 right-0 left-0 h-0.5 -rotate-12 transform bg-white/10"></div>
-                <div className="absolute top-0 bottom-0 left-1/3 w-0.5 rotate-12 transform bg-white/10"></div>
-                <div className="absolute top-0 right-1/3 bottom-0 w-0.5 -rotate-12 transform bg-white/10"></div>
-              </div>
+              <Map center={[67.00994, 24.86146]} zoom={9}>
+                <MapMarker longitude={67.00994} latitude={24.86146}>
+                  <MarkerContent>
+                    <div className="relative flex items-center justify-center">
+                      <div className="absolute rounded-full bg-emerald-500/20" />
+                      <div className="absolute animate-ping rounded-full bg-emerald-500/40" />
+                      <div className="relative rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50" />
+                    </div>
+                  </MarkerContent>
+                </MapMarker>
+              </Map>
 
               {/* Location Label */}
               <div className="absolute bottom-3 left-3 z-20 rounded-md border border-white/10 bg-black/60 px-3 py-1.5 backdrop-blur-md">
