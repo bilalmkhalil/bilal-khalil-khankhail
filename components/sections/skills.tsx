@@ -19,6 +19,18 @@ import {
   reduxIcon,
   reactQueryIcon,
   axiosIcon,
+  githubActionsIcon,
+  awsIcon,
+  azureIcon,
+  azureDevopsIcon,
+  mongodbIcon,
+  nodejsIcon,
+  nginxIcon,
+  bunIcon,
+  postmanIcon,
+  ubuntuIcon,
+  vercelIcon,
+  gitlabIcon,
 } from "@/lib/icons";
 
 import { Space_Grotesk } from "next/font/google";
@@ -91,7 +103,6 @@ const SkillsSection = () => {
           size: 30,
           bgcolor: "bg-[#1baeba6b]",
         },
-        // New skills added here
         {
           name: "Zustand",
           icon: zustandIcon,
@@ -126,11 +137,32 @@ const SkillsSection = () => {
       title: "Backend",
       skills: [
         {
+          name: "Node.js",
+          icon: nodejsIcon,
+          alt: "Node.js",
+          size: 30,
+          bgcolor: "bg-[#68a0633b]",
+        },
+        {
+          name: "Bun",
+          icon: bunIcon,
+          alt: "Bun",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
+        {
           name: "PostgreSQL",
           icon: postgresqlIcon,
           alt: "PostgreSQL",
           size: 30,
           bgcolor: "bg-[#3367916b]",
+        },
+        {
+          name: "MongoDB",
+          icon: mongodbIcon,
+          alt: "MongoDB",
+          size: 30,
+          bgcolor: "bg-[#13aa526b]",
         },
         {
           name: "Supabase",
@@ -145,6 +177,60 @@ const SkillsSection = () => {
           alt: "Prisma",
           size: 30,
           bgcolor: "bg-[#f3f4f694]",
+        },
+      ],
+    },
+    {
+      title: "DevOps",
+      skills: [
+        {
+          name: "Azure",
+          icon: azureIcon,
+          alt: "Azure",
+          size: 30,
+          bgcolor: "bg-[#0089d96b]",
+        },
+        {
+          name: "Azure DevOps",
+          icon: azureDevopsIcon,
+          alt: "Azure DevOps",
+          size: 30,
+          bgcolor: "bg-[#0089d96b]",
+        },
+        {
+          name: "AWS",
+          icon: awsIcon,
+          alt: "AWS",
+          size: 30,
+          bgcolor: "bg-[#ff99006b]",
+        },
+        {
+          name: "GitHub Actions",
+          icon: githubActionsIcon,
+          alt: "GitHub Actions",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
+        {
+          name: "Vercel",
+          icon: vercelIcon,
+          alt: "Vercel",
+          size: 30,
+          bgcolor: "bg-[#f3f4f694]",
+        },
+        {
+          name: "Nginx",
+          icon: nginxIcon,
+          alt: "Nginx",
+          size: 30,
+          bgcolor: "bg-[#00965e6b]",
+        },
+        {
+          name: "Ubuntu",
+          icon: ubuntuIcon,
+          alt: "Ubuntu",
+          size: 30,
+          bgcolor: "bg-[#dd4814ab]",
         },
       ],
     },
@@ -172,12 +258,30 @@ const SkillsSection = () => {
           size: 30,
           bgcolor: "bg-[#f3f4f694]",
         },
+        {
+          name: "GitLab",
+          icon: gitlabIcon,
+          alt: "GitLab",
+          size: 30,
+          bgcolor: "bg-[#fc6d266b]",
+        },
+        {
+          name: "Postman",
+          icon: postmanIcon,
+          alt: "Postman",
+          size: 30,
+          bgcolor: "bg-[#ff68006b]",
+        }
       ],
     },
   ];
 
   return (
-    <div ref={ref} id="skills" className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0">
+    <div
+      ref={ref}
+      id="skills"
+      className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0"
+    >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
         <h1
@@ -195,12 +299,14 @@ const SkillsSection = () => {
                 <div
                   key={skillIndex}
                   className={`relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
-                    inView 
-                      ? 'opacity-100 translate-y-0' 
-                      : 'opacity-0 translate-y-4'
+                    inView
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-4 opacity-0"
                   }`}
                   style={{
-                    transitionDelay: inView ? `${(index * data.skills.length + skillIndex) * 100}ms` : '0ms'
+                    transitionDelay: inView
+                      ? `${(index * data.skills.length + skillIndex) * 100}ms`
+                      : "0ms",
                   }}
                 >
                   <Image
@@ -208,7 +314,7 @@ const SkillsSection = () => {
                     alt={skill.alt}
                     width={skill.size}
                     height={skill.size}
-                    className={`${skill.bgcolor} rounded p-[5px]`}
+                    className={`${skill.bgcolor} rounded p-1.25`}
                   />
                   <h3
                     className={`text-xl text-white ${spaceGrostek.className}`}
