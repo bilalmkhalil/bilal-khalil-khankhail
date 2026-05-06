@@ -20,7 +20,7 @@ export default function Home() {
       <HomeSection />
       <SkillsSection />
       <ExperienceSection />
-      <ProjectsSection />
+      {/* <ProjectsSection /> */}
       <ContactSection />
       <ScrollToTop />
     </main>

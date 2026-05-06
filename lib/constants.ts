@@ -87,8 +87,7 @@ export const PROJECT_STACKS = {
 // Word rotation data for home section
 export const WORD_ROTATION_TITLES = [
   "Bilal Khalil Khankhail,",
-  "Frontend Engineer,",
-  "React Developer,",
+  "Software Engineer,",
 ] as const;
 
 // Navigation sections

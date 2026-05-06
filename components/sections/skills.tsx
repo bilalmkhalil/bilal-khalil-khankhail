@@ -38,6 +38,7 @@ import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
 import { useInView } from "@/lib/hooks";
 import { SkillCategory } from "@/types/types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 const spaceGrostek = Space_Grotesk({
   subsets: ["latin"],
@@ -271,7 +272,7 @@ const SkillsSection = () => {
           alt: "Postman",
           size: 30,
           bgcolor: "bg-[#ff68006b]",
-        }
+        },
       ],
     },
   ];
@@ -291,48 +292,81 @@ const SkillsSection = () => {
         </h1>
       </div>
       <div className="flex flex-col gap-2">
-        {skillsData.map((data, index) => (
-          <div key={index} className="mt-4 flex flex-col gap-1">
-            <h2 className="text-3xl text-white">{data.title}</h2>
-            <div className="grid gap-2 md:grid-cols-5">
-              {data.skills.map((skill, skillIndex) => (
-                <div
-                  key={skillIndex}
-                  className={`relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
-                    inView
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-4 opacity-0"
-                  }`}
-                  style={{
-                    transitionDelay: inView
-                      ? `${(index * data.skills.length + skillIndex) * 100}ms`
-                      : "0ms",
-                  }}
-                >
-                  <Image
-                    src={skill.icon}
-                    alt={skill.alt}
-                    width={skill.size}
-                    height={skill.size}
-                    className={`${skill.bgcolor} rounded p-1.25`}
-                  />
-                  <h3
-                    className={`text-xl text-white ${spaceGrostek.className}`}
+        <Tabs defaultValue="frontend" orientation="vertical">
+          <TabsList className="mt-4 mr-4">
+            <TabsTrigger
+              value="Frontend"
+              className="data-[state=active]:border-white/10"
+            >
+              Frontend
+            </TabsTrigger>
+            <TabsTrigger
+              value="Backend"
+              className="data-[state=active]:border-white/10"
+            >
+              Backend
+            </TabsTrigger>
+            <TabsTrigger
+              value="DevOps"
+              className="data-[state=active]:border-white/10"
+            >
+              DevOps
+            </TabsTrigger>
+            <TabsTrigger
+              value="Tools"
+              className="data-[state=active]:border-white/10"
+            >
+              Tools
+            </TabsTrigger>
+          </TabsList>
+          
+          {skillsData.map((data, index) => (
+            <TabsContent
+              key={index}
+              value={data.title}
+              className="mt-4 flex flex-col gap-1"
+            >
+              <h2 className="text-3xl text-white">{data.title}</h2>
+              <div className="grid gap-2 md:grid-cols-5">
+                {data.skills.map((skill, skillIndex) => (
+                  <div
+                    key={skillIndex}
+                    className={`relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
+                      inView
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0"
+                    }`}
+                    style={{
+                      transitionDelay: inView
+                        ? `${(index * data.skills.length + skillIndex) * 100}ms`
+                        : "0ms",
+                    }}
                   >
-                    {skill.name}
-                  </h3>
-                  <BorderBeam
-                    size={40}
-                    duration={10}
-                    delay={5}
-                    colorFrom={skill.bgcolor.split("[")[1].split("]")[0]}
-                    colorTo={skill.bgcolor.split("[")[1].split("]")[0]}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+                    <Image
+                      src={skill.icon}
+                      alt={skill.alt}
+                      width={skill.size}
+                      height={skill.size}
+                      className={`${skill.bgcolor} rounded p-1.25`}
+                    />
+                    <h3
+                      className={`text-xl text-white ${spaceGrostek.className}`}
+                    >
+                      {skill.name}
+                    </h3>
+                    <BorderBeam
+                      size={40}
+                      duration={10}
+                      delay={5}
+                      colorFrom={skill.bgcolor.split("[")[1].split("]")[0]}
+                      colorTo={skill.bgcolor.split("[")[1].split("]")[0]}
+                    />
+                  </div>
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </div>
   );

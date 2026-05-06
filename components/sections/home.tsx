@@ -72,7 +72,7 @@ const HomeSection = () => {
             />
 
             <p className="mb-8 max-w-xl text-lg leading-relaxed text-white/80">
-              A passionate Frontend Engineer from Pakistan crafting exceptional
+              A passionate Software Engineer from Pakistan crafting exceptional
               digital experiences. Transforming complex problems into elegant,
               user-centric solutions with cutting-edge technologies. Let&apos;s
               build the future of web together!
@@ -80,7 +80,7 @@ const HomeSection = () => {
           </div>
 
           {/* Right content - Enhanced image section */}
-          <div className="relative flex-shrink-0">
+          <div className="relative shrink-0">
             {/* Improved background effects */}
             <div className="absolute -inset-8 animate-pulse rounded-full bg-white/5 blur-2xl" />
 
