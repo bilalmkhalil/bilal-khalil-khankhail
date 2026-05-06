@@ -51,6 +51,7 @@ const aadilFont = localFont({
 const SkillsSection = () => {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
 
+  const skillsTabTitles = ["Frontend", "Backend", "DevOps", "Tools"];
   const skillsData: SkillCategory[] = [
     {
       title: "Frontend",
@@ -281,7 +282,7 @@ const SkillsSection = () => {
     <div
       ref={ref}
       id="skills"
-      className="relative m-auto w-10/12 pb-20 text-white md:h-screen md:pb-0"
+      className="relative m-auto w-10/12 pb-20 text-white mb-20 md:pb-0"
     >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
@@ -292,42 +293,27 @@ const SkillsSection = () => {
         </h1>
       </div>
       <div className="flex flex-col gap-2">
-        <Tabs defaultValue="frontend" orientation="vertical">
-          <TabsList className="mt-4 mr-4">
-            <TabsTrigger
-              value="Frontend"
-              className="data-[state=active]:border-white/10"
-            >
-              Frontend
-            </TabsTrigger>
-            <TabsTrigger
-              value="Backend"
-              className="data-[state=active]:border-white/10"
-            >
-              Backend
-            </TabsTrigger>
-            <TabsTrigger
-              value="DevOps"
-              className="data-[state=active]:border-white/10"
-            >
-              DevOps
-            </TabsTrigger>
-            <TabsTrigger
-              value="Tools"
-              className="data-[state=active]:border-white/10"
-            >
-              Tools
-            </TabsTrigger>
+        <Tabs defaultValue="Frontend" orientation="vertical">
+          <TabsList className="mt-4 mr-4 gap-3 bg-transparent">
+            {skillsTabTitles.map((title) => (
+              <TabsTrigger
+                key={title}
+                value={title}
+                className="w-fit border border-white/10 bg-white/5 px-8 text-lg text-white hover:cursor-pointer hover:text-white data-[state=active]:border-white/10"
+              >
+                {title}
+              </TabsTrigger>
+            ))}
           </TabsList>
-          
+
           {skillsData.map((data, index) => (
             <TabsContent
               key={index}
               value={data.title}
               className="mt-4 flex flex-col gap-1"
             >
-              <h2 className="text-3xl text-white">{data.title}</h2>
-              <div className="grid gap-2 md:grid-cols-5">
+              <h2 className="mb-4 text-5xl text-white">{data.title}</h2>
+              <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">
                 {data.skills.map((skill, skillIndex) => (
                   <div
                     key={skillIndex}

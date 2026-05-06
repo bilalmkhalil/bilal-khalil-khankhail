@@ -53,22 +53,22 @@ const experienceData: Experience[] = [
       "Focused on clean, maintainable, and efficient code.",
     ],
   },
-  {
-    period: "2022 - 2024",
-    title: "Web Developer",
-    company: "Freelance",
-    icon: null,
-    description: [
-      "Led frontend development for multiple client projects.",
-      "Built responsive and performant web applications.",
-      "Implemented modern UI/UX designs using React and Next.js.",
-      "Utilized TailwindCSS for responsive and maintainable styling.",
-      "Integrated RESTful APIs and managed state with Redux/Zustand.",
-      "Optimized applications for maximum speed and scalability.",
-      "Collaborated with clients to gather requirements and deliver solutions.",
-      "Maintained clean and well-documented code bases.",
-    ],
-  },
+  // {
+  //   period: "2022 - 2024",
+  //   title: "Web Developer",
+  //   company: "Freelance",
+  //   icon: null,
+  //   description: [
+  //     "Led frontend development for multiple client projects.",
+  //     "Built responsive and performant web applications.",
+  //     "Implemented modern UI/UX designs using React and Next.js.",
+  //     "Utilized TailwindCSS for responsive and maintainable styling.",
+  //     "Integrated RESTful APIs and managed state with Redux/Zustand.",
+  //     "Optimized applications for maximum speed and scalability.",
+  //     "Collaborated with clients to gather requirements and deliver solutions.",
+  //     "Maintained clean and well-documented code bases.",
+  //   ],
+  // },
 ];
 
 const ExperienceSection = () => {
