@@ -1,8 +1,8 @@
-export const FLOATING_CODE_SKILLS = [
-  "React", 
-  "Next.js", 
-  "Node.js"
-] as const;
+import modIcon from "@/public/mod.png";
+import sofjectIcon from "@/public/sofject.png";
+import { Experience } from "@/types/types";
+
+export const FLOATING_CODE_SKILLS = ["React", "Next.js", "Node.js"] as const;
 
 export const ALL_TECH_STACK = [
   "React",
@@ -29,7 +29,7 @@ export const ALL_TECH_STACK = [
   "Stripe API",
   "Jest",
   "Cypress",
-  "Styled Components"
+  "Styled Components",
 ] as const;
 
 // Common project tech stacks
@@ -81,7 +81,7 @@ export const PROJECT_STACKS = {
     "Redis",
     "Docker",
     "AWS",
-  ] as string[]
+  ] as string[],
 } as const;
 
 // Word rotation data for home section
@@ -121,57 +121,36 @@ export const CODE_SNIPPETS = {
   future: `const future = async () => {
   await buildProjects();
   return innovation;
-}`
+}`,
 } as const;
 
-// Experience data
-export const EXPERIENCE_DATA = [
+export const experienceData: Experience[] = [
   {
     period: "2025 - Present",
-    title: "Frontend Developer",
-    company: "Softject",
-    icon: null, // Will be set as React element in component
+    title: "Software Engineer",
+    company: "Sofject",
+    icon: sofjectIcon,
     description: [
-      "Developed scalable web apps with complex admin panels.",
-      "Built custom dashboards, chat widgets, and bot integrations.",
-      "Used React, Next.js, Tailwind, ShadCN, Redux, Zustand, Axios, React Query.",
-      "Integrated Socket.IO for real-time features.",
-      "Ensured pixel-perfect UI and consistent design from Figma.",
-      "Worked on RBAC, Stripe payments.",
-      "Optimized performance and SEO, achieving 90+ scores.",
-      "Focused on clean, maintainable, and efficient code.",
+      "Led a full migration from Azure to Hetzner for production systems, including backend, frontend, and staging environments serving around 60k users.",
+      "Designed and maintained CI/CD pipelines with Azure DevOps and GitHub Actions to automate builds, deployments, and environment parity.",
+      "Worked on backend services with Node.js and NestJS, using PostgreSQL and MongoDB for reliable data handling.",
+      "Implemented and enforced role-based access control across applications to secure sensitive workflows.",
+      "Managed reverse proxies and automated TLS with Caddy, along with VM provisioning, monitoring, and incident debugging.",
+      "Built and maintained scalable front-end applications with React.js and Next.js, focusing on production-ready performance and UI accuracy.",
     ],
   },
   {
     period: "2024 - 2025",
     title: "Frontend Engineer",
     company: "MOD Ventures",
-    icon: null, // Will be set as image in component
+    icon: modIcon,
     description: [
-      "Developed scalable web apps with complex admin panels.",
-      "Built custom dashboards, chat widgets, and bot integrations.",
-      "Used React, Next.js, Tailwind, ShadCN, Redux, Zustand, Axios, React Query.",
-      "Integrated Socket.IO for real-time features.",
-      "Ensured pixel-perfect UI and consistent design from Figma.",
-      "Worked on RBAC, Stripe payments.",
-      "Optimized performance and SEO, achieving 90+ scores.",
-      "Focused on clean, maintainable, and efficient code.",
-    ],
-  },
-  {
-    period: "2022 - 2024",
-    title: "Web Developer",
-    company: "Freelance",
-    icon: null,
-    description: [
-      "Led frontend development for multiple client projects.",
-      "Built responsive and performant web applications.",
-      "Implemented modern UI/UX designs using React and Next.js.",
-      "Utilized TailwindCSS for responsive and maintainable styling.",
-      "Integrated RESTful APIs and managed state with Redux/Zustand.",
-      "Optimized applications for maximum speed and scalability.",
-      "Collaborated with clients to gather requirements and deliver solutions.",
-      "Maintained clean and well-documented code bases.",
+      "Built and shipped production-grade web applications using React.js and Next.js, including complex admin dashboards and data-driven SPAs.",
+      "Translated Figma designs into pixel-perfect, responsive interfaces with strong attention to UX and accessibility.",
+      "Created reusable, scalable UI component systems to improve development speed and consistency across projects.",
+      "Integrated REST APIs and handled complex client-side data flows, state management, and async behavior.",
+      "Implemented complete authentication flows including OAuth, Google Sign-In, and token-based auth.",
+      "Optimized frontend performance through component refactoring, state isolation, and rendering improvements.",
     ],
   },
 ] as const;
