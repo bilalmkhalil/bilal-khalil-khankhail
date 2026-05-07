@@ -17,7 +17,7 @@ const HomeSection = () => {
   return (
     <section
       id="home"
-      className="relative h-screen overflow-hidden bg-[#07070A]"
+      className="relative overflow-hidden bg-[#07070A] md:h-screen"
     >
       {/* Floating code blocks with improved positioning */}
       <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
@@ -45,7 +45,7 @@ const HomeSection = () => {
       </div>
 
       {/* Main content with consistent width */}
-      <div className="relative m-auto flex h-screen w-10/12 items-center justify-center">
+      <div className="relative m-auto flex w-10/12 items-center justify-center px-1 py-10 md:h-screen md:px-0 md:py-0">
         <div
           className={`relative z-10 flex flex-col-reverse items-center gap-12 transition-all duration-1000 lg:flex-row lg:gap-16 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
         >
@@ -67,7 +67,7 @@ const HomeSection = () => {
             </h2>
 
             <WordRotate
-              className="mb-6 flex h-20 min-w-0 items-center text-white bg-clip-text text-4xl font-bold sm:h-24 sm:text-6xl lg:h-[18px] lg:text-5xl"
+              className="mb-6 flex h-20 min-w-0 items-center bg-clip-text text-4xl font-bold text-white sm:h-24 sm:text-6xl lg:h-[18px] lg:text-5xl"
               words={[...WORD_ROTATION_TITLES]}
             />
 

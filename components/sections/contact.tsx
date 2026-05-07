@@ -6,11 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormData, FormErrors } from "@/types/types";
-import {
-  Map,
-  MapMarker,
-  MarkerContent,
-} from "@/components/ui/map";
+import { Map, MapMarker, MarkerContent } from "@/components/ui/map";
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
@@ -87,7 +83,7 @@ const ContactSection = () => {
   return (
     <div
       id="contact"
-      className="flex h-screen items-center justify-center dark:text-white"
+      className="flex items-center justify-center py-10 md:py-0 md:h-screen dark:text-white"
     >
       <div className="w-10/12">
         <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
