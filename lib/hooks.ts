@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { UseInViewOptions } from '@/types/types';
+import { useEffect, useRef, useState } from "react";
+import { UseInViewOptions } from "@/types/types";
 
 export function useInView(options: UseInViewOptions = {}) {
   const [inView, setInView] = useState(false);
@@ -24,8 +24,8 @@ export function useInView(options: UseInViewOptions = {}) {
       },
       {
         threshold: options.threshold || 0.1,
-        rootMargin: options.rootMargin || '0px',
-      }
+        rootMargin: options.rootMargin || "0px",
+      },
     );
 
     observer.observe(element);
@@ -34,4 +34,23 @@ export function useInView(options: UseInViewOptions = {}) {
   }, [options.threshold, options.rootMargin, options.triggerOnce]);
 
   return { ref, inView };
+}
+
+export function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+
+    const handleChange = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    handleChange();
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, [breakpoint]);
+
+  return isMobile;
 }
