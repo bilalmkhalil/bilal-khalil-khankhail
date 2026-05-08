@@ -6,6 +6,9 @@ import { WordRotate } from "../magicui/word-rotate";
 import { BorderBeam } from "../magicui/border-beam";
 import { useEffect, useState } from "react";
 import { CODE_SNIPPETS, WORD_ROTATION_TITLES } from "@/lib/constants";
+import { Button } from "../ui/button";
+import { Download } from "lucide-react";
+import Link from "next/link";
 
 const HomeSection = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -77,6 +80,28 @@ const HomeSection = () => {
               user-centric solutions with cutting-edge technologies. Let&apos;s
               build the future of web together!
             </p>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+              <Button
+                asChild
+                size="lg"
+                className="bg-white text-black hover:bg-white/90"
+              >
+                <Link href="#contact">Hire Me</Link>
+              </Button>
+
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/20 bg-white/10 text-white hover:text-black"
+              >
+                <a href="/Bilal.pdf" target="_blank" rel="noopener noreferrer">
+                  <Download className="h-4 w-4" />
+                  Download Resume
+                </a>
+              </Button>
+            </div>
           </div>
 
           {/* Right content - Enhanced image section */}
