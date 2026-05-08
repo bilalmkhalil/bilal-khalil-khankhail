@@ -26,7 +26,7 @@ const SkillsSection = () => {
     <div
       ref={ref}
       id="skills"
-      className="relative m-auto mb-20 w-10/12 pb-20 text-white md:pb-0"
+      className="relative mx-auto mt-20 w-10/12 pb-20 text-white md:mt-0 mb-20 md:pb-0"
     >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
         <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
@@ -41,7 +41,7 @@ const SkillsSection = () => {
           defaultValue="Frontend"
           orientation={isMobile ? "horizontal" : "vertical"}
         >
-          <TabsList className="scrollbar-hide mt-4 mr-4 flex! w-full justify-center-safe gap-3 overflow-x-scroll bg-transparent">
+          <TabsList className="scrollbar-hide mt-4 mr-4 w-full justify-center-safe gap-3 overflow-x-scroll bg-transparent md:w-fit">
             {skillsTabTitles.map((title) => (
               <TabsTrigger
                 key={title}
