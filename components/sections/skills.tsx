@@ -6,7 +6,6 @@ import { Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
 import { useInView, useIsMobile } from "@/lib/hooks";
-import { SkillCategory } from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { skillsData, skillsTabTitles } from "@/lib/constants";
 

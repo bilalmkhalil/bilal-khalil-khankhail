@@ -65,7 +65,7 @@ const ProjectsSection = () => {
           className="relative inline-flex items-center px-8 py-3 text-white border border-white/10 bg-white/5 backdrop-blur-md rounded-md hover:bg-white/10 transition-all duration-300 group overflow-hidden"
         >
           <span className="relative z-10 font-medium">View All Projects</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
+          <div className="absolute inset-0 bg-linear-to-r from-purple-500/10 to-pink-500/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300" />
           <svg 
             className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" 
             fill="none" 

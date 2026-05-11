@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import localFont from "next/font/local";
 import { BorderBeam } from "../magicui/border-beam";
 import { FaBriefcase } from "react-icons/fa";
@@ -12,9 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Image from "next/image";
-import { Experience } from "@/types/types";
-import modIcon from "@/public/mod.png";
-import sofjectIcon from "@/public/sofject.png";
 import { experienceData } from "@/lib/constants";
 
 const aadilFont = localFont({
@@ -39,7 +35,7 @@ const ExperienceSection = () => {
       {/* Timeline Container */}
       <div className="timeline-container relative mt-8 md:mt-12">
         {/* Vertical Timeline Line */}
-        <div className="timeline-line absolute top-0 left-0 h-full w-0.5 bg-gradient-to-b from-white/30 via-white/20 to-white/10 md:left-1/2 md:-ml-px"></div>
+        <div className="timeline-line absolute top-0 left-0 h-full w-0.5 bg-linear-to-b from-white/30 via-white/20 to-white/10 md:left-1/2 md:-ml-px"></div>
 
         {experienceData.map((exp, index) => (
           <div
