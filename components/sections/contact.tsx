@@ -7,73 +7,54 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FormData, FormErrors } from "@/types/types";
 import { Map, MapMarker, MarkerContent } from "@/components/ui/map";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const aadilFont = localFont({
   src: "../../public/fonts/Aadil.ttf",
 });
 
+let contactSchema = object({
+  name: string().required("Please enter your name"),
+  email: string().email("Invalid email format").required("Email is required"),
+  message: string()
+    .min(50, "Message must be at least 50 characters")
+    .required(),
+});
+
 const ContactSection = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(contactSchema),
   });
+
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [errors, setErrors] = useState<FormErrors>({});
 
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required";
-    } else if (formData.message.trim().length < 10) {
-      newErrors.message = "Message must be at least 10 characters";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
-
+  const onSubmit = async (data: FormData) => {
     setLoading(true);
-    setErrors({});
 
     try {
       const response = await fetch("/api/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        setSuccess(true);
-        setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setSuccess(false), 5000);
-      } else {
-        throw new Error("Failed to send message");
-      }
-    } catch (error) {
-      setErrors({
-        message: `Failed to send message. Please try again. ${error}`,
+      if (!response.ok) throw new Error("Failed to send message");
+
+      setSuccess(true);
+      reset();
+      setTimeout(() => setSuccess(false), 5000);
+    } catch {
+      setError("root", {
+        message: "Failed to send message. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -83,7 +64,7 @@ const ContactSection = () => {
   return (
     <div
       id="contact"
-      className="flex items-center justify-center py-10 md:py-0 md:h-screen dark:text-white"
+      className="flex items-center justify-center py-10 md:h-screen md:py-0 dark:text-white"
     >
       <div className="w-10/12">
         <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
@@ -98,62 +79,54 @@ const ContactSection = () => {
         <div className="mt-16 grid gap-8 md:grid-cols-2">
           <div className="rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur-md">
             {success && (
-              <div className="mb-6 rounded-lg border border-green-500/30 bg-green-500/20 p-4 text-green-300">
+              <div className="mb-4 rounded-lg border border-green-500/30 bg-green-500/20 px-2 py-1 text-green-300">
                 ✓ Message sent successfully! I&apos;ll get back to you soon.
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            {errors.root?.message && (
+              <p className="mb-4 rounded-lg border border-red-500/30 bg-red-500/20 px-2 py-1 text-red-300">
+                {errors.root.message}
+              </p>
+            )}
+
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <Input
+                  {...register("name")}
                   type="text"
                   placeholder="Your Name"
                   className={`border-white/10 bg-black/20 text-white focus-visible:ring-0 ${errors.name ? "border-red-500/50" : ""}`}
-                  value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value });
-                    if (errors.name) setErrors({ ...errors, name: undefined });
-                  }}
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? "name-error" : undefined}
                 />
                 {errors.name && (
                   <p id="name-error" className="mt-1 text-sm text-red-400">
-                    {errors.name}
+                    {errors.name?.message}
                   </p>
                 )}
               </div>
               <div className="mb-4">
                 <Input
+                  {...register("email")}
                   type="email"
                   placeholder="Your Email"
                   className={`border-white/10 bg-black/20 text-white focus-visible:ring-0 ${errors.email ? "border-red-500/50" : ""}`}
-                  value={formData.email}
-                  onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
-                    if (errors.email)
-                      setErrors({ ...errors, email: undefined });
-                  }}
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "email-error" : undefined}
                 />
                 {errors.email && (
                   <p id="email-error" className="mt-1 text-sm text-red-400">
-                    {errors.email}
+                    {errors.email?.message}
                   </p>
                 )}
               </div>
               <div className="mb-4">
                 <Textarea
+                  {...register("message")}
                   placeholder="Your Message"
                   rows={6}
-                  className={`h-[185px] border-white/10 bg-black/20 text-white focus-visible:ring-0 ${errors.message ? "border-red-500/50" : ""}`}
-                  value={formData.message}
-                  onChange={(e) => {
-                    setFormData({ ...formData, message: e.target.value });
-                    if (errors.message)
-                      setErrors({ ...errors, message: undefined });
-                  }}
+                  className={`h-46.25 border-white/10 bg-black/20 text-white focus-visible:ring-0 ${errors.message ? "border-red-500/50" : ""}`}
                   aria-invalid={!!errors.message}
                   aria-describedby={
                     errors.message ? "message-error" : undefined
@@ -161,7 +134,7 @@ const ContactSection = () => {
                 />
                 {errors.message && (
                   <p id="message-error" className="mt-1 text-sm text-red-400">
-                    {errors.message}
+                    {errors.message?.message}
                   </p>
                 )}
               </div>
