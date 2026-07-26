@@ -23,7 +23,7 @@ const HomeSection = () => {
       className="relative overflow-hidden bg-[#07070A] md:h-screen"
     >
       {/* Floating code blocks with improved positioning */}
-      <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
+      {/* <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
         <div className="rounded-lg border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
           <pre className="font-mono text-xs text-white/70">
             {CODE_SNIPPETS.skills}
@@ -45,7 +45,7 @@ const HomeSection = () => {
             {CODE_SNIPPETS.future}
           </pre>
         </div>
-      </div>
+      </div> */}
 
       {/* Main content with consistent width */}
       <div className="relative m-auto flex w-10/12 items-center justify-center px-1 py-10 md:h-screen md:px-0 md:py-0">
@@ -128,7 +128,7 @@ const HomeSection = () => {
               </div>
 
               {/* Enhanced floating elements */}
-              <div className="absolute -top-6 -left-6 flex h-12 w-12 items-center justify-center rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm">
+              {/* <div className="absolute -top-6 -left-6 flex h-12 w-12 items-center justify-center rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm">
                 <div className="h-6 w-6 rounded bg-white"></div>
               </div>
 
@@ -142,16 +142,16 @@ const HomeSection = () => {
 
               <div className="absolute -bottom-6 -left-4 flex h-6 w-6 items-center justify-center rounded border border-white/30 bg-white/10 backdrop-blur-sm">
                 <div className="h-3 w-3 rounded bg-white"></div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
 
       {/* Enhanced decorative elements */}
-      <div className="absolute bottom-16 left-16 hidden h-24 w-24 animate-pulse rounded-full border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
+      {/* <div className="absolute bottom-16 left-16 hidden h-24 w-24 animate-pulse rounded-full border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
       <div className="absolute top-16 right-24 hidden h-32 w-32 animate-pulse rounded-full border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
-      <div className="absolute right-8 bottom-32 hidden h-16 w-16 rotate-45 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div>
+      <div className="absolute right-8 bottom-32 hidden h-16 w-16 rotate-45 rounded-lg border border-white/10 bg-white/5 backdrop-blur-sm lg:block"></div> */}
     </section>
   );
 };
