@@ -158,7 +158,7 @@ export const CODE_SNIPPETS = {
 
 export const experienceData: Experience[] = [
   {
-    period: "2025 - Present",
+    period: "2025 - 2026",
     title: "Software Engineer",
     company: "Sofject",
     icon: sofjectIcon,

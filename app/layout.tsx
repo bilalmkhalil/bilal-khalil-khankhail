@@ -91,7 +91,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}><ThemeToggle />{children}<HashScroll /></body>
+      <body className={`${inter.className} [&_:is(button,a[href],[role=button],[role=link],[role=tab],summary,input[type=button],input[type=submit],input[type=reset]):not(:disabled):not([aria-disabled=true])]:cursor-pointer [&_:disabled]:cursor-not-allowed [&_[aria-disabled=true]]:cursor-not-allowed`}><ThemeToggle />{children}<HashScroll /></body>
     </html>
   );
 }

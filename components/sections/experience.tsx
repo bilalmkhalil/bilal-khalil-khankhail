@@ -1,11 +1,12 @@
 "use client";
 
-import { aadilFont } from "@/lib/fonts";
+import { aadilFont, portfolioFont } from "@/lib/fonts";
 import { BorderBeam } from "../magicui/border-beam";
 import { FaBriefcase } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -91,52 +92,42 @@ const ExperienceSection = () => {
                     />
                   </div>
                 </DialogTrigger>
-                <DialogContent className="border border-ink/10 bg-card/95 text-ink backdrop-blur-md md:max-w-200 md:p-8">
-                  <DialogHeader>
-                    <DialogTitle className="flex items-center gap-4">
-                      <div className="rounded-full bg-ink/10 p-3">
+                <DialogContent
+                  className={`${portfolioFont.className} max-h-[calc(100dvh-2rem)] gap-0 overflow-y-auto rounded-xl border border-ink/15 bg-background p-0 text-ink sm:max-w-2xl`}
+                >
+                  <DialogHeader className="gap-3 px-6 py-5 pr-16 text-left sm:px-8 sm:pr-16">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-ink/10 bg-ink/5">
                         {exp.icon ? (
-                          <Image
-                            src={exp.icon}
-                            alt={exp.company}
-                            // width={24}
-                            // height={24}
-                            className="h-8 w-8"
-                          />
+                          <Image src={exp.icon} alt="" className="h-8 w-8 object-contain" />
                         ) : (
-                          <FaBriefcase className="h-6 w-6 text-ink/70" />
+                          <FaBriefcase className="h-6 w-6 text-ink/70" aria-hidden="true" />
                         )}
                       </div>
-                      <div className="flex-1 text-left">
-                        <h2 className="text-xl font-semibold md:text-2xl">
+                      <div className="min-w-0 flex-1">
+                        <DialogTitle className="text-2xl leading-tight font-semibold sm:text-3xl">
                           {exp.title}
-                        </h2>
-                        <div className="flex items-center gap-4">
-                          <span className="text-sm text-ink/80 md:text-lg">
-                            {exp.company}
-                          </span>
-                          <span className="text-xs text-ink/60 md:text-sm">
+                        </DialogTitle>
+                        <DialogDescription className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-base leading-tight text-ink/70">
+                          <span>{exp.company}</span>
+                          <span className="rounded-full border border-ink/10 bg-ink/5 px-2.5 py-0.5 text-sm text-ink/80">
                             {exp.period}
                           </span>
-                        </div>
+                        </DialogDescription>
                       </div>
-                    </DialogTitle>
+                    </div>
                   </DialogHeader>
-                  <div className="mt-2 md:mt-6">
-                    <div className="text-sm text-ink/90 md:text-base">
-                      {exp.description?.map((desc, idx) => (
-                        <li key={idx} className="ml-3 list-disc md:ml-6">
-                          {desc}
+                  <div className="border-t border-ink/10 bg-ink/5 px-6 py-5 sm:px-8 sm:py-6">
+                    <h3 className="mb-3 text-lg font-semibold">Work &amp; contributions</h3>
+                    <ul className="space-y-2 text-base leading-normal text-ink/80">
+                      {exp.description?.map((desc) => (
+                        <li key={desc} className="flex items-start gap-3">
+                          <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40" />
+                          <span>{desc}</span>
                         </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
-                  <BorderBeam
-                    size={200}
-                    duration={10}
-                    colorFrom="#ffffff30"
-                    colorTo="#ffffff15"
-                  />
                 </DialogContent>
               </Dialog>
             </div>
