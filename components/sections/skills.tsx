@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import { Space_Grotesk } from "next/font/google";
-import localFont from "next/font/local";
+import { aadilFont } from "@/lib/fonts";
 import { BorderBeam } from "../magicui/border-beam";
 import { useInView, useIsMobile } from "@/lib/hooks";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -13,9 +13,6 @@ const spaceGrostek = Space_Grotesk({
   subsets: ["latin"],
 });
 
-const aadilFont = localFont({
-  src: "../../public/fonts/Aadil.ttf",
-});
 
 const SkillsSection = () => {
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
@@ -25,12 +22,12 @@ const SkillsSection = () => {
     <div
       ref={ref}
       id="skills"
-      className="relative mx-auto mt-20 w-10/12 pb-20 text-white md:mt-0 mb-20 md:pb-0"
+      className="relative mx-auto mt-20 w-10/12 pb-20 text-ink md:mt-0 mb-20 md:pb-0"
     >
       <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
-        <h1 className="text-4xl text-white sm:text-6xl">Skills</h1>
+        <h1 className="text-4xl text-ink sm:text-6xl">Skills</h1>
         <h1
-          className={`text-4xl text-white sm:text-6xl ${aadilFont.className}`}
+          className={`text-4xl text-ink sm:text-6xl ${aadilFont.className}`}
         >
           مہارت
         </h1>
@@ -45,7 +42,7 @@ const SkillsSection = () => {
               <TabsTrigger
                 key={title}
                 value={title}
-                className="data-[state=active]:border-white/10: w-fit border border-white/10 bg-white/5 px-4 text-lg text-white hover:cursor-pointer hover:text-white md:px-8"
+                className="data-[state=active]:border-ink/10: w-fit border border-ink/10 bg-ink/5 px-4 text-lg text-ink hover:cursor-pointer hover:text-ink md:px-8"
               >
                 {title}
               </TabsTrigger>
@@ -58,12 +55,12 @@ const SkillsSection = () => {
               value={data.title}
               className="mt-4 flex flex-col gap-1"
             >
-              <h2 className="mb-4 text-5xl text-white">{data.title}</h2>
+              <h2 className="mb-4 text-5xl text-ink">{data.title}</h2>
               <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">
                 {data.skills.map((skill, skillIndex) => (
                   <div
                     key={skillIndex}
-                    className={`relative flex flex-row items-center gap-2 rounded-md border border-white/10 bg-white/5 px-4 py-3 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 ${
+                    className={`relative flex flex-row items-center gap-2 rounded-md border border-ink/10 bg-ink/5 px-4 py-3  backdrop-blur-md transition-all duration-300 hover:bg-ink/10 ${
                       inView
                         ? "translate-y-0 opacity-100"
                         : "translate-y-4 opacity-0"
@@ -82,7 +79,7 @@ const SkillsSection = () => {
                       className={`${skill.bgcolor} rounded p-1.25`}
                     />
                     <h3
-                      className={`text-xl text-white ${spaceGrostek.className}`}
+                      className={`text-xl text-ink ${spaceGrostek.className}`}
                     >
                       {skill.name}
                     </h3>

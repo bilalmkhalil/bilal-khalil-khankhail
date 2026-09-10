@@ -53,7 +53,7 @@ const Navigation = () => {
 
   return (
     <nav className="animate-fade-in fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transform">
-      <div className="flex flex-row gap-3 rounded-full border border-white/10 bg-black/20 p-3 backdrop-blur-md">
+      <div className="flex flex-row gap-3 rounded-full border border-ink/10 bg-ink/5 p-3 backdrop-blur-md">
         {navItems.map((item) => {
           return (
             <button
@@ -61,8 +61,8 @@ const Navigation = () => {
               onClick={() => scrollToSection(item.id)}
               className={`group relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${
                 activeSection === item.id
-                  ? "scale-110 bg-white/20 text-white"
-                  : "text-white/60 hover:scale-105 hover:bg-white/10 hover:text-white"
+                  ? "scale-110 bg-ink/20 text-ink"
+                  : "text-ink/60 hover:scale-105 hover:bg-ink/10 hover:text-ink"
               }`}
               title={item.label}
             >
@@ -70,7 +70,7 @@ const Navigation = () => {
 
               {/* Tooltip */}
               <div className="absolute bottom-full mb-3 hidden group-hover:block">
-                <div className="rounded-lg bg-black/80 px-3 py-1 text-sm whitespace-nowrap text-white backdrop-blur-sm">
+                <div className="rounded-lg bg-background/95 px-3 py-1 text-sm whitespace-nowrap text-ink backdrop-blur-sm">
                   {item.label}
                 </div>
               </div>

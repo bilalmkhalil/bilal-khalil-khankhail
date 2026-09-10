@@ -19,6 +19,7 @@ export interface Project {
   description: string;
   stack: string[];
   image: string;
+  url?: string;
 }
 
 // Navigation related types

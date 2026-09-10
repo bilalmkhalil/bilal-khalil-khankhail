@@ -1,22 +1,19 @@
 import Image from "next/image";
 import React from "react";
 
-interface ProjectCardProps {
-  title: string;
-  description: string;
-  stack: string[];
-  image: string;
-}
+import type { Project } from "@/types/types";
 
-const ProjectCard: React.FC<ProjectCardProps> = ({
+const ProjectCard: React.FC<Project & { featured?: boolean }> = ({
   title,
   description,
   stack,
   image,
+  url,
+  featured = false,
 }) => {
   return (
-    <div className="group relative flex flex-col rounded-md border border-white/10 bg-white/5 shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-white/10 overflow-hidden">
-      <div className="aspect-video overflow-hidden">
+    <div className={`group relative flex flex-col ${featured ? "md:grid md:grid-cols-2" : ""} rounded-md border border-ink/10 bg-ink/5  backdrop-blur-md transition-all duration-300 hover:bg-ink/10 overflow-hidden`}>
+      <div className={`aspect-video overflow-hidden ${featured ? "md:aspect-auto md:min-h-80" : ""}`}>
         <Image
           src={image}
           alt={title}
@@ -25,21 +22,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
         />
       </div>
-      <div className="p-4 space-y-3 flex-1 flex flex-col">
-        <h3 className="text-xl font-semibold text-white">{title}</h3>
-        <p className="text-white/80 text-sm leading-relaxed flex-1">
+      <div className={`space-y-4 flex-1 flex flex-col ${featured ? "p-6 sm:p-10 justify-center" : "p-5"}`}>
+        <h3 className="text-xl font-semibold text-ink">{title}</h3>
+        <p className="text-ink/80 text-base leading-relaxed flex-1">
           {description}
         </p>
         <div className="flex flex-wrap gap-2 pt-2">
           {stack.map((tech, index) => (
             <span
               key={index}
-              className="px-3 py-1 text-xs border border-white/10 bg-white/5 text-white rounded-md backdrop-blur-md"
+              className="px-3 py-1 text-sm border border-ink/10 bg-ink/5 text-ink rounded-md backdrop-blur-md"
             >
               {tech}
             </span>
           ))}
         </div>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${title} (opens in a new tab)`}
+            className="inline-flex min-h-11 w-fit items-center gap-2 rounded-md border border-ink/20 px-4 py-2 text-sm text-ink transition-colors hover:bg-ink/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground"
+          >
+            Visit Website <span aria-hidden="true">↗</span>
+          </a>
+        )}
       </div>
     </div>
   );

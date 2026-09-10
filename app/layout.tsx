@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import HashScroll from "@/components/HashScroll";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,14 +83,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `(function(){var t="dark";try{var s=localStorage.getItem("portfolio-theme");if(s==="light"||s==="dark")t=s;}catch(e){}var r=document.documentElement;r.classList.remove("light","dark");r.classList.add(t);r.style.colorScheme=t;})();` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}><ThemeToggle />{children}<HashScroll /></body>
     </html>
   );
 }
