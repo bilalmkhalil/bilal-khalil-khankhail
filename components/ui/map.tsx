@@ -189,13 +189,13 @@ const Map = forwardRef<MapRef, MapProps>(function Map(
     const loadHandler = () => setIsLoaded(true);
 
     map.on("load", loadHandler);
-    map.on("styledata", styleDataHandler);
+    map.on("style.load", styleDataHandler);
     setMapInstance(map);
 
     return () => {
       clearStyleTimeout();
       map.off("load", loadHandler);
-      map.off("styledata", styleDataHandler);
+      map.off("style.load", styleDataHandler);
       map.remove();
       setIsLoaded(false);
       setIsStyleLoaded(false);

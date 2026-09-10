@@ -62,7 +62,7 @@ const Navigation = () => {
               className={`group relative flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${
                 activeSection === item.id
                   ? "scale-110 bg-ink/20 text-ink"
-                  : "text-ink/60 hover:scale-105 hover:bg-ink/10 hover:text-ink"
+                  : "text-ink/60 hover:bg-ink/10 hover:text-ink"
               }`}
               title={item.label}
             >

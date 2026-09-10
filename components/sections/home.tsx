@@ -4,19 +4,13 @@ import Image from "next/image";
 import profile from "@/public/profile.png";
 import { WordRotate } from "../magicui/word-rotate";
 import { BorderBeam } from "../magicui/border-beam";
-import { useEffect, useState } from "react";
-import { CODE_SNIPPETS, WORD_ROTATION_TITLES } from "@/lib/constants";
+import { WORD_ROTATION_TITLES } from "@/lib/constants";
+import Reveal from "@/components/motion/Reveal";
 import { Button } from "../ui/button";
 import { Download } from "lucide-react";
 import Link from "next/link";
 
 const HomeSection = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
-
   return (
     <section
       id="home"
@@ -24,9 +18,7 @@ const HomeSection = () => {
     >
       {/* Main content with consistent width */}
       <div className="relative m-auto flex w-10/12 items-center justify-center px-1 pt-24 pb-10 md:h-screen md:px-0 md:py-0">
-        <div
-          className={`relative z-10 flex flex-col-reverse items-center gap-12 transition-all duration-1000 lg:flex-row lg:gap-16 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-        >
+        <Reveal className="relative z-10 flex flex-col-reverse items-center gap-12 lg:flex-row lg:gap-16">
           {/* Left content */}
           <div className="max-w-2xl flex-1 text-center lg:text-left">
             <div className="border-ink/10 bg-ink/10 text-ink mb-6 inline-block rounded-full border px-4 py-2 text-sm backdrop-blur-sm">
@@ -82,7 +74,6 @@ const HomeSection = () => {
           {/* Right content - Enhanced image section */}
           <div className="relative shrink-0">
             {/* Improved background effects */}
-            <div className="bg-ink/5 absolute -inset-8 animate-pulse rounded-full blur-2xl" />
 
             <div className="group relative">
               <div className="border-ink/20 bg-ink/5 relative overflow-hidden rounded-2xl border p-2 backdrop-blur-sm">
@@ -91,7 +82,7 @@ const HomeSection = () => {
                   alt="Developer - Frontend Engineer"
                   width={350}
                   height={350}
-                  className="relative rounded-xl object-cover transition-all duration-500 group-hover:scale-[1.02]"
+                  className="relative rounded-xl object-cover"
                   priority
                 />
                 <BorderBeam
@@ -103,7 +94,7 @@ const HomeSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

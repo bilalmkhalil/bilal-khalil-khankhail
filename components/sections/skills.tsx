@@ -5,7 +5,8 @@ import Image from "next/image";
 import { Space_Grotesk } from "next/font/google";
 import { aadilFont } from "@/lib/fonts";
 import { BorderBeam } from "../magicui/border-beam";
-import { useInView, useIsMobile } from "@/lib/hooks";
+import { useIsMobile } from "@/lib/hooks";
+import Reveal from "@/components/motion/Reveal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { skillsData, skillsTabTitles } from "@/lib/constants";
 
@@ -13,25 +14,20 @@ const spaceGrostek = Space_Grotesk({
   subsets: ["latin"],
 });
 
-
 const SkillsSection = () => {
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
   const isMobile = useIsMobile();
 
   return (
     <div
-      ref={ref}
       id="skills"
-      className="relative mx-auto mt-20 w-10/12 pb-20 text-ink md:mt-0 mb-20 md:pb-0"
+      className="text-ink relative mx-auto mt-20 mb-20 w-10/12 pb-20 md:mt-0 md:pb-0"
     >
-      <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
-        <h1 className="text-4xl text-ink sm:text-6xl">Skills</h1>
-        <h1
-          className={`text-4xl text-ink sm:text-6xl ${aadilFont.className}`}
-        >
+      <Reveal className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
+        <h1 className="text-ink text-4xl sm:text-6xl">Skills</h1>
+        <h1 className={`text-ink text-4xl sm:text-6xl ${aadilFont.className}`}>
           مہارت
         </h1>
-      </div>
+      </Reveal>
       <div className="flex flex-col gap-2">
         <Tabs
           defaultValue="Frontend"
@@ -42,7 +38,7 @@ const SkillsSection = () => {
               <TabsTrigger
                 key={title}
                 value={title}
-                className="data-[state=active]:border-ink/10: w-fit border border-ink/10 bg-ink/5 px-4 text-lg text-ink hover:cursor-pointer hover:text-ink md:px-8"
+                className="data-[state=active]:border-ink/10: border-ink/10 bg-ink/5 text-ink hover:text-ink w-fit border px-4 text-lg hover:cursor-pointer md:px-8"
               >
                 {title}
               </TabsTrigger>
@@ -55,21 +51,13 @@ const SkillsSection = () => {
               value={data.title}
               className="mt-4 flex flex-col gap-1"
             >
-              <h2 className="mb-4 text-5xl text-ink">{data.title}</h2>
+              <h2 className="text-ink mb-4 text-5xl">{data.title}</h2>
               <div className="flex flex-col gap-2 md:flex-row md:flex-wrap">
                 {data.skills.map((skill, skillIndex) => (
-                  <div
+                  <Reveal
                     key={skillIndex}
-                    className={`relative flex flex-row items-center gap-2 rounded-md border border-ink/10 bg-ink/5 px-4 py-3  backdrop-blur-md transition-all duration-300 hover:bg-ink/10 ${
-                      inView
-                        ? "translate-y-0 opacity-100"
-                        : "translate-y-4 opacity-0"
-                    }`}
-                    style={{
-                      transitionDelay: inView
-                        ? `${(index * data.skills.length + skillIndex) * 100}ms`
-                        : "0ms",
-                    }}
+                    delay={skillIndex * 0.025}
+                    className="border-ink/10 bg-ink/5 hover:bg-ink/10 relative flex flex-row items-center gap-2 rounded-md border px-4 py-3 backdrop-blur-md transition-colors"
                   >
                     <Image
                       src={skill.icon}
@@ -79,7 +67,7 @@ const SkillsSection = () => {
                       className={`${skill.bgcolor} rounded p-1.25`}
                     />
                     <h3
-                      className={`text-xl text-ink ${spaceGrostek.className}`}
+                      className={`text-ink text-xl ${spaceGrostek.className}`}
                     >
                       {skill.name}
                     </h3>
@@ -90,7 +78,7 @@ const SkillsSection = () => {
                       colorFrom={skill.bgcolor.split("[")[1].split("]")[0]}
                       colorTo={skill.bgcolor.split("[")[1].split("]")[0]}
                     />
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             </TabsContent>

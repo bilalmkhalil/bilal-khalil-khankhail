@@ -13,27 +13,25 @@ import {
 } from "@/components/ui/dialog";
 import Image from "next/image";
 import { experienceData } from "@/lib/constants";
-
+import Reveal from "@/components/motion/Reveal";
 
 const ExperienceSection = () => {
   return (
     <div
       id="experience"
-      className="relative m-auto w-10/12 pb-0 md:pb-0 dark:text-ink"
+      className="dark:text-ink relative m-auto w-10/12 pb-0 md:pb-0"
     >
-      <div className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
-        <h1 className="text-4xl text-ink sm:text-6xl">Experience</h1>
-        <h1
-          className={`text-4xl text-ink sm:text-6xl ${aadilFont.className}`}
-        >
+      <Reveal className="flex justify-between gap-4 border-b-2 pb-4 sm:justify-start">
+        <h1 className="text-ink text-4xl sm:text-6xl">Experience</h1>
+        <h1 className={`text-ink text-4xl sm:text-6xl ${aadilFont.className}`}>
           تجربہ
         </h1>
-      </div>
+      </Reveal>
 
       {/* Timeline Container */}
       <div className="timeline-container relative mt-8 md:mt-12">
         {/* Vertical Timeline Line */}
-        <div className="timeline-line absolute top-0 left-0 h-full w-0.5 bg-linear-to-b from-ink/30 via-ink/20 to-ink/10 md:left-1/2 md:-ml-px"></div>
+        <div className="timeline-line from-ink/30 via-ink/20 to-ink/10 absolute top-0 left-0 h-full w-0.5 bg-linear-to-b md:left-1/2 md:-ml-px"></div>
 
         {experienceData.map((exp, index) => (
           <div
@@ -43,7 +41,7 @@ const ExperienceSection = () => {
             }`}
           >
             {/* Timeline Dot */}
-            <div className="absolute top-0 -left-2 h-4 w-4 rounded-full border-2 border-ink bg-card md:left-1/2 md:-ml-2"></div>
+            <div className="border-ink bg-card absolute top-0 -left-2 h-4 w-4 rounded-full border-2 md:left-1/2 md:-ml-2"></div>
 
             {/* Timeline Content */}
             <div
@@ -53,15 +51,15 @@ const ExperienceSection = () => {
                   : "md:float-right md:ml-0 md:pl-10"
               }`}
             >
-              <span className="inline-block rounded-full bg-ink/10 px-3 py-1 text-sm font-medium text-ink backdrop-blur-md">
+              <span className="bg-ink/10 text-ink inline-block rounded-full px-3 py-1 text-sm font-medium backdrop-blur-md">
                 {exp.period}
               </span>
 
               <Dialog>
                 <DialogTrigger className="w-full">
-                  <div className="group mt-3 rounded-xl border border-ink/10 bg-ink/5 p-6  backdrop-blur-md transition-all duration-300 hover:bg-ink/10">
+                  <Reveal className="group border-ink/10 bg-ink/5 hover:bg-ink/10 mt-3 rounded-xl border p-6 backdrop-blur-md transition-colors duration-300">
                     <div className="flex items-start gap-4">
-                      <div className="rounded-full bg-ink/10 p-2 md:p-2.5">
+                      <div className="bg-ink/10 rounded-full p-2 md:p-2.5">
                         {exp.icon ? (
                           <Image
                             src={exp.icon}
@@ -71,14 +69,14 @@ const ExperienceSection = () => {
                             className="h-8 w-8"
                           />
                         ) : (
-                          <FaBriefcase className="h-6 w-6 text-ink/70" />
+                          <FaBriefcase className="text-ink/70 h-6 w-6" />
                         )}
                       </div>
                       <div className="flex-1 text-left">
-                        <h3 className="truncate text-xl font-semibold tracking-tight text-ink md:text-2xl">
+                        <h3 className="text-ink truncate text-xl font-semibold tracking-tight md:text-2xl">
                           {exp.title}
                         </h3>
-                        <h4 className="truncate text-lg text-ink/80 md:text-xl">
+                        <h4 className="text-ink/80 truncate text-lg md:text-xl">
                           {exp.company}
                         </h4>
                       </div>
@@ -90,39 +88,51 @@ const ExperienceSection = () => {
                       colorFrom="#ffffff30"
                       colorTo="#ffffff15"
                     />
-                  </div>
+                  </Reveal>
                 </DialogTrigger>
                 <DialogContent
-                  className={`${portfolioFont.className} max-h-[calc(100dvh-2rem)] gap-0 overflow-y-auto rounded-xl border border-ink/15 bg-background p-0 text-ink sm:max-w-2xl`}
+                  className={`${portfolioFont.className} border-ink/15 bg-background text-ink max-h-none max-w-[calc(100%-1.5rem)] gap-0 overflow-hidden rounded-xl border p-0 sm:max-h-[calc(100dvh-2rem)] sm:max-w-2xl sm:overflow-y-auto`}
                 >
-                  <DialogHeader className="gap-3 px-6 py-5 pr-16 text-left sm:px-8 sm:pr-16">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-ink/10 bg-ink/5">
+                  <DialogHeader className="gap-2 px-4 py-3 pr-16 text-left sm:gap-3 sm:px-8 sm:py-5 sm:pr-16">
+                    <div className="flex items-start gap-2.5 sm:gap-4">
+                      <div className="border-ink/10 bg-ink/5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border sm:h-14 sm:w-14">
                         {exp.icon ? (
-                          <Image src={exp.icon} alt="" className="h-8 w-8 object-contain" />
+                          <Image
+                            src={exp.icon}
+                            alt=""
+                            className="h-6 w-6 object-contain sm:h-8 sm:w-8"
+                          />
                         ) : (
-                          <FaBriefcase className="h-6 w-6 text-ink/70" aria-hidden="true" />
+                          <FaBriefcase
+                            className="text-ink/70 h-6 w-6"
+                            aria-hidden="true"
+                          />
                         )}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <DialogTitle className="text-2xl leading-tight font-semibold sm:text-3xl">
+                        <DialogTitle className="text-xl leading-tight font-semibold sm:text-3xl">
                           {exp.title}
                         </DialogTitle>
-                        <DialogDescription className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-base leading-tight text-ink/70">
+                        <DialogDescription className="text-ink/70 mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-tight sm:gap-x-3 sm:text-base">
                           <span>{exp.company}</span>
-                          <span className="rounded-full border border-ink/10 bg-ink/5 px-2.5 py-0.5 text-sm text-ink/80">
+                          <span className="border-ink/10 bg-ink/5 text-ink/80 rounded-full border px-2.5 py-0.5 text-sm">
                             {exp.period}
                           </span>
                         </DialogDescription>
                       </div>
                     </div>
                   </DialogHeader>
-                  <div className="border-t border-ink/10 bg-ink/5 px-6 py-5 sm:px-8 sm:py-6">
-                    <h3 className="mb-3 text-lg font-semibold">Work &amp; contributions</h3>
-                    <ul className="space-y-2 text-base leading-normal text-ink/80">
+                  <div className="border-ink/10 bg-ink/5 border-t px-4 py-3 sm:px-8 sm:py-6">
+                    <h3 className="mb-2 text-base font-semibold sm:mb-3 sm:text-lg">
+                      Work &amp; contributions
+                    </h3>
+                    <ul className="text-ink/80 space-y-1.5 text-sm leading-snug sm:space-y-2 sm:text-base sm:leading-normal">
                       {exp.description?.map((desc) => (
-                        <li key={desc} className="flex items-start gap-3">
-                          <span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-ink/40" />
+                        <li key={desc} className="flex items-start gap-2 sm:gap-3">
+                          <span
+                            aria-hidden="true"
+                            className="bg-ink/40 mt-2 h-1.5 w-1.5 shrink-0 rounded-full"
+                          />
                           <span>{desc}</span>
                         </li>
                       ))}
