@@ -17,7 +17,9 @@ function InteractionFeedback() {
           ? target.closest<HTMLElement>(selector)
           : null;
       return element &&
-        !element.matches(":disabled, [aria-disabled='true']") &&
+        !element.matches(
+          ":disabled, [aria-disabled='true'], [data-motion-feedback='none']",
+        ) &&
         !element.closest(".maplibregl-map")
         ? element
         : null;
