@@ -87,7 +87,11 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="dark [&::view-transition-group(root)]:animate-none [&::view-transition-new(root)]:animate-none [&::view-transition-new(root)]:mix-blend-normal [&::view-transition-old(root)]:animate-none [&::view-transition-old(root)]:mix-blend-normal"
+      suppressHydrationWarning
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
