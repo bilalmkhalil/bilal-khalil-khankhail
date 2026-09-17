@@ -57,14 +57,14 @@ export default function ThemeToggle() {
       transition = document.startViewTransition(commitTheme);
       await transition.ready;
 
-      // Measure the actual icon after React commits and the browser captures
-      // the new viewport. Percentage coordinates keep mobile snapshots aligned.
-      const icon = iconRef.current.getBoundingClientRect();
-      const width = root.clientWidth;
-      const height = root.clientHeight;
-      const x = icon.left + icon.width / 2;
-      const y = icon.top + icon.height / 2;
-      const origin = `${(x / width) * 100}% ${(y / height) * 100}%`;
+      // View-transition snapshots use viewport pixel coordinates. Percentages
+      // drift when a scrollbar or mobile browser chrome changes snapshot width.
+      const buttonBounds = button.getBoundingClientRect();
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const x = buttonBounds.left + buttonBounds.width / 2;
+      const y = buttonBounds.top + buttonBounds.height / 2;
+      const origin = `${x}px ${y}px`;
       const radius = Math.ceil(
         Math.hypot(Math.max(x, width - x), Math.max(y, height - y)),
       );
@@ -121,7 +121,7 @@ export default function ThemeToggle() {
       data-transitioning={transitioning}
       aria-busy={transitioning}
       aria-label="Toggle light and dark mode"
-      className="border-ink/15 bg-background text-foreground hover:bg-accent fixed top-4 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border outline-none transition-colors [view-transition-name:theme-toggle] sm:top-6 sm:right-8"
+      className="border-ink/15 bg-background text-foreground hover:bg-accent fixed top-4 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border transition-colors outline-none [view-transition-name:theme-toggle] sm:top-6 sm:right-8"
     >
       <span
         ref={iconRef}
