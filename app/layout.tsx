@@ -89,7 +89,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="dark [&::view-transition]:pointer-events-none [&::view-transition-group(root)]:animate-none [&::view-transition-group(theme-icon)]:z-20 [&::view-transition-group(theme-icon)]:animate-none [&::view-transition-group(theme-toggle)]:z-10 [&::view-transition-group(theme-toggle)]:animate-none [&::view-transition-new(root)]:animate-none [&::view-transition-new(root)]:mix-blend-normal [&::view-transition-new(theme-icon)]:animate-none [&::view-transition-new(theme-icon)]:mix-blend-normal [&::view-transition-new(theme-toggle)]:animate-none [&::view-transition-new(theme-toggle)]:mix-blend-normal [&::view-transition-old(root)]:animate-none [&::view-transition-old(root)]:mix-blend-normal [&::view-transition-old(theme-icon)]:hidden [&::view-transition-old(theme-toggle)]:hidden"
+      className="dark [&::view-transition]:pointer-events-none [&::view-transition-group(root)]:animate-none [&::view-transition-group(theme-icon)]:z-20 [&::view-transition-group(theme-icon)]:animate-none [&::view-transition-group(theme-toggle)]:z-10 [&::view-transition-group(theme-toggle)]:animate-none [&::view-transition-new(root)]:animate-none [&::view-transition-new(root)]:mix-blend-normal [&::view-transition-new(theme-icon)]:animate-none [&::view-transition-new(theme-icon)]:mix-blend-normal [&::view-transition-new(theme-toggle)]:hidden [&::view-transition-old(root)]:animate-none [&::view-transition-old(root)]:mix-blend-normal [&::view-transition-old(theme-icon)]:hidden [&::view-transition-old(theme-toggle)]:animate-none [&::view-transition-old(theme-toggle)]:mix-blend-normal"
       suppressHydrationWarning
     >
       <head>

@@ -121,7 +121,7 @@ export default function ThemeToggle() {
       data-transitioning={transitioning}
       aria-busy={transitioning}
       aria-label="Toggle light and dark mode"
-      className="border-ink/15 bg-background text-foreground hover:bg-accent fixed top-4 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border transition-colors outline-none [view-transition-name:theme-toggle] sm:top-6 sm:right-8"
+      className="border-ink/20 bg-ink/10 text-ink hover:bg-ink/20 fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border backdrop-blur-md transition-colors outline-none [view-transition-name:theme-toggle] sm:top-6 sm:right-8"
     >
       <span
         ref={iconRef}

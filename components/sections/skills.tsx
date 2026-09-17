@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { Space_Grotesk } from "next/font/google";
 import { aadilFont } from "@/lib/fonts";
@@ -16,6 +17,18 @@ const spaceGrostek = Space_Grotesk({
 
 const SkillsSection = () => {
   const isMobile = useIsMobile();
+  const [activeTab, setActiveTab] = useState(skillsTabTitles[0]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setActiveTab((currentTab) => {
+        const currentIndex = skillsTabTitles.indexOf(currentTab);
+        return skillsTabTitles[(currentIndex + 1) % skillsTabTitles.length];
+      });
+    }, 7000);
+
+    return () => window.clearTimeout(timer);
+  }, [activeTab]);
 
   return (
     <div
@@ -30,7 +43,8 @@ const SkillsSection = () => {
       </Reveal>
       <div className="flex flex-col gap-2">
         <Tabs
-          defaultValue="Frontend"
+          value={activeTab}
+          onValueChange={setActiveTab}
           orientation={isMobile ? "horizontal" : "vertical"}
         >
           <TabsList className="scrollbar-hide mt-4 mr-4 w-full justify-center-safe gap-3 overflow-x-scroll bg-transparent md:w-fit">
