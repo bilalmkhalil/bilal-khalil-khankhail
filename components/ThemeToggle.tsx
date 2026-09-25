@@ -121,7 +121,7 @@ export default function ThemeToggle() {
       data-transitioning={transitioning}
       aria-busy={transitioning}
       aria-label="Toggle light and dark mode"
-      className="border-ink/20 bg-ink/10 text-ink hover:bg-ink/20 focus-visible:border-ink/40 focus-visible:bg-ink/25 data-[transitioning=true]:bg-ink/60 data-[transitioning=true]:transition-none fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border backdrop-blur-md transition-colors outline-none [clip-path:circle(50%)] [view-transition-name:theme-toggle] focus-visible:outline-none sm:top-6 sm:right-8"
+      className="border-ink/20 bg-ink/10 text-ink hover:bg-ink/20 focus-visible:border-ink/40 focus-visible:bg-ink/25 data-[transitioning=true]:bg-ink/60 fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border backdrop-blur-md transition-colors outline-none [view-transition-name:theme-toggle] focus-visible:outline-none data-[transitioning=true]:backdrop-blur-none data-[transitioning=true]:transition-none data-[transitioning=true]:[clip-path:circle(50%)] sm:top-6 sm:right-8"
     >
       <span
         ref={iconRef}
