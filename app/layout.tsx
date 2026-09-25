@@ -3,11 +3,13 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import HashScroll from "@/components/HashScroll";
 import ThemeToggle from "@/components/ThemeToggle";
+import BrandLogo from "@/components/BrandLogo";
 import MotionProvider from "@/components/motion/MotionProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://bilal-khalil-khankhail.vercel.app"),
   title: "Bilal Khalil Khankhail - Frontend Engineer & Developer",
   description:
     "Passionate Frontend Engineer from Pakistan crafting digital experiences. Specializing in React, Next.js, TypeScript, and modern web technologies. Available for freelance projects.",
@@ -89,7 +91,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="dark [&::view-transition]:pointer-events-none [&::view-transition-group(root)]:animate-none [&::view-transition-group(theme-icon)]:z-20 [&::view-transition-group(theme-icon)]:animate-none [&::view-transition-group(theme-toggle)]:z-10 [&::view-transition-group(theme-toggle)]:animate-none [&::view-transition-new(root)]:animate-none [&::view-transition-new(root)]:mix-blend-normal [&::view-transition-new(theme-icon)]:animate-none [&::view-transition-new(theme-icon)]:mix-blend-normal [&::view-transition-new(theme-toggle)]:hidden [&::view-transition-old(root)]:animate-none [&::view-transition-old(root)]:mix-blend-normal [&::view-transition-old(theme-icon)]:hidden [&::view-transition-old(theme-toggle)]:animate-none [&::view-transition-old(theme-toggle)]:mix-blend-normal"
+      data-scroll-behavior="smooth"
+      className="dark [&::view-transition]:pointer-events-none [&::view-transition-group(root)]:animate-none [&::view-transition-group(theme-icon)]:z-20 [&::view-transition-group(theme-icon)]:animate-none [&::view-transition-group(theme-toggle)]:z-10 [&::view-transition-group(theme-toggle)]:animate-none [&::view-transition-group(theme-toggle)]:[clip-path:circle(50%)] [&::view-transition-new(root)]:animate-none [&::view-transition-new(root)]:mix-blend-normal [&::view-transition-new(theme-icon)]:animate-none [&::view-transition-new(theme-icon)]:mix-blend-normal [&::view-transition-new(theme-toggle)]:hidden [&::view-transition-old(root)]:animate-none [&::view-transition-old(root)]:mix-blend-normal [&::view-transition-old(theme-icon)]:hidden [&::view-transition-old(theme-toggle)]:animate-none [&::view-transition-old(theme-toggle)]:mix-blend-normal [&::view-transition-old(theme-toggle)]:[clip-path:circle(50%)]"
       suppressHydrationWarning
     >
       <head>
@@ -107,6 +110,7 @@ export default function RootLayout({
         className={`${inter.className} [&_:disabled]:cursor-not-allowed [&_:is(button,a[href],[role=button],[role=link],[role=tab],summary,input[type=button],input[type=submit],input[type=reset]):not(:disabled):not([aria-disabled=true])]:cursor-pointer [&_[aria-disabled=true]]:cursor-not-allowed`}
       >
         <MotionProvider>
+          <BrandLogo />
           <ThemeToggle />
           {children}
           <HashScroll />

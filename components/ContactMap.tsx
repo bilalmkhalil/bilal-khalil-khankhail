@@ -69,7 +69,7 @@ export default function ContactMap() {
       ref={ref}
       role="region"
       aria-label="Map showing Karachi, Pakistan"
-      className="border-ink/10 bg-background relative col-span-4 h-[220px] overflow-hidden rounded-lg border"
+      className="border-ink/10 bg-background relative col-span-4 h-55 overflow-hidden rounded-lg border"
     >
       <Map
         center={GLOBE_CENTER}

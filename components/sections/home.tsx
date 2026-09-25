@@ -81,8 +81,8 @@ const HomeSection = () => {
                   src={profile}
                   alt="Developer - Frontend Engineer"
                   width={350}
-                  height={350}
-                  className="relative rounded-xl object-cover"
+                  height={376}
+                  className="relative h-auto rounded-xl object-cover"
                   priority
                 />
                 <BorderBeam

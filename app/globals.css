@@ -94,6 +94,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  :focus-visible {
+    @apply outline-2 outline-offset-3 outline-ring;
+  }
   .maplibregl-popup-content {
     @apply bg-transparent! shadow-none! p-0! rounded-none!;
   }
@@ -120,8 +123,4 @@ html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 *, *::before, *::after {
   box-shadow: none !important;
   text-shadow: none !important;
-}
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 3px;
 }
