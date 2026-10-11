@@ -1,70 +1,82 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "motion/react";
+import Link from "next/link";
 import React from "react";
-import Reveal from "@/components/motion/Reveal";
+import Brackets from "@/components/hud/Brackets";
+import { hudDelay } from "@/components/hud/hudDelay";
 
 import type { Project } from "@/types/types";
 
-const ProjectCard: React.FC<Project & { featured?: boolean }> = ({
+/** A square HUD-style link button with corner brackets. */
+const buttonClass =
+  "border-ink/25 text-ink hover:bg-ink hover:text-background focus-visible:outline-foreground relative inline-flex min-h-11 w-fit items-center gap-2 border px-5 py-2 text-xs tracking-[0.14em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-4";
+
+// A project in the HUD style: a bracketed card that opens from its centre,
+// with a grayscale image that comes to colour on hover.
+const ProjectCard: React.FC<Project & { featured?: boolean; index?: number }> = ({
   title,
   description,
   stack,
   image,
   url,
   featured = false,
+  index = 0,
 }) => {
   return (
-    <Reveal
-      className={`group relative flex flex-col ${featured ? "md:grid md:grid-cols-2" : ""} border-ink/10 bg-ink/5 hover:bg-ink/10 overflow-hidden rounded-md border backdrop-blur-md transition-colors duration-300`}
+    <article
+      style={hudDelay(index * 120)}
+      className={`hud-expand hud-mono group border-ink/15 hover:border-ink/40 relative flex flex-col border transition-colors ${featured ? "md:grid md:grid-cols-2" : ""}`}
     >
+      <Brackets />
       <div
-        className={`aspect-video overflow-hidden ${featured ? "md:aspect-auto md:min-h-80" : ""}`}
+        className={`border-ink/15 aspect-video overflow-hidden border-b ${featured ? "md:aspect-auto md:min-h-80 md:border-r md:border-b-0" : ""}`}
       >
-        <motion.div
-          className="h-full w-full"
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        >
-          <Image
-            src={image}
-            alt={title}
-            width={500}
-            height={300}
-            className="h-full w-full object-cover"
-          />
-        </motion.div>
+        <Image
+          src={image}
+          alt={title}
+          width={500}
+          height={300}
+          className="h-full w-full object-cover grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+        />
       </div>
-      <div
-        className={`flex flex-1 flex-col space-y-4 ${featured ? "justify-center p-6 sm:p-10" : "p-5"}`}
-      >
-        <h3 className="text-ink text-xl font-semibold">{title}</h3>
-        <p className="text-ink/80 flex-1 text-base leading-relaxed">
-          {description}
+      <div className={`flex flex-1 flex-col gap-4 ${featured ? "justify-center p-6 sm:p-10" : "p-5"}`}>
+        <p className="text-ink/50 text-[10px] tracking-[0.16em] uppercase">
+          {String(index + 1).padStart(2, "0")} / Project
         </p>
-        <div className="flex flex-wrap gap-2 pt-2">
-          {stack.map((tech, index) => (
+        <h3 className="text-ink -mt-2 text-base font-semibold tracking-[0.08em] uppercase sm:text-lg">
+          {title}
+        </h3>
+        <p className="text-ink/70 flex-1 text-sm leading-relaxed">{description}</p>
+        <div className="flex flex-wrap gap-2">
+          {stack.map((tech) => (
             <span
-              key={index}
-              className="border-ink/10 bg-ink/5 text-ink rounded-md border px-3 py-1 text-sm backdrop-blur-md"
+              key={tech}
+              className="border-ink/15 text-ink/80 border px-2.5 py-1 text-[10px] tracking-[0.14em] uppercase"
             >
               {tech}
             </span>
           ))}
         </div>
-        {url && (
-          <a
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visit ${title} (opens in a new tab)`}
-            className="border-ink/20 text-ink hover:bg-ink/10 focus-visible:outline-foreground inline-flex min-h-11 w-fit items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-4"
-          >
-            Visit Website <span aria-hidden="true">↗</span>
-          </a>
+        {url?.startsWith("/") ? (
+          <Link href={url} aria-label={`View the ${title} project page`} className={buttonClass}>
+            <Brackets />
+            View project <span aria-hidden="true">→</span>
+          </Link>
+        ) : (
+          url && (
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${title} (opens in a new tab)`}
+              className={buttonClass}
+            >
+              <Brackets />
+              Visit website <span aria-hidden="true">↗</span>
+            </a>
+          )
         )}
       </div>
-    </Reveal>
+    </article>
   );
 };
 

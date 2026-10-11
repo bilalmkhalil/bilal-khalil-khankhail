@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <rect width="1200" height="675" fill="#ebebeb"/>
+  <rect x="36" y="36" width="1128" height="603" rx="4" fill="none" stroke="#a6a6a6"/>
+  <path d="M100 190H680M100 488H680" stroke="#a6a6a6"/>
+  <text x="100" y="145" fill="#474747" font-family="Arial, sans-serif" font-size="24" letter-spacing="6">GNOME SHELL EXTENSION</text>
+  <text x="100" y="330" fill="#1a1a1a" font-family="Georgia, serif" font-size="100">PanelMate</text>
+  <text x="105" y="402" fill="#474747" font-family="Arial, sans-serif" font-size="26" letter-spacing="3">TIMER · POMODORO · STATS</text>
+  <text x="100" y="561" fill="#1a1a1a" font-family="Arial, sans-serif" font-size="25">GNOME 46 &amp; 50 · Ubuntu LTS</text>
+  <!-- The PanelMate app icon (light version), scaled into the right of the frame. -->
+  <g transform="translate(730 132) scale(0.8)">
+    <rect x="40" y="56" width="432" height="432" rx="100" fill="#c9c9c9"/>
+    <rect x="40" y="40" width="432" height="432" rx="100" fill="#f7f7f7"/>
+    <circle cx="256" cy="256" r="160" fill="#ffffff"/>
+    <circle cx="256" cy="256" r="118" fill="none" stroke="#d6d6d6" stroke-width="30" stroke-dasharray="161.3 24" transform="rotate(-84.2 256 256)"/>
+    <circle cx="256" cy="256" r="118" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-dasharray="161.3 24 161.3 395" transform="rotate(-84.2 256 256)"/>
+    <line x1="256" y1="256" x2="256" y2="176" stroke="#1a1a1a" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="256" cy="256" r="16" fill="#1a1a1a"/>
+  </g>
+</svg>

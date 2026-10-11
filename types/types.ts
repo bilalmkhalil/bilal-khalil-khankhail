@@ -1,4 +1,5 @@
 // Global types for the entire project
+import type { IconSvgElement } from "@hugeicons/react";
 
 // Contact form related types
 export interface FormData {
@@ -26,7 +27,7 @@ export interface Project {
 export interface NavItem {
   id: string;
   label: string;
-  icon: any;
+  icon: IconSvgElement;
 }
 
 // Experience related types
@@ -44,7 +45,7 @@ export interface Skill {
   icon: string;
   alt: string;
   size: number;
-  bgcolor: string;
+  color: string;
 }
 
 export interface SkillCategory {

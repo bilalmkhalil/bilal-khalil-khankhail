@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
+    "@hugeicons/core-free-icons": "^4.3.5",
+    "@hugeicons/react": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.17",
     "@radix-ui/react-slot": "^1.3.0",
     "@types/nodemailer": "^8.0.1",
@@ -26,6 +28,7 @@
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
     "react-icons": "^5.6.0",
+    "react-isokit": "^0.4.0",
     "tailwind-merge": "^3.6.0",
     "yup": "^1.7.1"
   },

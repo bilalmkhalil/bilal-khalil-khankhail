@@ -1,0 +1,97 @@
+/* Shared HUD styles.
+
+   Entrance animations (hud-expand, hud-blink) are global: they start paused
+   and HudObserver plays them as each element scrolls into view (after the
+   boot screen, for elements on screen at load). --hud-delay staggers them.
+   Add hud-now to play straight away instead (the loader does). */
+
+/* Bordered HUD frames open from their centre on load: a dot grows into a
+   horizontal line across the frame, then the frame opens up and down. Each
+   phase eases in and out on its own, so there's no snap at the midpoint.
+   The inset ends past 0 so corner brackets just outside the frame show. */
+.hud-expand {
+  /* backwards: hidden while waiting, but no clip left behind afterwards, so
+     tooltips and anything else outside the frame stay visible. */
+  animation: hud-expand 1100ms backwards;
+  animation-delay: var(--hud-delay, 0ms);
+  will-change: clip-path;
+}
+@keyframes hud-expand {
+  0% {
+    clip-path: inset(calc(50% - 0.5px) 50% calc(50% - 0.5px) 50%);
+    opacity: 0;
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  6% { opacity: 1; }
+  45% {
+    clip-path: inset(calc(50% - 0.5px) -8px calc(50% - 0.5px) -8px);
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  100% { clip-path: inset(-8px); }
+}
+
+/* Plain HUD text (and solid buttons) blink on like a terminal, then stay. */
+.hud-blink {
+  animation: hud-blink 650ms linear both;
+  animation-delay: var(--hud-delay, 0ms);
+}
+@keyframes hud-blink {
+  0%, 12% { opacity: 0; }
+  14%, 26% { opacity: 1; }
+  28%, 40% { opacity: 0.15; }
+  42%, 56% { opacity: 1; }
+  58%, 66% { opacity: 0.4; }
+  68%, 100% { opacity: 1; }
+}
+
+/* Block cursor after rotating HUD text. */
+.hud-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.85em;
+  margin-left: 0.2em;
+  vertical-align: -0.06em;
+  background: currentColor;
+  animation: hud-caret 1s steps(1) infinite;
+}
+@keyframes hud-caret {
+  50% { opacity: 0; }
+}
+
+/* Segmented meter cells that light up in a sweep, on a loop. */
+.hud-meter {
+  opacity: 0.12;
+  animation: hud-meter 1.4s ease-in-out infinite;
+  animation-delay: var(--hud-delay, 0ms);
+}
+@keyframes hud-meter {
+  0%, 100% { opacity: 0.12; }
+  20% { opacity: 1; }
+  45% { opacity: 0.12; }
+}
+
+/* Boot screen: covers the page on load, then fades out and gets out of the
+   way once --boot-delay has passed. */
+.boot-screen {
+  animation: boot-out 450ms ease forwards;
+  animation-delay: var(--boot-delay, 0ms);
+}
+@keyframes boot-out {
+  to { opacity: 0; visibility: hidden; }
+}
+
+/* Entrance animations start paused until HudObserver plays them; hud-now
+   plays at once. These must come after the `animation` shorthands above,
+   which reset animation-play-state to running. */
+.hud-expand,
+.hud-blink {
+  animation-play-state: paused;
+}
+.hud-now {
+  animation-play-state: running;
+}
+
+/* HUD monospace text. */
+.hud-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

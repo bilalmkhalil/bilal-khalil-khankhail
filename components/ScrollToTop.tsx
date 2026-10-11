@@ -1,6 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Brackets from "@/components/hud/Brackets";
+import HudTooltip from "@/components/hud/HudTooltip";
+import { useShortcut } from "@/components/hud/useShortcut";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,16 +28,24 @@ const ScrollToTop = () => {
     });
   };
 
+  useShortcut("t", () => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
+  });
+
   if (!isVisible) return null;
 
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-ink/10 text-ink backdrop-blur-md border border-ink/20 transition-colors hover:bg-ink/20"
+      className="hud-expand group border-ink/25 bg-background text-ink hover:bg-ink hover:text-background fixed right-8 bottom-8 z-50 hidden h-11 w-11 items-center justify-center border transition-colors sm:flex"
       aria-label="Scroll to top"
+      aria-keyshortcuts="T"
     >
+      <Brackets />
+      <HudTooltip label="Back to top" shortcut="T" side="above" />
       <svg
-        className="h-6 w-6"
+        className="h-5 w-5"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

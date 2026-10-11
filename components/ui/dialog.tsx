@@ -117,7 +117,7 @@ function DialogContent({
               )}
             >
               {children}
-              <DialogPrimitive.Close className="border-ink/15 bg-background text-foreground hover:bg-accent focus-visible:outline-ring absolute top-3 right-3 flex h-11 w-11 items-center justify-center rounded-full border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4">
+              <DialogPrimitive.Close className="border-ink/20 bg-background text-foreground hover:bg-ink hover:text-background focus-visible:outline-ring absolute top-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-none border transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:size-4">
                 <XIcon />
                 <span className="sr-only">Close</span>
               </DialogPrimitive.Close>

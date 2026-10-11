@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { ValidationError } from 'yup';
+import { contactSchema } from '@/lib/contact-schema';
+import { SOCIAL_LINKS } from '@/lib/constants';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -9,14 +12,74 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+// Best-effort per-instance rate limit; resets when the server instance recycles.
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60 * 60 * 1000;
+const recentRequests = new Map<string, number[]>();
+
+function isRateLimited(ip: string) {
+  const now = Date.now();
+  const hits = (recentRequests.get(ip) ?? []).filter(
+    (time) => now - time < RATE_WINDOW_MS
+  );
+  hits.push(now);
+  recentRequests.set(ip, hits);
+  return hits.length > RATE_LIMIT;
+}
+
+function escapeHtml(value: string) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export async function POST(request: Request) {
+  const ip =
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  if (isRateLimited(ip)) {
+    return NextResponse.json(
+      { error: 'Too many messages. Please try again later.' },
+      { status: 429 }
+    );
+  }
+
+  let body: Record<string, unknown>;
   try {
-    const { name, email, message } = await request.json();
-    
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
+
+  // Honeypot: real visitors never see or fill this field.
+  if (typeof body.company === 'string' && body.company.length > 0) {
+    return NextResponse.json({ success: true });
+  }
+
+  let name: string, email: string, message: string;
+  try {
+    ({ name, email, message } = await contactSchema.validate(body, {
+      stripUnknown: true,
+    }));
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+    throw error;
+  }
+
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
+
+  try {
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: 'bilalkhalilkhankhail@gmail.com',
-      subject: `Website Contact: ${name} - New Inquiry`,
+      to: SOCIAL_LINKS.email,
+      replyTo: { name, address: email },
+      subject: `Website Contact: ${name.replace(/[\r\n]+/g, ' ')} - New Inquiry`,
       text: `
         Name: ${name}
         Email: ${email}
@@ -92,14 +155,14 @@ export async function POST(request: Request) {
             </div>
             <div class="content">
               <div class="field">
-                <span class="label">Name:</span> ${name}
+                <span class="label">Name:</span> ${safeName}
               </div>
               <div class="field">
-                <span class="label">Email:</span> <a href="mailto:${email}">${email}</a>
+                <span class="label">Email:</span> <a href="mailto:${safeEmail}">${safeEmail}</a>
               </div>
               <div class="field">
                 <span class="label">Message:</span>
-                <div class="message-box">${message.replace(/\n/g, '<br>')}</div>
+                <div class="message-box">${safeMessage}</div>
               </div>
             </div>
             <div class="footer">

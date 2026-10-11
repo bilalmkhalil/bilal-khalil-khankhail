@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
+import Brackets from "@/components/hud/Brackets";
+import HudStatus, { hudPrimaryClass, hudSecondaryClass } from "@/components/hud/HudStatus";
+import { hudDelay } from "@/components/hud/hudDelay";
 
 export default function Error({
   error,
@@ -14,95 +18,22 @@ export default function Error({
   }, [error]);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-background">
-      {/* Floating code blocks */}
-      <div className="absolute top-20 left-8 hidden opacity-15 lg:block">
-        <div className="rounded-lg border border-ink/10 bg-ink/5 p-4 backdrop-blur-sm">
-          <pre className="font-mono text-xs text-ink/70">
-            {`try {
-  // Something went wrong
-} catch (error) {
-  console.error(error);
-}`}
-          </pre>
-        </div>
-      </div>
-
-      <div className="absolute top-1/3 right-8 hidden opacity-15 lg:block">
-        <div className="rounded-lg border border-ink/10 bg-ink/5 p-4 backdrop-blur-sm">
-          <pre className="font-mono text-xs text-ink/70">
-            {`if (error) {
-  handleError(error);
-  retry();
-}`}
-          </pre>
-        </div>
-      </div>
-
-      <div className="absolute bottom-32 left-8 hidden opacity-15 lg:block">
-        <div className="rounded-lg border border-ink/10 bg-ink/5 p-4 backdrop-blur-sm">
-          <pre className="font-mono text-xs text-ink/70">
-            {`// Let's try again
-return <Success />;`}
-          </pre>
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div className="relative m-auto flex h-screen w-10/12 items-center justify-center">
-        <div className="relative z-10 mx-auto max-w-4xl text-center">
-          {/* Status badge */}
-          <div className="mb-6 inline-block rounded-full border border-ink/10 bg-ink/10 px-4 py-2 text-sm text-ink backdrop-blur-sm">
-            <span className="relative">
-              <span className="absolute top-1/2 -left-2 h-2 w-2 -translate-y-1/2 animate-pulse rounded-full bg-red-400"></span>
-              <span className="ml-2">Something went wrong</span>
-            </span>
-          </div>
-
-          {/* Main Error Display */}
-          <div className="mb-8">
-            <div className="relative inline-block">
-              <h1 className="mb-4 bg-gradient-to-r from-ink via-ink/90 to-ink/70 bg-clip-text text-[8rem] leading-none font-black text-transparent select-none sm:text-[10rem] lg:text-[12rem]">
-                Error
-              </h1>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="space-y-6">
-            <h2 className="bg-gradient-to-r from-ink via-ink/90 to-ink/70 bg-clip-text text-3xl font-bold text-transparent sm:text-4xl lg:text-5xl">
-              Oops! Something Went Wrong
-            </h2>
-
-            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-ink/80">
-              We encountered an unexpected error. Don&apos;t worry, it&apos;s not your
-              fault. Let&apos;s try to get things back on track.
-            </p>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <button
-              onClick={reset}
-              className="group relative overflow-hidden rounded-full border border-ink/20 bg-ink/15 px-8 py-4 text-sm font-medium text-ink transition-all duration-300 hover:border-ink/30 hover:bg-ink/25  focus:ring-2 focus:ring-ink/50 focus:outline-none"
-            >
-              <span className="relative z-10">Try Again</span>
-            </button>
-
-            <button
-              onClick={() => (window.location.href = "/")}
-              className="rounded-full border border-ink/30 px-8 py-4 text-sm font-medium text-ink backdrop-blur-sm transition-all duration-300 hover:border-ink/50 hover:bg-ink/10  focus:ring-2 focus:ring-ink/50 focus:outline-none"
-            >
-              Go Home
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Enhanced decorative elements */}
-      <div className="absolute bottom-16 left-16 hidden h-24 w-24 animate-pulse rounded-full border border-ink/10 bg-ink/5 backdrop-blur-sm lg:block"></div>
-      <div className="absolute top-16 right-24 hidden h-32 w-32 animate-pulse rounded-full border border-ink/10 bg-ink/5 backdrop-blur-sm lg:block"></div>
-      <div className="absolute right-8 bottom-32 hidden h-16 w-16 rotate-45 rounded-lg border border-ink/10 bg-ink/5 backdrop-blur-sm lg:block"></div>
-    </section>
+    <HudStatus
+      code="500"
+      label="Error"
+      title="Something went wrong"
+      message="An unexpected error stopped this page from loading. Try again, or head back home."
+      primary={
+        <button type="button" onClick={reset} style={hudDelay(550)} className={hudPrimaryClass}>
+          Try again
+        </button>
+      }
+      secondary={
+        <Link href="/" style={hudDelay(600)} className={hudSecondaryClass}>
+          <Brackets />
+          Return home
+        </Link>
+      }
+    />
   );
 }

@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { useInView, useReducedMotion } from "motion/react";
 import { Map, MapMarker, MarkerContent, useMap } from "@/components/ui/map";
+import Brackets from "@/components/hud/Brackets";
+import { hudDelay } from "@/components/hud/hudDelay";
 
 const KARACHI: [number, number] = [67.00994, 24.86146];
 const GLOBE_CENTER: [number, number] = [15, 20];
@@ -69,8 +71,12 @@ export default function ContactMap() {
       ref={ref}
       role="region"
       aria-label="Map showing Karachi, Pakistan"
-      className="border-ink/10 bg-background relative col-span-4 h-55 overflow-hidden rounded-lg border"
+      style={hudDelay(400)}
+      className="hud-expand border-ink/15 bg-background relative min-h-60 flex-1 border"
     >
+      <Brackets />
+      {/* Grayscale tiles keep the map in the site's black-and-white style. */}
+      <div className="absolute inset-0 overflow-hidden [&_canvas]:grayscale">
       <Map
         center={GLOBE_CENTER}
         zoom={0.6}
@@ -82,18 +88,17 @@ export default function ContactMap() {
         <MapMarker longitude={KARACHI[0]} latitude={KARACHI[1]}>
           <MarkerContent>
             <div className="relative flex h-5 w-5 items-center justify-center">
-              <div className="absolute h-5 w-5 rounded-full bg-emerald-500/20" />
-              <div className="border-background relative h-2.5 w-2.5 rounded-full border bg-emerald-500" />
+              <div className="bg-ink/25 absolute h-5 w-5 animate-ping" />
+              <div className="border-background bg-ink relative h-2.5 w-2.5 border" />
             </div>
           </MarkerContent>
         </MapMarker>
       </Map>
-      <div className="border-ink/10 bg-background/90 pointer-events-none absolute bottom-3 left-3 z-20 rounded-md border px-3 py-1.5 backdrop-blur-md">
+      </div>
+      <div className="hud-mono border-ink/20 bg-background/90 pointer-events-none absolute top-3 left-3 z-20 border px-3 py-1.5">
         <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-red-500" />
-          <span className="text-ink text-xs font-medium">
-            Karachi, Pakistan
-          </span>
+          <span className="bg-ink h-2 w-2" />
+          <span className="text-ink text-[10px] tracking-[0.16em] uppercase">07 / Karachi, Pakistan</span>
         </div>
       </div>
     </div>

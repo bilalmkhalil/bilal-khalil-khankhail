@@ -4,6 +4,9 @@ import { Moon, Sun } from "lucide-react";
 import { useAnimate, useReducedMotion } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import Brackets from "@/components/hud/Brackets";
+import HudTooltip from "@/components/hud/HudTooltip";
+import { useShortcut } from "@/components/hud/useShortcut";
 
 export default function ThemeToggle() {
   const changing = useRef(false);
@@ -57,34 +60,21 @@ export default function ThemeToggle() {
       transition = document.startViewTransition(commitTheme);
       await transition.ready;
 
-      // View-transition snapshots use viewport pixel coordinates. Percentages
-      // drift when a scrollbar or mobile browser chrome changes snapshot width.
-      const buttonBounds = button.getBoundingClientRect();
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const x = buttonBounds.left + buttonBounds.width / 2;
-      const y = buttonBounds.top + buttonBounds.height / 2;
-      const origin = `${x}px ${y}px`;
-      const radius = Math.ceil(
-        Math.hypot(Math.max(x, width - x), Math.max(y, height - y)),
-      );
-      const closed = `circle(0px at ${origin})`;
-      const expanded = `circle(${radius}px at ${origin})`;
+      // The new theme opens over the old one like the HUD frames do: a line
+      // across the middle of the screen, which then opens up and down. Each
+      // phase eases in and out on its own.
+      const ease = "cubic-bezier(0.65, 0, 0.35, 1)";
       animations.push(
         root.animate(
+          [
+            { clipPath: "inset(calc(50% - 1px) 50% calc(50% - 1px) 50%)", easing: ease, zIndex: 2 },
+            { clipPath: "inset(calc(50% - 1px) 0% calc(50% - 1px) 0%)", easing: ease, offset: 0.4, zIndex: 2 },
+            { clipPath: "inset(0% 0% 0% 0%)", zIndex: 2 },
+          ],
           {
-            clipPath:
-              nextTheme === "light" ? [closed, expanded] : [expanded, closed],
-            zIndex: [2, 2],
-          },
-          {
-            duration: 550,
-            easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+            duration: 900,
             fill: "forwards",
-            pseudoElement:
-              nextTheme === "light"
-                ? "::view-transition-new(root)"
-                : "::view-transition-old(root)",
+            pseudoElement: "::view-transition-new(root)",
           },
         ),
       );
@@ -112,17 +102,22 @@ export default function ThemeToggle() {
     }
   }
 
+  useShortcut("d", () => void toggleTheme());
+
   return (
     <button
       ref={buttonRef}
+      aria-keyshortcuts="D"
       type="button"
       onClick={() => void toggleTheme()}
       data-motion-feedback="none"
       data-transitioning={transitioning}
       aria-busy={transitioning}
       aria-label="Toggle light and dark mode"
-      className="border-ink/20 bg-ink/10 text-ink hover:bg-ink/20 focus-visible:border-ink/40 focus-visible:bg-ink/25 data-[transitioning=true]:bg-ink/60 fixed top-4 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border backdrop-blur-md transition-colors outline-none [view-transition-name:theme-toggle] focus-visible:outline-none data-[transitioning=true]:backdrop-blur-none data-[transitioning=true]:transition-none data-[transitioning=true]:[clip-path:circle(50%)] sm:top-6 sm:right-8"
+      className="hud-expand group border-ink/25 bg-background text-ink hover:bg-ink hover:text-background focus-visible:border-ink data-[transitioning=true]:bg-ink/60 fixed top-4 right-4 z-40 flex h-11 w-11 items-center justify-center border transition-colors outline-none [view-transition-name:theme-toggle] focus-visible:outline-none data-[transitioning=true]:transition-none sm:top-6 sm:right-8"
     >
+      <Brackets />
+      <HudTooltip label="Toggle theme" shortcut="D" />
       <span
         ref={iconRef}
         className="flex h-5 w-5 items-center justify-center [view-transition-name:theme-icon]"
