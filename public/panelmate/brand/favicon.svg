@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- PanelMate favicon: the light icon, switching to the dark icon when the browser is in dark mode. -->
+  <style>
+    .lip { fill: #c9c9c9; } .tile { fill: #ebebeb; } .face { fill: #ffffff; }
+    .off { stroke: #d6d6d6; } .on { stroke: #1a1a1a; } .ink { fill: #1a1a1a; }
+    @media (prefers-color-scheme: dark) {
+      .lip { fill: #000000; } .tile { fill: #2b2b2b; } .face { fill: #1a1a1a; }
+      .off { stroke: #474747; } .on { stroke: #f2f2f2; } .ink { fill: #f2f2f2; }
+    }
+  </style>
+  <rect class="lip" x="40" y="56" width="432" height="432" rx="100"/>
+  <rect class="tile" x="40" y="40" width="432" height="432" rx="100"/>
+  <circle class="face" cx="256" cy="256" r="160"/>
+  <circle class="off" cx="256" cy="256" r="118" fill="none" stroke-width="30" stroke-dasharray="161.3 24" transform="rotate(-84.2 256 256)"/>
+  <circle class="on" cx="256" cy="256" r="118" fill="none" stroke-width="30" stroke-dasharray="161.3 24 161.3 395" transform="rotate(-84.2 256 256)"/>
+  <line class="on" x1="256" y1="256" x2="256" y2="176" stroke-width="16" stroke-linecap="round"/>
+  <circle class="ink" cx="256" cy="256" r="16"/>
+</svg>

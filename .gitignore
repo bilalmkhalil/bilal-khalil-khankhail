@@ -13,6 +13,13 @@
 /.next/
 /out/
 
+# agents
+/.agents
+skills-lock.json
+launch.json
+
+panelmate-gnome.zip
+
 # production
 /build
 

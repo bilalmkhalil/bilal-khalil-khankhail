@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://bilal-khalil-khankhail.vercel.app/sitemap.xml',
+    sitemap: 'https://khankhail.com/sitemap.xml',
   }
 }

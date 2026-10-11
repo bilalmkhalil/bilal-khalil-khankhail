@@ -10,8 +10,8 @@ import MotionProvider from "@/components/motion/MotionProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bilal-khalil-khankhail.vercel.app"),
-  title: "Bilal Khalil Khankhail - Frontend Engineer & Developer",
+  metadataBase: new URL("https://khankhail.com"),
+  title: "Bilal Khalil Khankhail - Fullstact Software Engineer",
   description:
     "Passionate Frontend Engineer from Pakistan crafting digital experiences. Specializing in React, Next.js, TypeScript, and modern web technologies. Available for freelance projects.",
   keywords:
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "Bilal Khalil Khankhail - Frontend Engineer",
     description:
       "Passionate Frontend Engineer crafting digital experiences with modern technologies",
-    url: "https://bilal-khalil-khankhail.vercel.app",
+    url: "https://khankhail.com",
     siteName: "Bilal Khalil Khankhail Portfolio",
     images: [
       {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bilal Khalil Khankhail - Frontend Engineer",
+    title: "Bilal Khalil Khankhail - Fullstact Software Engineer",
     description: "Passionate Frontend Engineer crafting digital experiences",
     images: ["/profile.png"],
   },
@@ -63,7 +63,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Bilal Khalil Khankhail",
-    url: "https://bilal-khalil-khankhail.vercel.app",
+    url: "https://khankhail.com",
     image: "/profile.png",
     sameAs: [
       "https://github.com/bilal-khalil",
