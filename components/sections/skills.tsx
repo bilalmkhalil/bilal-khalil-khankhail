@@ -64,14 +64,14 @@ const SkillsSection = () => {
           orientation={isMobile ? "horizontal" : "vertical"}
           className="gap-6 md:gap-10"
         >
-          <TabsList className="mt-6 grid h-auto! w-full grid-cols-2 gap-3 rounded-none bg-transparent p-1 md:flex md:w-fit md:flex-col">
+          <TabsList className="mt-6 grid h-auto! w-full grid-cols-2 gap-3 rounded-none bg-transparent p-1 md:flex md:w-fit md:flex-col md:self-start">
             {skillsTabTitles.map((title, i) => (
               <TabsTrigger
                 key={title}
                 value={title}
                 onClick={() => setUserPicked(true)}
                 style={delay(i * 90)}
-                className="hud-blink border-ink/15 text-ink/60 hover:text-ink data-[state=active]:bg-ink data-[state=active]:text-background dark:data-[state=active]:bg-ink dark:data-[state=active]:text-background dark:data-[state=active]:border-ink data-[state=active]:border-ink h-11 w-full justify-start rounded-none border px-3 text-[11px] tracking-[0.1em] uppercase hover:cursor-pointer sm:px-5 sm:text-xs sm:tracking-[0.14em] md:min-w-44 md:px-6"
+                className="hud-blink border-ink/15 text-ink/60 hover:text-ink data-[state=active]:bg-ink data-[state=active]:text-background dark:data-[state=active]:bg-ink dark:data-[state=active]:text-background dark:data-[state=active]:border-ink data-[state=active]:border-ink h-11 w-full justify-start rounded-none border px-3 text-[11px] tracking-[0.1em] uppercase hover:cursor-pointer sm:px-5 sm:text-xs sm:tracking-[0.14em] md:min-w-44 md:flex-none md:px-6"
               >
                 {activeTab === title && <Brackets />}
                 <span className="text-current/60 mr-2">{String(i + 1).padStart(2, "0")} /</span>
