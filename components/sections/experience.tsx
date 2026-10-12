@@ -1,6 +1,7 @@
 "use client";
 
-import { FaBriefcase } from "react-icons/fa";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Briefcase01Icon } from "@hugeicons/core-free-icons";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +29,7 @@ function Logo({ icon, size = "size-10" }: { icon?: (typeof experienceData)[numbe
           className="h-auto w-full object-contain grayscale transition-[filter] duration-300 group-hover:grayscale-0"
         />
       ) : (
-        <FaBriefcase className="h-5 w-5 text-black/70" aria-hidden="true" />
+        <HugeiconsIcon icon={Briefcase01Icon} size={20} className="text-black/70" aria-hidden="true" />
       )}
     </span>
   );

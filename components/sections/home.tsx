@@ -100,6 +100,7 @@ const HomeSection = () => {
               alt="Bilal Khalil Khankhail"
               width={350}
               height={376}
+              sizes="(min-width: 1024px) 14vw, 13rem"
               className="h-auto w-full object-cover grayscale"
               priority
             />
@@ -118,7 +119,7 @@ const HomeSection = () => {
                 <span className="bg-ink absolute inline-flex size-full animate-ping rounded-full opacity-60" />
                 <span className="bg-ink relative inline-flex size-2 rounded-full shadow-[0_0_6px_var(--color-ink)]" />
               </span>
-              Available for exciting projects
+              Available for freelance work
             </div>
 
             <h1 className="sr-only">Bilal Khalil Khankhail, Software Engineer</h1>
@@ -133,10 +134,11 @@ const HomeSection = () => {
             />
 
             <p style={{ "--hud-delay": "740ms" } as CSSProperties} className="hud-blink text-ink/70 mb-7 max-w-xl text-sm leading-relaxed lg:mb-[2.2cqw] lg:max-w-none lg:text-[1.2cqw]">
-              A passionate Software Engineer from Pakistan crafting exceptional
-              digital experiences. Transforming complex problems into elegant,
-              user-centric solutions with cutting-edge technologies. Let&apos;s
-              build the future of web together!
+              Full-stack engineer in Karachi. I build Next.js products and the
+              pipelines that ship them.
+              <br />
+              Most recently I moved Sofject&apos;s production from Azure to
+              Hetzner for ~60K users.
             </p>
 
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row lg:gap-[1cqw]">

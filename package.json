@@ -27,7 +27,6 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-hook-form": "^7.80.0",
-    "react-icons": "^5.6.0",
     "react-isokit": "^0.4.0",
     "tailwind-merge": "^3.6.0",
     "yup": "^1.7.1"

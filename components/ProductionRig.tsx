@@ -110,6 +110,17 @@ function Packet({ from, to, delay }: { from: Vec3; to: Vec3; delay: number }) {
   );
 }
 
+// All land dots as one path of small circles (two arcs each): one element
+// instead of ~1,400, which keeps the page's DOM small.
+const DOT_R = CELL * 0.21;
+const LAND_DOTS = land
+  .map(([i, j]) => {
+    const x = Math.round(((i + 0.5) * CELL - DOT_R) * 100) / 100;
+    const y = Math.round((j + 0.5) * CELL * 100) / 100;
+    return `M${x} ${y}a${DOT_R} ${DOT_R} 0 1 0 ${DOT_R * 2} 0a${DOT_R} ${DOT_R} 0 1 0 ${-DOT_R * 2} 0`;
+  })
+  .join("");
+
 /** The dotted world map on the ground, fading out at the frame's edges, with
  * the user cities. Memoized: it only changes when another city is pinged. */
 const WorldMap = memo(function WorldMap({
@@ -148,15 +159,7 @@ const WorldMap = memo(function WorldMap({
       <g mask={`url(#pf-mask-x-${uid})`}>
         <g mask={`url(#pf-mask-y-${uid})`}>
           <g transform={onTop(MAP.x, MAP.y, 0)}>
-            {land.map(([i, j]) => (
-              <circle
-                key={`${i}-${j}`}
-                className="pf-land"
-                cx={(i + 0.5) * CELL}
-                cy={(j + 0.5) * CELL}
-                r={CELL * 0.21}
-              />
-            ))}
+            <path className="pf-land" d={LAND_DOTS} />
             {USER_CITIES.map(({ name, at: [i, j], home }, k) => {
               const on = pinged === name;
               return (
@@ -203,6 +206,40 @@ const WorldMap = memo(function WorldMap({
     </>
   );
 });
+
+/** "Simulation · not real metrics" in a bordered tag. The box is sized from
+ * the rendered text, so the padding is the same on both sides whatever font
+ * the browser uses. */
+function SimTag({ centre, left, top, delay }: { centre?: number; left: number; top: number; delay: number }) {
+  const PAD = 7;
+  const MARK = 5;
+  const GAP = 5;
+  const text = useRef<SVGTextElement>(null);
+  const [textW, setTextW] = useState(165);
+  useEffect(() => {
+    const measure = () => {
+      const w = text.current?.getComputedTextLength();
+      if (w) setTextW(w);
+    };
+    measure();
+    document.fonts?.ready.then(measure);
+  }, []);
+  const w = round(PAD + MARK + GAP + textW + PAD);
+  const x = centre === undefined ? left : round(centre - w / 2);
+  return (
+    <g
+      className="hud-blink pf-sim"
+      transform={`translate(${x} ${top})`}
+      style={{ "--hud-delay": `${delay}ms` } as React.CSSProperties}
+    >
+      <rect className="pf-sim-box" width={w} height={17} />
+      <rect className="ik-dot ik-pulse" x={PAD} y={6} width={MARK} height={MARK} />
+      <text ref={text} className="pf-co-title" x={PAD + MARK + GAP} y={11.6}>
+        SIMULATION · NOT REAL METRICS
+      </text>
+    </g>
+  );
+}
 
 export default function ProductionRig({
   variant = "section",
@@ -289,7 +326,7 @@ export default function ProductionRig({
     <div className="relative">
       <Plate
         className={`pf-rig ${hero ? "pf-hero" : ""}`}
-        label="An isometric production rig standing on a dotted world map with users in cities around the globe: a laptop with a deploy key wired to CI/CD, a network switch, a production server, a database, a monitoring display and a TLS edge, with a satellite beaming signals down. Press deploy to ship a commit."
+        label="An isometric production rig standing on a dotted world map with users in cities around the globe: a laptop with a deploy key wired to CI/CD, a network switch, a production server, a database, a monitoring display and a TLS edge, with a satellite beaming signals down. Press deploy to ship a commit. Its traffic, latency, availability and ping readouts come from a simulation."
         viewBox={frameBox}
         // The hero draws its status inside the figure, so nothing sits outside
         // the drawing and the page can size it to the viewport exactly.
@@ -307,8 +344,9 @@ export default function ProductionRig({
       >
         <style>{`
           .pf-rig{background:transparent;border:0;padding:0;border-radius:0;
-            --ik-top:#fdfdfc;--ik-front:#ececea;--ik-side:#dddcd8;--ik-well:#d6d5d1}
-          .dark .pf-rig{--ik-top:#2d2d31;--ik-front:#202023;--ik-side:#17171a;--ik-well:#111113}
+            --ik-top:#fdfdfc;--ik-front:#ececea;--ik-side:#dddcd8;--ik-well:#d6d5d1;
+            --ik-ink:#55554f}
+          .dark .pf-rig{--ik-top:#2d2d31;--ik-front:#202023;--ik-side:#17171a;--ik-well:#111113;--ik-ink:#b1b1b7}
           .pf-rig>svg{aspect-ratio:${ASPECT};height:auto;overflow:hidden}
           .pf-rig .ik-label{font-size:6px}
           .pf-rig .ik-signal{stroke-width:1.5}
@@ -330,15 +368,16 @@ export default function ProductionRig({
           .pf-sweep{animation:pf-sweep .56s ease-in-out infinite}
           @keyframes pf-sweep{50%{opacity:.25}}
           .pf-land{fill:var(--ik-line);opacity:.5}
-          .pf-city{font:500 5px/1 var(--ik-mono);letter-spacing:.1em;text-transform:uppercase;fill:var(--ik-ink)}
+          .pf-city{font:500 5.8px/1 var(--ik-mono);letter-spacing:.1em;text-transform:uppercase;fill:var(--ik-ink)}
           .pf-city-home{font-weight:700;fill:var(--ik-ink-hi)}
           .pf-ping{fill:none;stroke:var(--ik-live);stroke-width:1;vector-effect:non-scaling-stroke;transform-box:fill-box;transform-origin:center;animation:pf-ping 2.6s ease-out infinite}
           @keyframes pf-ping{from{transform:scale(.3);opacity:.9}to{transform:scale(1.7);opacity:0}}
           .pf-co-title{font:600 8.5px/1 var(--ik-mono);letter-spacing:.12em;text-transform:uppercase;fill:var(--ik-ink-hi)}
-          .pf-co-sub{font:500 6px/1 var(--ik-mono);letter-spacing:.1em;text-transform:uppercase;fill:var(--ik-ink)}
+          .pf-co-sub{font:500 6.6px/1 var(--ik-mono);letter-spacing:.1em;text-transform:uppercase;fill:var(--ik-ink)}
           .pf-big{font:300 34px/1 var(--ik-mono);fill:var(--ik-ink-hi)}
           .pf-screen{font-size:4.6px}
           .pf-tiny{font-size:3.6px}
+          .pf-sim-box{fill:var(--ik-panel);fill-opacity:.85;stroke:var(--ik-ink);stroke-width:1;vector-effect:non-scaling-stroke}
           .pf-rig.pf-hero>svg{aspect-ratio:${HERO_ASPECT}}
           @media (max-width:639px){.pf-hud{display:none}.pf-rig>svg{aspect-ratio:${NARROW_ASPECT}}}
         `}</style>
@@ -501,12 +540,12 @@ export default function ProductionRig({
           <g
             transform={`translate(${hero ? HERO_TEXT_EDGE + 12 : bx + 6} ${by + bh - 87})`}
           >
-            <text className="pf-co-sub">TELEMETRY / LIVE</text>
+            <text className="pf-co-sub">TELEMETRY / SIMULATED</text>
             {[
               ["USERS", `${live.users.toFixed(1)}K`],
               ["P95", `${live.p95} MS`],
               ["UPLINK", `${live.dbm} DBM`],
-              ["PING", pinged.name.toUpperCase()],
+              ["PING", `${live.ping.code} ${live.ping.ms} MS`],
               ["DEPLOYS", String(run).padStart(2, "0")],
             ].map(([k, v], i) => (
               <g key={k} transform={`translate(0 ${16 + i * 13})`}>
@@ -524,7 +563,7 @@ export default function ProductionRig({
             transform={`translate(${bx + bw - 6} ${by + bh - (hero ? 100 : 64)})`}
           >
             <text className="pf-co-sub" textAnchor="end">
-              REQUESTS / SEC
+              REQUESTS / SEC · SIM
             </text>
             <text className="pf-big" y={32} textAnchor="end">
               {live.rps.toFixed(1)}
@@ -544,7 +583,7 @@ export default function ProductionRig({
               />
             ))}
             <text className="pf-co-sub" y={60} textAnchor="end">
-              UPTIME 99.98%
+              AVAILABILITY {live.availability.toFixed(2)}% · 5 MIN
             </text>
             {hero && (
               <text
@@ -588,6 +627,16 @@ export default function ProductionRig({
               );
             })()}
         </g>
+
+        {/* Says plainly that the numbers are made up: centred over the figure in
+            the hero, top left elsewhere. Shown at every size. */}
+        <SimTag
+          // Centred over the figure in the hero, top left elsewhere.
+          centre={hero ? (HERO_TEXT_EDGE + 200 + bx + bw - 190) / 2 : undefined}
+          left={bx + 6}
+          top={hero ? round(by + bh * 0.06 - 17) : by + 6}
+          delay={variant === "hero" ? 900 : 300}
+        />
 
         <Cursor at={keyTop} phase={demo.phase} size={0.9} />
       </Plate>

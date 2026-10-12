@@ -53,23 +53,26 @@ export const WORLD_SIZE = { w: 87, h: 44 } as const;
 // Cities with users, as [column, row] cells on the map above. Cells come from
 // each city's latitude and longitude; coastal ones are snapped to the nearest
 // land dot. `label` says which side of the dot its name goes, so neighbours
-// don't overlap. Karachi is home.
+// don't overlap. Karachi is home. `code` is the short name used in readouts
+// and `geo` the real [latitude, longitude], used to simulate ping times.
 export type UserCity = {
   name: string;
+  code: string;
   at: [number, number];
+  geo: [number, number];
   label: "left" | "right" | "below";
   home?: true;
 };
 
 export const USER_CITIES: UserCity[] = [
-  { name: "karachi", at: [61, 20], label: "below", home: true },
-  { name: "lahore", at: [63, 18], label: "right" },
-  { name: "dubai", at: [58, 20], label: "left" },
-  { name: "london", at: [43, 11], label: "below" },
-  { name: "berlin", at: [47, 10], label: "right" },
-  { name: "new york", at: [24, 15], label: "right" },
-  { name: "toronto", at: [23, 14], label: "left" },
-  { name: "san francisco", at: [12, 16], label: "right" },
-  { name: "mexico city", at: [18, 21], label: "right" },
-  { name: "singapore", at: [70, 25], label: "right" },
+  { name: "karachi", code: "KHI", at: [61, 20], geo: [24.86, 67.01], label: "below", home: true },
+  { name: "lahore", code: "LHE", at: [63, 18], geo: [31.55, 74.34], label: "right" },
+  { name: "dubai", code: "DXB", at: [58, 20], geo: [25.2, 55.27], label: "left" },
+  { name: "london", code: "LON", at: [43, 11], geo: [51.51, -0.13], label: "below" },
+  { name: "berlin", code: "BER", at: [47, 10], geo: [52.52, 13.4], label: "right" },
+  { name: "new york", code: "NYC", at: [24, 15], geo: [40.71, -74.01], label: "right" },
+  { name: "toronto", code: "YYZ", at: [23, 14], geo: [43.65, -79.38], label: "left" },
+  { name: "san francisco", code: "SF", at: [12, 16], geo: [37.77, -122.42], label: "right" },
+  { name: "mexico city", code: "MEX", at: [18, 21], geo: [19.43, -99.13], label: "right" },
+  { name: "singapore", code: "SIN", at: [70, 25], geo: [1.35, 103.82], label: "right" },
 ];
