@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { UseInViewOptions } from "@/types/types";
 
 export function useInView(options: UseInViewOptions = {}) {
@@ -36,21 +42,22 @@ export function useInView(options: UseInViewOptions = {}) {
   return { ref, inView };
 }
 
+/** True below the breakpoint. Read through useSyncExternalStore so the
+ * client value lands right after hydration and can't be held back by other
+ * renders; it is always false on the server. */
 export function useIsMobile(breakpoint = 768) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
-
-    const handleChange = () => {
-      setIsMobile(mediaQuery.matches);
-    };
-
-    handleChange();
-    mediaQuery.addEventListener("change", handleChange);
-
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [breakpoint]);
-
-  return isMobile;
+  const query = `(max-width: ${breakpoint - 1}px)`;
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const mediaQuery = window.matchMedia(query);
+      mediaQuery.addEventListener("change", onChange);
+      return () => mediaQuery.removeEventListener("change", onChange);
+    },
+    [query],
+  );
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
 }

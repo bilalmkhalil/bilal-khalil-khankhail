@@ -118,7 +118,7 @@ export default function RootLayout({
           {children}
           <HashScroll />
           <HudObserver />
-          <Analytics />
+          <Analytics debug={false} />
         </MotionProvider>
       </body>
     </html>

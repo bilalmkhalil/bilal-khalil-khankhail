@@ -12,6 +12,62 @@ import { skillsData, skillsTabTitles } from "@/lib/constants";
 
 const delay = (ms: number) => ({ "--hud-delay": `${ms}ms` }) as CSSProperties;
 
+const largest = skillsData.reduce((a, b) => (b.skills.length > a.skills.length ? b : a));
+
+/** One tab's heading and skill cards. The ghost copy (used only to reserve
+ * height) leaves out the HUD animations. */
+function SkillPanel({
+  data,
+  index,
+  ghost = false,
+}: {
+  data: (typeof skillsData)[number];
+  index: number;
+  ghost?: boolean;
+}) {
+  return (
+    <div className="mt-6 flex flex-col">
+      <p className={`${ghost ? "" : "hud-blink"} text-ink/50 mb-1 text-xs tracking-[0.16em] uppercase`}>
+        {String(index + 1).padStart(2, "0")} / Stack
+      </p>
+      <h3
+        style={delay(80)}
+        className={`${ghost ? "" : "hud-blink"} text-ink mb-6 text-2xl font-semibold tracking-[0.08em] uppercase sm:text-3xl`}
+      >
+        {data.title}
+      </h3>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {data.skills.map((skill, i) => (
+          <div
+            key={skill.name}
+            style={delay(120 + i * 70)}
+            className={`${ghost ? "" : "hud-expand"} group border-ink/15 hover:border-ink/40 relative flex items-center gap-3 border px-4 py-3 transition-colors`}
+          >
+            <Brackets />
+            <span className="flex size-9 shrink-0 items-center justify-center bg-white/90 p-1.5">
+              <Image
+                src={skill.icon}
+                alt=""
+                width={skill.size}
+                height={skill.size}
+                className="h-auto w-full grayscale transition-[filter] duration-300 group-hover:grayscale-0"
+              />
+            </span>
+            <span className="flex flex-col">
+              <span className="text-ink/40 text-[10px] tracking-[0.16em]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-ink text-sm tracking-[0.1em] uppercase">
+                {skill.name}
+              </span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Skills in the HUD style: square tabs and cards, monospace labels. Cards open
 // from their centre and text blinks on as the section scrolls into view (and
 // again for each tab's cards as they appear).
@@ -80,47 +136,19 @@ const SkillsSection = () => {
             ))}
           </TabsList>
 
-          {skillsData.map((data, tabIndex) => (
-            <TabsContent key={data.title} value={data.title} className="mt-6 flex flex-col">
-              <p className="hud-blink text-ink/50 mb-1 text-xs tracking-[0.16em] uppercase">
-                {String(tabIndex + 1).padStart(2, "0")} / Stack
-              </p>
-              <h3
-                style={delay(80)}
-                className="hud-blink text-ink mb-6 text-2xl font-semibold tracking-[0.08em] uppercase sm:text-3xl"
-              >
-                {data.title}
-              </h3>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {data.skills.map((skill, i) => (
-                  <div
-                    key={skill.name}
-                    style={delay(120 + i * 70)}
-                    className="hud-expand group border-ink/15 hover:border-ink/40 relative flex items-center gap-3 border px-4 py-3 transition-colors"
-                  >
-                    <Brackets />
-                    <span className="flex size-9 shrink-0 items-center justify-center bg-white/90 p-1.5">
-                      <Image
-                        src={skill.icon}
-                        alt=""
-                        width={skill.size}
-                        height={skill.size}
-                        className="h-auto w-full grayscale transition-[filter] duration-300 group-hover:grayscale-0"
-                      />
-                    </span>
-                    <span className="flex flex-col">
-                      <span className="text-ink/40 text-[10px] tracking-[0.16em]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-ink text-sm tracking-[0.1em] uppercase">
-                        {skill.name}
-                      </span>
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </TabsContent>
-          ))}
+          {/* Every panel shares one grid cell with an invisible copy of the
+              largest one, so the section keeps the same height whichever tab
+              is open and nothing below it moves. */}
+          <div className="grid flex-1">
+            <div aria-hidden="true" inert className="invisible col-start-1 row-start-1">
+              <SkillPanel data={largest} index={skillsData.indexOf(largest)} ghost />
+            </div>
+            {skillsData.map((data, tabIndex) => (
+              <TabsContent key={data.title} value={data.title} className="col-start-1 row-start-1">
+                <SkillPanel data={data} index={tabIndex} />
+              </TabsContent>
+            ))}
+          </div>
         </Tabs>
       </div>
     </div>
