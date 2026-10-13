@@ -97,7 +97,7 @@ const HomeSection = () => {
             <Brackets />
             <Image
               src={profile}
-              alt="Bilal Khalil Khankhail"
+              alt="Bilal"
               width={350}
               height={376}
               sizes="(min-width: 1024px) 14vw, 13rem"
@@ -122,7 +122,7 @@ const HomeSection = () => {
               Available for freelance work
             </div>
 
-            <h1 className="sr-only">Bilal Khalil Khankhail, Software Engineer</h1>
+            <h1 className="sr-only">Bilal, Software Engineer</h1>
             <p style={{ "--hud-delay": "500ms" } as CSSProperties} className="hud-blink text-ink/60 mb-1 text-xs tracking-[0.14em] uppercase lg:mb-[0.5cqw] lg:text-[1cqw]" aria-hidden="true">
               Hi there! I&apos;m
             </p>

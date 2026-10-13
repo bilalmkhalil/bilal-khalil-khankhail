@@ -16,25 +16,25 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://khankhail.com"),
-  title: "Bilal Khalil Khankhail - Full-Stack Software Engineer",
+  title: "Bilal - Full-Stack Software Engineer",
   description:
     "Full-stack Software Engineer from Pakistan building production web apps and infrastructure with React, Next.js, Node.js, TypeScript, and modern DevOps. Available for freelance projects.",
   keywords:
     "Software Engineer, Full-Stack Developer, React Developer, Next.js, Node.js, TypeScript, DevOps, Web Developer, Pakistan, Freelancer",
-  authors: [{ name: "Bilal Khalil Khankhail" }],
-  creator: "Bilal Khalil Khankhail",
+  authors: [{ name: "Bilal" }],
+  creator: "Bilal",
   openGraph: {
-    title: "Bilal Khalil Khankhail - Full-Stack Software Engineer",
+    title: "Bilal - Full-Stack Software Engineer",
     description:
       "Full-stack Software Engineer building production web apps and infrastructure",
     url: "https://khankhail.com",
-    siteName: "Bilal Khalil Khankhail Portfolio",
+    siteName: "Bilal Portfolio",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bilal Khalil Khankhail - Full-Stack Software Engineer",
+    title: "Bilal - Full-Stack Software Engineer",
     description:
       "Full-stack Software Engineer building production web apps and infrastructure",
   },
@@ -59,7 +59,7 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Bilal Khalil Khankhail",
+    name: "Bilal",
     url: "https://khankhail.com",
     image: "https://khankhail.com/profile.png",
     email: `mailto:${SOCIAL_LINKS.email}`,

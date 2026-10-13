@@ -1,6 +1,6 @@
-# Bilal Khalil Khankhail - Personal Portfolio
+# Bilal - Personal Portfolio
 
-This is a modern, responsive personal portfolio website built with Next.js, showcasing Bilal Khalil Khankhail's skills, experience, and projects as a Frontend Engineer.
+This is a modern, responsive personal portfolio website built with Next.js, showcasing Bilal's skills, experience, and projects as a Frontend Engineer.
 
 ## Project Overview
 

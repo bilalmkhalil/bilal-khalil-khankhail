@@ -4,7 +4,7 @@ export default function BrandLogo() {
   return (
     <Link
       href="/"
-      aria-label="Bilal Khalil Khankhail — home"
+      aria-label="Bilal — home"
       className="text-ink absolute top-4 left-4 z-40 flex h-12 w-12 items-center justify-center transition-opacity hover:opacity-70 sm:top-6 sm:left-8"
     >
       <svg

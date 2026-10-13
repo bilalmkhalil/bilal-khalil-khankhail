@@ -8,8 +8,8 @@ import SectionHeading from "@/components/hud/SectionHeading";
 import { hudDelay } from "@/components/hud/hudDelay";
 
 export const metadata: Metadata = {
-  title: "Projects | Bilal Khalil Khankhail",
-  description: "Explore websites and projects built by Bilal Khalil Khankhail.",
+  title: "Projects | Bilal",
+  description: "Explore websites and projects built by Bilal.",
 };
 
 export default function ProjectsPage() {
