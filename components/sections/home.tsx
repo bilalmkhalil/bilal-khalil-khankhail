@@ -137,7 +137,7 @@ const HomeSection = () => {
               Full-stack engineer in Karachi. I build Next.js products and the
               pipelines that ship them.
               <br />
-              Most recently I moved Sofject&apos;s production from Azure to
+              Most recently I moved an AI-powered B2B platform from Azure to
               Hetzner for ~60K users.
             </p>
 

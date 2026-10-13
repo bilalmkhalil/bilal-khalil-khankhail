@@ -72,8 +72,13 @@ import SoundToggle from "@/components/rig/SoundToggle";
 
 export { HERO_ASPECT, HERO_PHOTO };
 
-// Sound stays off until the visitor turns it on.
-configureSound({ defaultOn: false });
+// Sound is on unless the visitor turns it off. Browsers still keep it silent
+// until the visitor has clicked or pressed a key somewhere on the page.
+configureSound({ defaultOn: true });
+
+/** The callouts, telemetry, throughput readout, status line and simulation
+ * tag around the figure. Hidden for now; set to true to bring them back. */
+const SHOW_HUD = false;
 
 /** The demo cursor presses DEPLOY once the boot screen and hero intro are done. */
 const DEMO_AFTER_INTRO_MS = 3200;
@@ -210,7 +215,17 @@ const WorldMap = memo(function WorldMap({
 /** "Simulation · not real metrics" in a bordered tag. The box is sized from
  * the rendered text, so the padding is the same on both sides whatever font
  * the browser uses. */
-function SimTag({ centre, left, top, delay }: { centre?: number; left: number; top: number; delay: number }) {
+function SimTag({
+  centre,
+  left,
+  top,
+  delay,
+}: {
+  centre?: number;
+  left: number;
+  top: number;
+  delay: number;
+}) {
   const PAD = 7;
   const MARK = 5;
   const GAP = 5;
@@ -233,7 +248,13 @@ function SimTag({ centre, left, top, delay }: { centre?: number; left: number; t
       style={{ "--hud-delay": `${delay}ms` } as React.CSSProperties}
     >
       <rect className="pf-sim-box" width={w} height={17} />
-      <rect className="ik-dot ik-pulse" x={PAD} y={6} width={MARK} height={MARK} />
+      <rect
+        className="ik-dot ik-pulse"
+        x={PAD}
+        y={6}
+        width={MARK}
+        height={MARK}
+      />
       <text ref={text} className="pf-co-title" x={PAD + MARK + GAP} y={11.6}>
         SIMULATION · NOT REAL METRICS
       </text>
@@ -309,6 +330,11 @@ export default function ProductionRig({
       : Math.max(0, BOOT_MS - performance.now()) + DEMO_AFTER_INTRO_MS,
   );
   const demo = useDemoTap(deploy, { delay: demoDelay, threshold: 0.5 });
+  // The demo press sounds like a real one: a click down, then the release.
+  useEffect(() => {
+    if (demo.phase === "press") playSound("press");
+    if (demo.phase === "release") playSound("release");
+  }, [demo.phase]);
 
   const pinged = USER_CITIES[live.beat % USER_CITIES.length];
   const frameBox = narrow ? narrowViewBox : hero ? heroViewBox : viewBox;
@@ -330,16 +356,16 @@ export default function ProductionRig({
         viewBox={frameBox}
         // The hero draws its status inside the figure, so nothing sits outside
         // the drawing and the page can size it to the viewport exactly.
-        fig={variant === "hero" ? undefined : "Fig. 01"}
+        fig={variant === "hero" || !SHOW_HUD ? undefined : "Fig. 01"}
         name={
-          hero
+          hero || !SHOW_HUD
             ? undefined
             : variant === "hero"
               ? "Operator · Karachi, PK"
               : "From commit to production"
         }
-        hint={variant === "hero" ? undefined : "Press deploy"}
-        readout={hero ? undefined : status}
+        hint={variant === "hero" || !SHOW_HUD ? undefined : "Press deploy"}
+        readout={hero || !SHOW_HUD ? undefined : status}
         {...demo.plate}
       >
         <style>{`
@@ -481,121 +507,128 @@ export default function ProductionRig({
 
         {/* Callouts and live readouts around the figure. */}
         <g className="pf-hud">
-          {callouts.map(({ n, title, sub, at, side, band, heroBand }) => {
-            const [px, py] = project(...at);
-            const ly =
-              by + bh * (hero && heroBand !== undefined ? heroBand : band);
-            const lx =
-              side === "right"
-                ? bx + bw - 6
-                : hero
-                  ? HERO_TEXT_EDGE + 12
-                  : bx + 6;
-            const anchor = side === "left" ? "start" : "end";
-            const reach = side === "left" ? lx + 96 : lx - 96;
-            return (
+          {SHOW_HUD && (
+            <>
+              {callouts.map(({ n, title, sub, at, side, band, heroBand }) => {
+                const [px, py] = project(...at);
+                const ly =
+                  by + bh * (hero && heroBand !== undefined ? heroBand : band);
+                const lx =
+                  side === "right"
+                    ? bx + bw - 6
+                    : hero
+                      ? HERO_TEXT_EDGE + 12
+                      : bx + 6;
+                const anchor = side === "left" ? "start" : "end";
+                const reach = side === "left" ? lx + 96 : lx - 96;
+                return (
+                  <g
+                    key={n}
+                    // Callouts blink on in number order as the page loads, after
+                    // the hero text in the hero.
+                    className="hud-blink"
+                    style={
+                      {
+                        "--hud-delay": `${(variant === "hero" ? 1000 : 300) + (Number(n) - 1) * 140}ms`,
+                      } as React.CSSProperties
+                    }
+                  >
+                    <path
+                      className="ik-line ik-dim"
+                      d={`M${lx} ${ly + 4} H${round(px)} V${round(py)}`}
+                    />
+                    <path
+                      className="ik-line"
+                      d={`M${lx} ${ly + 4} H${reach}`}
+                    />
+                    <circle
+                      className="ik-dot"
+                      cx={round(px)}
+                      cy={round(py)}
+                      r={1.4}
+                    />
+                    <text
+                      className="pf-co-title"
+                      x={lx}
+                      y={ly - 5}
+                      textAnchor={anchor}
+                    >
+                      {n} / {title}
+                    </text>
+                    <text
+                      className="pf-co-sub"
+                      x={lx}
+                      y={ly + 12}
+                      textAnchor={anchor}
+                    >
+                      {sub}
+                    </text>
+                  </g>
+                );
+              })}
+
+              {/* Telemetry, bottom left (in the hero, just right of the text). */}
               <g
-                key={n}
-                // Callouts blink on in number order as the page loads, after
-                // the hero text in the hero.
-                className="hud-blink"
-                style={
-                  {
-                    "--hud-delay": `${(variant === "hero" ? 1000 : 300) + (Number(n) - 1) * 140}ms`,
-                  } as React.CSSProperties
-                }
+                transform={`translate(${hero ? HERO_TEXT_EDGE + 12 : bx + 6} ${by + bh - 87})`}
               >
-                <path
-                  className="ik-line ik-dim"
-                  d={`M${lx} ${ly + 4} H${round(px)} V${round(py)}`}
-                />
-                <path className="ik-line" d={`M${lx} ${ly + 4} H${reach}`} />
-                <circle
-                  className="ik-dot"
-                  cx={round(px)}
-                  cy={round(py)}
-                  r={1.4}
-                />
-                <text
-                  className="pf-co-title"
-                  x={lx}
-                  y={ly - 5}
-                  textAnchor={anchor}
-                >
-                  {n} / {title}
-                </text>
-                <text
-                  className="pf-co-sub"
-                  x={lx}
-                  y={ly + 12}
-                  textAnchor={anchor}
-                >
-                  {sub}
-                </text>
+                <text className="pf-co-sub">TELEMETRY / SIMULATED</text>
+                {[
+                  ["USERS", `${live.users.toFixed(1)}K`],
+                  ["P95", `${live.p95} MS`],
+                  ["UPLINK", `${live.dbm} DBM`],
+                  ["PING", `${live.ping.code} ${live.ping.ms} MS`],
+                  ["DEPLOYS", String(run).padStart(2, "0")],
+                ].map(([k, v], i) => (
+                  <g key={k} transform={`translate(0 ${16 + i * 13})`}>
+                    <text className="pf-co-sub">{k}</text>
+                    <text className="pf-co-title" x={46}>
+                      {v}
+                    </text>
+                  </g>
+                ))}
               </g>
-            );
-          })}
 
-          {/* Telemetry, bottom left (in the hero, just right of the text). */}
-          <g
-            transform={`translate(${hero ? HERO_TEXT_EDGE + 12 : bx + 6} ${by + bh - 87})`}
-          >
-            <text className="pf-co-sub">TELEMETRY / SIMULATED</text>
-            {[
-              ["USERS", `${live.users.toFixed(1)}K`],
-              ["P95", `${live.p95} MS`],
-              ["UPLINK", `${live.dbm} DBM`],
-              ["PING", `${live.ping.code} ${live.ping.ms} MS`],
-              ["DEPLOYS", String(run).padStart(2, "0")],
-            ].map(([k, v], i) => (
-              <g key={k} transform={`translate(0 ${16 + i * 13})`}>
-                <text className="pf-co-sub">{k}</text>
-                <text className="pf-co-title" x={46}>
-                  {v}
-                </text>
-              </g>
-            ))}
-          </g>
-
-          {/* Big throughput readout, bottom right. The hero leaves room under
+              {/* Big throughput readout, bottom right. The hero leaves room under
               it for the sound toggle. */}
-          <g
-            transform={`translate(${bx + bw - 6} ${by + bh - (hero ? 100 : 64)})`}
-          >
-            <text className="pf-co-sub" textAnchor="end">
-              REQUESTS / SEC · SIM
-            </text>
-            <text className="pf-big" y={32} textAnchor="end">
-              {live.rps.toFixed(1)}
-              <tspan className="pf-co-sub" dx={2}>
-                K
-              </tspan>
-            </text>
-            {Array.from({ length: 12 }, (_, i) => (
-              <rect
-                key={i}
-                className={i < live.bars ? "pf-on" : "ik-well"}
-                x={-12 * 6.4 + i * 6.4}
-                y={40}
-                width={4.4}
-                height={9}
-                rx={0.6}
-              />
-            ))}
-            <text className="pf-co-sub" y={60} textAnchor="end">
-              AVAILABILITY {live.availability.toFixed(2)}% · 5 MIN
-            </text>
-            {hero && (
-              <text
-                className="pf-co-title"
-                y={74}
-                textAnchor="end"
-                aria-live="polite"
+              <g
+                transform={`translate(${bx + bw - 6} ${by + bh - (hero ? 100 : 64)})`}
               >
-                {status}
-              </text>
-            )}
-          </g>
+                <text className="pf-co-sub" textAnchor="end">
+                  REQUESTS / SEC · SIM
+                </text>
+                <text className="pf-big" y={32} textAnchor="end">
+                  {live.rps.toFixed(1)}
+                  <tspan className="pf-co-sub" dx={2}>
+                    K
+                  </tspan>
+                </text>
+                {Array.from({ length: 12 }, (_, i) => (
+                  <rect
+                    key={i}
+                    className={i < live.bars ? "pf-on" : "ik-well"}
+                    x={-12 * 6.4 + i * 6.4}
+                    y={40}
+                    width={4.4}
+                    height={9}
+                    rx={0.6}
+                  />
+                ))}
+                <text className="pf-co-sub" y={60} textAnchor="end">
+                  AVAILABILITY {live.availability.toFixed(2)}% · 5 MIN
+                </text>
+                {hero && (
+                  <text
+                    className="pf-co-title"
+                    y={74}
+                    textAnchor="end"
+                    aria-live="polite"
+                  >
+                    {status}
+                  </text>
+                )}
+              </g>
+            </>
+          )}
 
           {/* Leader from the laptop screen to the hero photo (drawn in HTML). */}
           {hero &&
@@ -630,13 +663,17 @@ export default function ProductionRig({
 
         {/* Says plainly that the numbers are made up: centred over the figure in
             the hero, top left elsewhere. Shown at every size. */}
-        <SimTag
-          // Centred over the figure in the hero, top left elsewhere.
-          centre={hero ? (HERO_TEXT_EDGE + 200 + bx + bw - 190) / 2 : undefined}
-          left={bx + 6}
-          top={hero ? round(by + bh * 0.06 - 17) : by + 6}
-          delay={variant === "hero" ? 900 : 300}
-        />
+        {SHOW_HUD && (
+          <SimTag
+            // Centred over the figure in the hero, top left elsewhere.
+            centre={
+              hero ? (HERO_TEXT_EDGE + 200 + bx + bw - 190) / 2 : undefined
+            }
+            left={bx + 6}
+            top={hero ? round(by + bh * 0.06 - 17) : by + 6}
+            delay={variant === "hero" ? 900 : 300}
+          />
+        )}
 
         <Cursor at={keyTop} phase={demo.phase} size={0.9} />
       </Plate>

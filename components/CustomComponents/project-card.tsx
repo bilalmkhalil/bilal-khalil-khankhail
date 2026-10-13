@@ -8,7 +8,7 @@ import type { Project } from "@/types/types";
 
 /** A square HUD-style link button with corner brackets. */
 const buttonClass =
-  "border-ink/25 text-ink hover:bg-ink hover:text-background focus-visible:outline-foreground relative inline-flex min-h-11 w-fit items-center gap-2 border px-5 py-2 text-xs tracking-[0.14em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-4";
+  "bg-ink text-background hover:bg-ink/85 focus-visible:outline-foreground relative inline-flex min-h-11 w-full items-center justify-center gap-2 px-6 py-2 text-xs tracking-[0.14em] uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 sm:w-fit";
 
 // A project in the HUD style: a bracketed card that opens from its centre,
 // with a grayscale image that comes to colour on hover.
@@ -58,7 +58,6 @@ const ProjectCard: React.FC<Project & { featured?: boolean; index?: number }> = 
         </div>
         {url?.startsWith("/") ? (
           <Link href={url} aria-label={`View the ${title} project page`} className={buttonClass}>
-            <Brackets />
             View project <span aria-hidden="true">→</span>
           </Link>
         ) : (
@@ -70,7 +69,6 @@ const ProjectCard: React.FC<Project & { featured?: boolean; index?: number }> = 
               aria-label={`Visit ${title} (opens in a new tab)`}
               className={buttonClass}
             >
-              <Brackets />
               Visit website <span aria-hidden="true">↗</span>
             </a>
           )

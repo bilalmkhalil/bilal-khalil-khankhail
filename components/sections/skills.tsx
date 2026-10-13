@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type CSSProperties } from "react";
-import { useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useInView, useReducedMotion } from "motion/react";
 
 import SectionHeading from "@/components/hud/SectionHeading";
 import { useIsMobile } from "@/lib/hooks";
@@ -75,13 +75,17 @@ const SkillsSection = () => {
   const isMobile = useIsMobile();
   const reduced = useReducedMotion();
   const [activeTab, setActiveTab] = useState(skillsTabTitles[0]);
-  // Auto-rotation pauses while the user hovers or focuses the tabs, and stops
+  // Auto-rotation only runs while the section is on screen, so visitors
+  // always arrive at Frontend (even after a reload that restores the scroll
+  // position). It pauses while the user hovers or focuses the tabs, and stops
   // for good once they pick a tab themselves.
+  const section = useRef<HTMLDivElement>(null);
+  const onScreen = useInView(section, { amount: 0.3 });
   const [paused, setPaused] = useState(false);
   const [userPicked, setUserPicked] = useState(false);
 
   useEffect(() => {
-    if (reduced || paused || userPicked) return;
+    if (reduced || paused || userPicked || !onScreen) return;
     const timer = window.setTimeout(() => {
       setActiveTab((currentTab) => {
         const currentIndex = skillsTabTitles.indexOf(currentTab);
@@ -90,7 +94,7 @@ const SkillsSection = () => {
     }, 7000);
 
     return () => window.clearTimeout(timer);
-  }, [activeTab, reduced, paused, userPicked]);
+  }, [activeTab, reduced, paused, userPicked, onScreen]);
 
   const handleTabChange = (value: string) => {
     setUserPicked(true);
@@ -99,6 +103,7 @@ const SkillsSection = () => {
 
   return (
     <div
+      ref={section}
       id="skills"
       className="text-ink relative mx-auto mt-20 mb-20 w-10/12 pb-20 md:mt-0 md:pb-0"
     >

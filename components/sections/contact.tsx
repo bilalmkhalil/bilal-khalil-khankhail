@@ -185,7 +185,7 @@ const ContactSection = () => {
                 disabled={loading}
                 type="submit"
                 style={hudDelay(300)}
-                className="hud-blink bg-ink text-background hover:bg-ink/85 inline-flex h-11 items-center justify-center px-6 text-xs tracking-[0.14em] uppercase transition-colors disabled:opacity-60"
+                className="hud-blink bg-ink text-background hover:bg-ink/85 inline-flex h-11 w-full items-center justify-center px-6 text-xs tracking-[0.14em] uppercase transition-colors disabled:opacity-60 sm:w-auto"
               >
                 {loading ? "Sending…" : "Send message"}
               </button>

@@ -5,7 +5,7 @@ import Brackets from "@/components/hud/Brackets";
 import HudTooltip from "@/components/hud/HudTooltip";
 import { useShortcut } from "@/components/hud/useShortcut";
 
-/** Turns the rig's sounds on and off (off until the visitor asks). S toggles
+/** Turns the rig's sounds on and off (on by default). S toggles
  * it from anywhere on the page. */
 export default function SoundToggle({
   className = "",
